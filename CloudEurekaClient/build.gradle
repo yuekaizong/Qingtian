@@ -6,34 +6,10 @@ apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = 1.8
 
-buildscript {
-    ext {
-        springBootVersion = '1.5.6.RELEASE'
-    }
-    repositories {
-        mavenLocal()
-        maven { url 'http://10.164.194.139:8081/nexus/content/repositories/public/' }
-//        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
-
-ext {
-    snippetsDir = file("$buildDir/generated-snippets")
-}
-
 dependencyManagement {
     imports {
         mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Dalston.SR3'
     }
-}
-
-repositories {
-//    mavenCentral()
-    mavenLocal()
-    maven { url 'http://10.164.194.139:8081/nexus/content/repositories/public/' }
 }
 
 dependencies {
