@@ -1,4 +1,4 @@
 /.gradle
-/out
+*/out
 /.idea
 /.git

@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 @EnableAutoConfiguration
 @Configuration
-public class Application extends SpringBootServletInitializer {
+public class MRedisMain extends SpringBootServletInitializer {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(MRedisMain.class, args);
     }
 }

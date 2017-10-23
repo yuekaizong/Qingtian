@@ -1,2 +1,6 @@
 rootProject.name = 'Qingtian'
+include 'BootRedis'
+include 'CloudEurekaServer'
+include 'CloudEurekaClient'
+include 'CloudEurekaRibbon'
 

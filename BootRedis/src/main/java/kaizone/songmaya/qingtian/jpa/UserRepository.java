@@ -4,14 +4,10 @@ import kaizone.songmaya.qingtian.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User,Long>{
+public interface UserRepository /* extends JpaRepository<User,Long>*/{
     User findByUserName(String username);
     User findByUserNameOrEmail(String username, String email);
     Long deleteById(Long id);
@@ -29,16 +25,16 @@ public interface UserRepository extends JpaRepository<User,Long>{
     List<User> findFirst10ByLastname(String lastname, Sort sort);
     List<User> findTop10ByLastname(String lastname, Pageable pageable);
 
-    @Modifying
-    @Query("update User u set u.username = ?1 where u.id=?2")
+//    @Modifying
+//    @Query("update User u set u.username = ?1 where u.id=?2")
     int modifyByIdAndUserId(String username, Long id);
 
-    @Transactional
-    @Modifying
-    @Query("delete from User where id = ?1")
+//    @Transactional
+//    @Modifying
+//    @Query("delete from User where id = ?1")
     void deleteByUserId(Long id);
 
-    @Transactional
-    @Query("select u from User u where u.email=?1")
+//    @Transactional
+//    @Query("select u from User u where u.email=?1")
     User findByEmailAddress(String emailAdress);
 }
