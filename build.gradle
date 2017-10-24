@@ -1,3 +1,6 @@
+group 'kaizone.songmaya'
+version '1.0-SNAPSHOT'
+
 buildscript {
     ext {
         springBootVersion = '1.5.6.RELEASE'

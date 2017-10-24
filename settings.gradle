@@ -3,4 +3,6 @@ include 'BootRedis'
 include 'CloudEurekaServer'
 include 'CloudEurekaClient'
 include 'CloudEurekaRibbon'
+include 'CloudEurekaFeign'
+include 'CloudEurekaZuul'
 
