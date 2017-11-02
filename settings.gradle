@@ -5,4 +5,6 @@ include 'CloudEurekaClient'
 include 'CloudEurekaRibbon'
 include 'CloudEurekaFeign'
 include 'CloudEurekaZuul'
+include 'BootSecurity'
+include 'Boot3DataJPA'
 
