@@ -7,4 +7,5 @@ include 'CloudEurekaFeign'
 include 'CloudEurekaZuul'
 include 'BootSecurity'
 include 'Boot3DataJPA'
+include 'Boot4Demo'
 

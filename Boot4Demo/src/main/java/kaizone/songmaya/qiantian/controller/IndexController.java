@@ -1,10 +1,12 @@
-package kaizone.songmaya.qingtian.controller;
+package kaizone.songmaya.qiantian.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @Controller
@@ -18,6 +20,7 @@ public class IndexController {
      * @return
      */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @ResponseBody
     public String index() {
         logger.debug("记录debug日志");
         logger.info("访问了index方法");

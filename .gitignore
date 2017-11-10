@@ -2,3 +2,10 @@
 */out
 /.idea
 /.git
+*.iml
+gradlew
+gradlew.bat
+*.log
+*/build
+*/gradle
+gradle

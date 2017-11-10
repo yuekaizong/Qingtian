@@ -38,6 +38,16 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+  #配置redis数据库连接
+  redis:
+    host: 192.168.99.100
+    port: 16379
+    database: 0 #默认是索引为的0的数据库
+    pool:
+       max-idle: 20
+       min-idle: 1
+       max-active: 20
+       max-wait: 60000
 server:
    tomcat:
      max-threads: 800
@@ -45,7 +55,7 @@ server:
      basedir: D:\develop\code\javaweb\haier-web\Qingtian\Boot3DataJPA\out\tomcat-basedir
      access-log-enable: true
 logging:
-   path: D:\develop\code\javaweb\haier-web\Qingtian\Boot3DataJPA\log
+   path: D:\develop\code\javaweb\haier-web\Qingtian\Boot4Demo\log
    file: myapp.log
    level:
       kaizone.songmaya.qingtian.controller.test: "off"

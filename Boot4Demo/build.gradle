@@ -2,7 +2,6 @@ group 'kaizone.songmaya'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-//apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
@@ -12,28 +11,26 @@ task wrapper(type: Wrapper) {
     gradleVersion = '3.3'
 }
 
-jar.into('META-INF/resources') {
-    from('src/main/webapp')
+idea {
+    module {
+        sourceDirs += file('generated/')
+    }
 }
 
-processResources{
-    from('src/main/webapp'){into 'META-INF/resources'}
-
-}
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
-//    compile("org.springframework.boot:spring-boot-starter-tomcat")
+    compile("org.springframework.boot:spring-boot-starter-cache")
+    compile("org.springframework.boot:spring-boot-starter-data-redis")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.security:spring-security-taglibs:4.2.3.RELEASE")
     compile("mysql:mysql-connector-java:6.0.6")
     compile("com.alibaba:druid:1.1.4")
     compile("com.alibaba:fastjson:1.2.39")
-   // spring boot tomcat jsp
-    runtime("org.apache.tomcat.embed:tomcat-embed-jasper")
-    //servlet支持开启
+    compile("com.querydsl:querydsl-jpa:4.1.4")
+    compile("com.querydsl:querydsl-apt:4.1.4")
     compile("javax.servlet:javax.servlet-api:3.1.0")
-
-    compile("javax.mail:mail:1.4.7")
-    compile("javax.servlet:jstl:1.2")
+    runtime("org.apache.tomcat.embed:tomcat-embed-jasper")
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
