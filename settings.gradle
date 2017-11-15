@@ -8,6 +8,7 @@ include 'CloudEurekaZuul'
 include 'BootSecurity'
 include 'Boot3DataJPA'
 include 'Boot4Demo'
-include 'Boot5'
+include 'Boot5OAuth'
 include 'Boot6Jwt'
+include 'Boot7WebSocket'
 
