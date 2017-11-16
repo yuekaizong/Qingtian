@@ -1,0 +1,21 @@
+group 'kaizone.songmaya'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.3'
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("com.alibaba:druid:1.1.4")
+    compile("com.alibaba:fastjson:1.2.39")
+    runtime("mysql:mysql-connector-java:6.0.6")
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
