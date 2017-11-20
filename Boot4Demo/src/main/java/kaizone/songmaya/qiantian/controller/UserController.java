@@ -55,4 +55,10 @@ public class UserController {
     public List<UserEntity> cutPage(int page) {
         return userService.cutPage(page);
     }
+
+    @RequestMapping(value = "/register")
+    public String register(UserEntity user){
+        userService.register(user);
+        return "注册成功";
+    }
 }

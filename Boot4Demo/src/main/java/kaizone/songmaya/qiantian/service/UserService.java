@@ -1,10 +1,12 @@
 package kaizone.songmaya.qiantian.service;
 
 import kaizone.songmaya.qiantian.entity.UserEntity;
+import kaizone.songmaya.qiantian.event.UserRegisterEvent;
 import kaizone.songmaya.qiantian.jpa.UserJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +24,9 @@ import java.util.List;
 @Service
 @CacheConfig(cacheNames = "user")
 public class UserService implements UserDetailsService{
+
+    @Autowired
+    private ApplicationContext applicationContext;
 
     @Autowired
     private UserJPA userJPA;
@@ -72,5 +77,9 @@ public class UserService implements UserDetailsService{
             throw new UsernameNotFoundException("未查询到用户："+username+"信息！");
         }
         return user;
+    }
+
+    public void register(UserEntity user){
+        applicationContext.publishEvent(new UserRegisterEvent(this, user));
     }
 }

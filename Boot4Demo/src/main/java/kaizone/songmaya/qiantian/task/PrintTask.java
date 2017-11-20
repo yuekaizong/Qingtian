@@ -27,12 +27,12 @@ public class PrintTask {
         System.out.println("执行测试fixedRate时间：" + new Date(System.currentTimeMillis()));
     }
 
-    @Scheduled(fixedDelay = 1000 * 10)
+    @Scheduled(fixedDelay = 1000 * 30)
     public void fixedDelay() throws Exception {
         System.out.println("执行测试fixDelay时间：" + new Date(System.currentTimeMillis()));
     }
 
-    @Scheduled(initialDelay = 1000 * 3, fixedDelay = 1000 * 10)
+//    @Scheduled(initialDelay = 1000 * 5, fixedDelay = 1000 * 20)
     public void initialDelay() throws Exception {
         System.out.println("执行测试initialDate时间：" + new Date(System.currentTimeMillis()));
     }
