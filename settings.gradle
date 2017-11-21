@@ -12,4 +12,6 @@ include 'Boot5OAuth'
 include 'Boot6Jwt'
 include 'Boot7WebSocket'
 include 'Boot8MutipleDataSource'
+include 'Boot9AutoConfiguration'
+include 'Boot10MapStruct'
 
