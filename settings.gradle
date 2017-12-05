@@ -14,4 +14,5 @@ include 'Boot7WebSocket'
 include 'Boot8MutipleDataSource'
 include 'Boot9AutoConfiguration'
 include 'Boot10MapStruct'
+include 'Boot2'
 
