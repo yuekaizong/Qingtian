@@ -68,18 +68,41 @@ document.getElementById("createContact").addEventListener("click", createContact
 var localStorage = window.localStorage;
 var count = 0;
 
-document.getElementById('demo1').addEventListener('click', demo1);
+document.getElementById('liveDetect').addEventListener('click', liveDetect);
+document.getElementById('contacts').addEventListener('click', contacts);
+document.getElementById('lbs').addEventListener('click', lbs);
 
-function demo1(){
-//  testPlugin.testPluginFunction("HelloWorld");
-//  window.cordova.exec(null, null, 'TestPlugin', 'testPluginFunction', null);
-//alert("hello1")
-        alert(window.androidController)
-         window.androidController.live();
+function liveDetect(){
+      window.bridge.liveDetect();
 }
 
-function receive(message){
-    alert(message);
+function contacts(){
+      bridge.contacts();
+}
+
+function lbs(){
+    window.bridge.lbs();
+}
+
+function receive(action, status, message){
+   var arr=new Array();
+   arr.push(action);
+   arr.push(status);
+   arr.push(message);
+   var str=arr.join("");
+   document.getElementById("message").innerHTML =str;
+}
+
+function bridgeReceive(message){
+    var str;
+    if (typeof message == "object"){
+        str = JSON.stringify(message);
+        alert("object "+str);
+    }else{
+        str = message;
+        alert("other "+str);
+    }
+    document.getElementById("message").innerHTML =str;
     return "hello"
 }
 
