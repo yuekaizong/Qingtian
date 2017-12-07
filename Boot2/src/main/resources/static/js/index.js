@@ -68,16 +68,63 @@ document.getElementById("createContact").addEventListener("click", createContact
 var localStorage = window.localStorage;
 var count = 0;
 
+document.getElementById('cordovaPluginLbs').addEventListener('click', cordovaPluginLbs);
+document.getElementById('cordovaPluginContacts').addEventListener('click', cordovaPluginContacts);
 document.getElementById('liveDetect').addEventListener('click', liveDetect);
 document.getElementById('contacts').addEventListener('click', contacts);
 document.getElementById('lbs').addEventListener('click', lbs);
+
+function cordovaPluginLbs(){
+     testPlugin.lbs(lbsSuccess, lbsFail, "这是lbs");
+     function lbsSuccess(data){
+          cordovaLog(data);
+     }
+     function lbsFail(data){
+
+     }
+}
+
+function cordovaPluginContacts(){
+         testPlugin.contacts(contactsSuccess, contactsFail, "这是contacts");
+         function contactsSuccess(data){
+              cordovaLog(data);
+         }
+         function contactsFail(data){
+
+         }
+}
+
+function cordovaLog(data){
+        var str;
+        if (typeof message == "object"){
+            str = JSON.stringify(message);
+            alert("object "+str);
+        }else{
+            str = message;
+            alert("other "+str);
+        }
+        document.getElementById("message").innerHTML =str;
+}
 
 function liveDetect(){
       window.bridge.liveDetect();
 }
 
+function bridgeReceive(message){
+    var str;
+    if (typeof message == "object"){
+        str = JSON.stringify(message);
+        alert("object "+str);
+    }else{
+        str = message;
+        alert("other "+str);
+    }
+    document.getElementById("message").innerHTML =str;
+    return "hello";
+}
+
 function contacts(){
-      bridge.contacts();
+    bridge.contacts();
 }
 
 function lbs(){
@@ -91,19 +138,6 @@ function receive(action, status, message){
    arr.push(message);
    var str=arr.join("");
    document.getElementById("message").innerHTML =str;
-}
-
-function bridgeReceive(message){
-    var str;
-    if (typeof message == "object"){
-        str = JSON.stringify(message);
-        alert("object "+str);
-    }else{
-        str = message;
-        alert("other "+str);
-    }
-    document.getElementById("message").innerHTML =str;
-    return "hello"
 }
 
 function setLocalStorage() {
