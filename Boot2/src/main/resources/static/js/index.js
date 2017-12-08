@@ -70,6 +70,10 @@ var count = 0;
 
 document.getElementById('cordovaPluginLbs').addEventListener('click', cordovaPluginLbs);
 document.getElementById('cordovaPluginContacts').addEventListener('click', cordovaPluginContacts);
+document.getElementById('cordovaPluginLiveDetect').addEventListener('click', cordovaPluginLiveDetect);
+document.getElementById('cordovaPluginLiveDetect').addEventListener('click', cordovaPluginLiveDetect);
+document.getElementById('cordovaPluginEdApplInfoAndRiskInfo').addEventListener('click', cordovaPluginEdApplInfoAndRiskInfo);
+//----------------------------------
 document.getElementById('liveDetect').addEventListener('click', liveDetect);
 document.getElementById('contacts').addEventListener('click', contacts);
 document.getElementById('lbs').addEventListener('click', lbs);
@@ -92,6 +96,26 @@ function cordovaPluginContacts(){
          function contactsFail(data){
 
          }
+}
+
+function cordovaPluginLiveDetect(){
+         testPlugin.liveDetect(liveDetectSuccess, liveDetectFail, "这是liveDetect");
+         function liveDetectSuccess(data){
+              cordovaLog(data);
+         }
+         function liveDetectFail(data){
+
+         }
+}
+
+function cordovaPluginEdApplInfoAndRiskInfo(){
+          testPlugin.edApplInfoAndRiskInfo(edApplInfoAndRiskInfoSuccess, edApplInfoAndRiskInfoFail, "这是edApplInfoAndRisk");
+          function edApplInfoAndRiskInfoSuccess(data){
+               cordovaLog(data);
+          }
+          function edApplInfoAndRiskInfoFail(data){
+
+          }
 }
 
 function cordovaLog(data){
