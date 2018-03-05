@@ -121,10 +121,10 @@ function cordovaPluginEdApplInfoAndRiskInfo(){
 function cordovaLog(data){
         var str;
         if (typeof message == "object"){
-            str = JSON.stringify(message);
+            str = JSON.stringify(data);
             alert("object "+str);
         }else{
-            str = message;
+            str = data;
             alert("other "+str);
         }
         document.getElementById("message").innerHTML =str;
