@@ -2,10 +2,11 @@ group 'kaizone.songmaya'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-//apply plugin: 'eclipse'
+apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'docker'
+apply plugin: 'war'
 
 sourceCompatibility = 1.8
 
@@ -14,17 +15,34 @@ task wrapper(type: Wrapper) {
 }
 
 jar{
-    baseName = 'kaizone-hi2test-app'
+    baseName = 'hi2test-app'
     version = '1.0'
 }
 
-task buildDocker(type: Docker, dependsOn: build, group: "custom"){
+war{
+    baseName = 'hi2test-app'
+    version = '1.0'
+}
+
+task buildJarDocker(type: Docker, dependsOn: build, group: "custom"){
     push = false
     applicationName = jar.baseName
-    dockerfile = file('src/main/docker/Dockerfile')
+    dockerfile = file('src/main/docker/DockerfileJar')
     doFirst{
         copy{
             from jar
+            into stageDir
+        }
+    }
+}
+
+task buildWarDocker(type: Docker, dependsOn: build, group: "custom"){
+    push = false
+    applicationName = war.baseName
+    dockerfile = file('src/main/docker/DockerfileWar')
+    doFirst{
+        copy{
+            from war
             into stageDir
         }
     }
@@ -47,7 +65,7 @@ dependencies {
     compile("com.alibaba:druid:1.1.4")
     compile("com.alibaba:fastjson:1.2.39")
    // spring boot tomcat jsp
-    runtime("org.apache.tomcat.embed:tomcat-embed-jasper")
+    compile("org.apache.tomcat.embed:tomcat-embed-jasper:8.5.13")
     //servlet支持开启
     compile("javax.servlet:javax.servlet-api:3.1.0")
 
