@@ -31,6 +31,11 @@ public class SecurityUtilsTest {
         String encrypt_des_test4 = SecurityUtils.encryptDES(text4);
         System.out.println(encrypt_des_test4);
         Assert.assertEquals(encrypt_des_test4, "32u6mu0vmUs=\n");
+
+        String text5 = "1521215999000";
+        String encrypt_des_test5 = SecurityUtils.encryptDES(text5);
+        System.out.println(encrypt_des_test5);
+        Assert.assertEquals(encrypt_des_test5, "EgMdW7s7zu1y30JX1Nj4sQ==\n");
     }
 
     @Test
