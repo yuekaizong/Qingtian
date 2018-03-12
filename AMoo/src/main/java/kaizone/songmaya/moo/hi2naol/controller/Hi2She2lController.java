@@ -25,7 +25,7 @@ public class Hi2She2lController {
         if (key == null || key.length() == 0) {
             return ApiResultGenerator.errorResult("key不能为空", new KeyException());
         }
-        if (!"123456".equals(key)) {
+        if (!"m/3MnQNskkl9S0c/sbchYg==\n".equals(key)) {
             return ApiResultGenerator.errorResult("key不对称", new KeyException());
         }
         return ApiResultGenerator.successResult(hi2she2lJPA.findAll());
@@ -47,6 +47,13 @@ public class Hi2She2lController {
         } catch (Exception e) {
             return ApiResultGenerator.errorResult("", e);
         }
+    }
+
+    @RequestMapping(path = "/visit")
+    @ResponseBody
+    public ApiResult visit(@RequestParam("packageName") String packageName, @RequestParam("appName") String appName) {
+        String str = packageName + "," + appName;
+        return ApiResultGenerator.successResult(str);
     }
 
     @RequestMapping(path = "/key", method = RequestMethod.GET)

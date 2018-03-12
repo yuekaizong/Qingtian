@@ -51,6 +51,8 @@ spring:
 #       max-active: 20
 #       max-wait: 60000
 server:
+   port: 8081
+   context-path:  /amoo
    tomcat:
      max-threads: 800
      uri-encoding: UTF-8
