@@ -42,6 +42,9 @@ public class SecurityUtilsTest {
     public void decryptDES() throws Exception {
         String text = "BqGkxLktTc01wcJXqoNJKedUE+E/6mFC4ELeH1Aexx0=\n";
         System.out.println(SecurityUtils.decryptDES(text));
+
+        String text2 = "M+ooLbFpNXXK1jPL19gP+w==\n";
+        System.out.println(SecurityUtils.decryptDES(text2));
     }
 
 }

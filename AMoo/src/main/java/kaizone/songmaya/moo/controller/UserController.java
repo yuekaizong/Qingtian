@@ -8,21 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
-@RequestMapping("index")
-public class IndexController {
+@RequestMapping("user")
+public class UserController {
 
+    @Autowired
+    private UserJPA userJPA;
 
-    @RequestMapping(path = "/hello")
-    public String hello() {
-        return "hello";
-    }
-
-    @RequestMapping(value = "/demo")
-    public String demo(Map<String, Object> map) {
-        map.put("descrip", "It's a springboot integrate freemarker's demo!!!!");
-        return "demo";
+    @RequestMapping(path = "/list")
+    @ResponseBody
+    public List<UserEntity> userList() {
+        return userJPA.findAll();
     }
 }
