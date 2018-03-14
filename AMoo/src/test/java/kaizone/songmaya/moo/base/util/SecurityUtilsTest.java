@@ -1,10 +1,15 @@
 package kaizone.songmaya.moo.base.util;
 
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import kaizone.songmaya.moo.base.config.RSAConfig;
+import org.apache.commons.codec.binary.Base64;
 import org.junit.Assert;
 import org.junit.Test;
 
 import javax.validation.constraints.AssertTrue;
+
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 import static org.junit.Assert.*;
 
@@ -45,6 +50,20 @@ public class SecurityUtilsTest {
 
         String text2 = "M+ooLbFpNXXK1jPL19gP+w==\n";
         System.out.println(SecurityUtils.decryptDES(text2));
+    }
+
+    @Test
+    public void ras() throws Exception {
+        PublicKey publicKey2 = RSAUtils.loadPublicKey(RSAConfig.publicKeyStr);
+        PrivateKey privateKey2 = RSAUtils.loadPrivateKey(RSAConfig.privateKeyStr);
+        // 加密
+        String data = "{'key1':'value1','key2':'value2','key3':'value3'}";
+        System.out.println("原数据data： " + data);
+        String encryptStr = Base64.encodeBase64String(RSAUtils.encrypt(data.getBytes(), publicKey2));
+        System.out.println("encryptStr : " + encryptStr);
+
+        // 解密
+        System.out.println("decodeStr : " + new String(RSAUtils.decrypt(Base64.decodeBase64(encryptStr), privateKey2)));
     }
 
 }
