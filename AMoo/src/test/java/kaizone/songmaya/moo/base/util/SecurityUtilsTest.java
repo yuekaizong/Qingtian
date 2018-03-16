@@ -41,6 +41,10 @@ public class SecurityUtilsTest {
         String encrypt_des_test5 = SecurityUtils.encryptDES(text5);
         System.out.println(encrypt_des_test5);
         Assert.assertEquals(encrypt_des_test5, "EgMdW7s7zu1y30JX1Nj4sQ==\n");
+
+        String text6 = "1560000000000";
+        String encrypt_des_test6 = SecurityUtils.encryptDES(text6);
+        System.out.println(encrypt_des_test6);
     }
 
     @Test
@@ -52,18 +56,25 @@ public class SecurityUtilsTest {
         System.out.println(SecurityUtils.decryptDES(text2));
     }
 
+    public enum channel{
+        hanying,
+        aicai
+    }
+
     @Test
     public void ras() throws Exception {
         PublicKey publicKey2 = RSAUtils.loadPublicKey(RSAConfig.publicKeyStr);
         PrivateKey privateKey2 = RSAUtils.loadPrivateKey(RSAConfig.privateKeyStr);
         // 加密
-        String data = "{'key1':'value1','key2':'value2','key3':'value3'}";
+        String data = "{\"extBSChannel\":\"sdk-test\",\"extUid\":\"qwert\",\"mobile\":\"13167066861\",\"clientVersion\":\"1.0.0\",\"timestamp\":\"2018-03-16 16:02:00\"}";
         System.out.println("原数据data： " + data);
         String encryptStr = Base64.encodeBase64String(RSAUtils.encrypt(data.getBytes(), publicKey2));
         System.out.println("encryptStr : " + encryptStr);
 
         // 解密
         System.out.println("decodeStr : " + new String(RSAUtils.decrypt(Base64.decodeBase64(encryptStr), privateKey2)));
+
+        System.out.println(channel.aicai);
     }
 
 }
