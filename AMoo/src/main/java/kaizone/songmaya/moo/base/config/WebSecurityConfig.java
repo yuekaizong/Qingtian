@@ -20,8 +20,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
 //                .anyRequest().authenticated()//所有请求必须登陆后访问
-//                .antMatchers("/user/**").hasRole("USER")
-//                .antMatchers("/shell/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/shell/**").hasRole("ADMIN")
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/index/**").permitAll()
                 .and()

@@ -4,9 +4,27 @@ version '1.0-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'idea'
-apply plugin: 'war'
+//apply plugin: 'war'
+apply plugin: 'docker'
 
 sourceCompatibility = 1.8
+
+jar{
+    baseName = 'amoo'
+    version = '1.0'
+}
+
+task buildJarDocker(type: Docker, dependsOn: build, group: "custom"){
+    push = false
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/DockerfileJar')
+    doFirst{
+        copy{
+            from jar
+            into stageDir
+        }
+    }
+}
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
