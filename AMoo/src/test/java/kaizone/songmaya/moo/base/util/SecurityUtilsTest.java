@@ -45,6 +45,11 @@ public class SecurityUtilsTest {
         String text6 = "1560000000000";
         String encrypt_des_test6 = SecurityUtils.encryptDES(text6);
         System.out.println(encrypt_des_test6);
+
+        String text7 = "com.handpay.nocardpay";
+        String encrypt_des_test7 = SecurityUtils.encryptDES(text7);
+        System.out.println(encrypt_des_test7);
+        Assert.assertEquals(encrypt_des_test7, "aGCjKrgLXqD4HKCZQBri1tCukNYED1s6\n");
     }
 
     @Test
