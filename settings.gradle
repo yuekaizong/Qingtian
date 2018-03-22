@@ -16,4 +16,5 @@ include 'Boot9AutoConfiguration'
 include 'Boot10MapStruct'
 include 'Boot2'
 include 'AMoo'
+include 'BootCustomParameter'
 
