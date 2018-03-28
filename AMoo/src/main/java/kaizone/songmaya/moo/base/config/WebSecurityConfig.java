@@ -21,7 +21,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                .anyRequest().authenticated()//所有请求必须登陆后访问
                 .antMatchers("/user/**").hasRole("USER")
-                .antMatchers("/shell/**").hasRole("ADMIN")
+                .antMatchers("/shell/edit").hasRole("ADMIN")
+                .antMatchers("/shell/save").hasRole("ADMIN")
+                .antMatchers("/shell/list").permitAll()
                 .antMatchers("/user/**").authenticated()
                 .antMatchers("/index/**").permitAll()
                 .and()

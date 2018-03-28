@@ -50,6 +50,11 @@ public class SecurityUtilsTest {
         String encrypt_des_test7 = SecurityUtils.encryptDES(text7);
         System.out.println(encrypt_des_test7);
         Assert.assertEquals(encrypt_des_test7, "aGCjKrgLXqD4HKCZQBri1tCukNYED1s6\n");
+
+        String text8 = "https://120.77.219.244:18443/";
+        String encrypt_des_test8 = SecurityUtils.encryptDES(text8);
+        System.out.println(encrypt_des_test8);
+        Assert.assertEquals(encrypt_des_test8, "rGP/+Oa9v3hYgCXa6WBy3UrXUmonVW5ORzPoUYnv1f0=\n");
     }
 
     @Test
