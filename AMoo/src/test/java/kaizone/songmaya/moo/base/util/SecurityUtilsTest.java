@@ -64,6 +64,12 @@ public class SecurityUtilsTest {
 
         String text2 = "M+ooLbFpNXXK1jPL19gP+w==\n";
         System.out.println(SecurityUtils.decryptDES(text2));
+
+        String text3 = "ZkukTFJi9KN6RM2S8xKHw7QZSICxYpy6\n";
+        System.out.println(SecurityUtils.decryptDES(text3));
+
+        String text4 = "com.aixuedai.axd";
+        System.out.println(SecurityUtils.encryptDES(text4));
     }
 
     public enum channel{
