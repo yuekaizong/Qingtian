@@ -25,6 +25,11 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping(value = "/")
+    public String home(){
+        return "index";
+    }
+
     @RequestMapping(value = "/login_view", method = RequestMethod.GET)
     public String login_view() {
         return "login";
