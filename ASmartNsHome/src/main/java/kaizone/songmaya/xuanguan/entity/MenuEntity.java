@@ -1,5 +1,10 @@
 package kaizone.songmaya.xuanguan.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "menu")
 public class MenuEntity {
     private String text;
     private String href;

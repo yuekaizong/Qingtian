@@ -1,5 +1,10 @@
 package kaizone.songmaya.xuanguan.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "p4_cell")
 public class P4CellEntity {
     private String img;
     private String title;

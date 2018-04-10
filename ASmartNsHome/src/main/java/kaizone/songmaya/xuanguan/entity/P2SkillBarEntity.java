@@ -1,5 +1,10 @@
 package kaizone.songmaya.xuanguan.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "p2_cell")
 public class P2SkillBarEntity {
 
     private String name;

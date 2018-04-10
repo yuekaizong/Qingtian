@@ -1,5 +1,10 @@
 package kaizone.songmaya.xuanguan.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "p4")
 public class P4Entity {
     private String flag;
     private String title;
