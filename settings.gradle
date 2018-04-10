@@ -18,4 +18,5 @@ include 'Boot2'
 include 'AMoo'
 include 'BootCustomParameter'
 include 'BootSecurityParameter'
+include 'ASmartNsHome'
 
