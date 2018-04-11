@@ -1,13 +1,24 @@
 package kaizone.songmaya.xuanguan.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "menu")
 public class MenuEntity {
+    @Id
+//    @GeneratedValue
+    @Column(name = "id")
+    private Long id;
     private String text;
     private String href;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getText() {
         return text;

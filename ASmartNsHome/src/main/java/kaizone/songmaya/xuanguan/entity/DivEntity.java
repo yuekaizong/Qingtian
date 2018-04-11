@@ -1,20 +1,45 @@
 package kaizone.songmaya.xuanguan.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "p2")
-public class P2Entity {
+@Table(name = "p1")
+public class DivEntity {
+    @Id
+//    @GeneratedValue
+    @Column(name = "id")
+    private Long id;
+    private String name;
     private String flag;
     private String title;
+    private String description;
     private String content;
-    private List<P2SkillBarEntity> skillBars;
+    private String position;
     private String text1;
     private String text2;
     private String text3;
     private String text4;
+
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinColumn(name = "pid")
+    private List<DivCellEntity> cells;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getFlag() {
         return flag;
@@ -32,6 +57,14 @@ public class P2Entity {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getContent() {
         return content;
     }
@@ -40,12 +73,12 @@ public class P2Entity {
         this.content = content;
     }
 
-    public List<P2SkillBarEntity> getSkillBars() {
-        return skillBars;
+    public String getPosition() {
+        return position;
     }
 
-    public void setSkillBars(List<P2SkillBarEntity> skillBars) {
-        this.skillBars = skillBars;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getText1() {
@@ -78,5 +111,13 @@ public class P2Entity {
 
     public void setText4(String text4) {
         this.text4 = text4;
+    }
+
+    public List<DivCellEntity> getCells() {
+        return cells;
+    }
+
+    public void setCells(List<DivCellEntity> cells) {
+        this.cells = cells;
     }
 }
