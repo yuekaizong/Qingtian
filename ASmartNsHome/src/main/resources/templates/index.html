@@ -35,19 +35,9 @@
 						<li class="hidden">
 							<a href="#page-top"></a>
 						</li>
-						
-						<li>
-							<a class="page-scroll" href="#about">关于我们</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="#portfolio">产品介绍</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="#news">最新动态</a>
-						</li>
-						<li>
-							<a class="page-scroll" href="#contact">商务服务</a>
-						</li>
+							<li th:each="o : ${data}">
+								<a class="page-scroll" th:href="|#${o.flag}|" th:text="${o.name}">Null</a>
+							</li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -55,14 +45,13 @@
 			<!-- /.container-fluid -->
 		</nav>
 
-        <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >手机网站模板</a></div>
-		<section id="portfolio">
+		<section id="portfolio" th:with="obj=${data[0]},cells=${data[0].cells}">
 			<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<div class="section-title">
-						<h2>为赞而生</h2>
-						<p>卓越的技术，优质的产品，良好的服务，只要你有，你想展示，这里就需要你</p>
+						<h2 th:text="${obj.title}">title</h2>
+						<p th:text="${obj.description}">description</p>
 					</div>
 				</div>
 			</div>
@@ -71,11 +60,11 @@
 				<div class="col-md-6 col-0-gutter">
 					<div class="ot-portfolio-item">
 						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-1.jpg" alt="img02" class="img-responsive" />
+							<img src="images/demo/portfolio-1.jpg" th:src="${cells[0].img}" alt="img02" class="img-responsive" />
 							<figcaption>
-								<h2>Dean amp; Letter</h2>
-								<p>Branding, Design</p>
-								<a href="#" data-toggle="modal" data-target="#Modal-1">View more</a>
+								<h2 th:text="${cells[1].title}">cells[0].title</h2>
+								<p th:text="${cells[1].description}"> cells[0].description</p>
+								<a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
 							</figcaption>
 						</figure>
 					</div>
@@ -85,10 +74,10 @@
 				<div class="col-md-6 col-0-gutter">
 					<div class="ot-portfolio-item">
 						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-2.jpg" alt="img02" class="img-responsive" />
+							<img src="images/demo/portfolio-2.jpg" th:src="${cells[1].img}" alt="img02" class="img-responsive" />
 							<figcaption>
-								<h2>Startup Framework</h2>
-								<p>Branding, Web Design</p>
+								<h2 th:text="${cells[1].title}">cells[1].title</h2>
+								<p th:text="${cells[1].description}"> cells[1].description</p>
 								<a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
 							</figcaption>
 						</figure>
@@ -101,11 +90,11 @@
 				<div class="col-md-6 col-0-gutter">
 					<div class="ot-portfolio-item">
 						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-3.jpg" alt="img02" class="img-responsive" />
+							<img th:src="${cells[2].img}" alt="img02" class="img-responsive" />
 							<figcaption>
-								<h2>Lamp amp; Velvet</h2>
-								<p>Branding, Web Design</p>
-								<a href="#" data-toggle="modal" data-target="#Modal-3">View more</a>
+								<h2 th:text="${cells[2].title}">cells[2].title</h2>
+								<p th:text="${cells[2].description}"> cells[2].description</p>
+								<a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
 							</figcaption>
 						</figure>
 					</div>
@@ -115,11 +104,11 @@
 				<div class="col-md-6 col-0-gutter">
 					<div class="ot-portfolio-item">
 						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-4.jpg" alt="img02" class="img-responsive" />
+							<img src="images/demo/portfolio-2.jpg" th:src="${cells[3].img}" alt="img02" class="img-responsive" />
 							<figcaption>
-								<h2>Smart Name</h2>
-								<p>Branding, Design</p>
-								<a href="#" data-toggle="modal" data-target="#Modal-4">View more</a>
+								<h2 th:text="${cells[3].title}">cells[3].title</h2>
+								<p th:text="${cells[3].description}"> cells[3].description</p>
+								<a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
 							</figcaption>
 						</figure>
 					</div>
@@ -131,11 +120,11 @@
 				<div class="col-md-6 col-0-gutter">
 					<div class="ot-portfolio-item">
 						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-5.jpg" alt="img02" class="img-responsive" />
+							<img src="images/demo/portfolio-2.jpg" th:src="${cells[4].img}" alt="img02" class="img-responsive" />
 							<figcaption>
-								<h2>Fast People</h2>
-								<p>Branding, Web Design</p>
-								<a href="#" data-toggle="modal" data-target="#Modal-5">View more</a>
+								<h2 th:text="${cells[4].title}">cells[4].title</h2>
+								<p th:text="${cells[4].description}"> cells[4].description</p>
+								<a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
 							</figcaption>
 						</figure>
 					</div>
@@ -145,10 +134,10 @@
 				<div class="col-md-6 col-0-gutter">
 					<div class="ot-portfolio-item">
 						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-6.jpg" alt="img02" class="img-responsive" />
+							<img src="images/demo/portfolio-2.jpg" th:src="${cells[5].img}" alt="img02" class="img-responsive" />
 							<figcaption>
-								<h2>Kites amp; Stars</h2>
-								<p>Branding, Web Design</p>
+								<h2 th:text="${cells[5].title}">cells[5].title</h2>
+								<p th:text="${cells[5].description}"> cells[5].description</p>
 								<a href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
 							</figcaption>
 						</figure>
@@ -256,7 +245,7 @@
 			<!-- /.container -->
 		</section>
 
-		<section id="team">
+		<section id="news">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 text-center">
