@@ -19,3 +19,6 @@ insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,posi
 insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(11,3,"images/demo/author-2.jpg", '标题1', 'description','http://hao123.com','dataTarget','viewMore','x=120,y=100','内容','名','值');
 insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(12,3,"images/demo/author-6.jpg", '标题2', 'description','http://hao123.com','dataTarget','viewMore','x=120,y=100','内容','名','值');
 insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(13,3,"images/demo/author-4.jpg", '标题3', 'description','http://hao123.com','dataTarget','viewMore','x=120,y=100','内容','名','值');
+
+
+insert into p1_footer(id,text0,href0,target0,title0,text1,href1,title1) values(1,"联系方式请加QQ596760835","href0", 'target0', 'title0','微信kaizongYue','href1','title1');
