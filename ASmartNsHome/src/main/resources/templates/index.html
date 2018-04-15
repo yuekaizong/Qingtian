@@ -148,59 +148,29 @@
 			</div><!-- container -->
 		</section>
 
-		<section id="about" class="mz-module">
+		<section id="about" class="mz-module" th:with="obj=${data[1]},cells=${data[1].cells}">
 			<div class="container light-bg">
 				<div class="row">
 					<div class="col-lg-12 text-center">
 						<div class="section-title">
-							<h2>关于我们</h2>
+							<h2 th:text="${obj.title}">obj.title</h2>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 text-center">
 						<div class="mz-about-container">
-							<p>优秀是能力，敢于优秀是勇气，遇到能欣赏你的人是运气。
+							<p th:text="${obj.description}">优秀是能力，敢于优秀是勇气，遇到能欣赏你的人是运气。
 								这里有一个舞台，缺的就是你这个演员!!!<br/>我们致力于为每个优秀的技能工作者，优质的产品提供者，提供便捷良好的推广平台，</p>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<!-- skill bar item -->
-						<div class="skillbar-item">
+						<div class="skillbar-item" th:each="cell : ${cells}">
 							<div class="skillbar" data-percent="90%">
-								<h3>技能</h3>
+								<h3 th:text="${cell.title}">cell.title</h3>
 								<div class="skillbar-bar">
-									<div class="skillbar-percent" style="width: 99%;">
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- skill bar item -->
-						<div class="skillbar-item">
-							<div class="skillbar" data-percent="80%">
-								<h3>品质</h3>
-								<div class="skillbar-bar">
-									<div class="skillbar-percent" style="width: 99%;">
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- skill bar item -->
-						<div class="skillbar-item">
-							<div class="skillbar" data-percent="85%">
-								<h3>服务</h3>
-								<div class="skillbar-bar">
-									<div class="skillbar-percent" style="width: 99%;">
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- skill bar item -->
-						<div class="skillbar-item">
-							<div class="skillbar" data-percent="70%">
-								<h3>缺陷</h3>
-								<div class="skillbar-bar">
-									<div class="skillbar-percent" style="width: 1%;">
+									<div class="skillbar-percent" style="width: 99%;" th:style="|width: ${cell.value}|">
 									</div>
 								</div>
 							</div>
@@ -212,7 +182,7 @@
 					<div class="col-md-3 col-0-gutter mz-about-default text-center">
 						<div class="mz-module-about">
 							<i class="fa fa-briefcase ot-circle"></i>
-							<h3>设计 开发</h3>
+							<h3 th:text="${obj.text1}">obj.text1</h3>
 						</div>
 					</div>
 					<!-- end about module -->
@@ -220,7 +190,7 @@
 					<div class="col-md-3 col-0-gutter mz-about-dark text-center">
 						<div class="mz-module-about">
 							<i class="fa fa-photo ot-circle"></i>
-							<h3>记录 展现</h3>
+							<h3 th:text="${obj.text2}">obj.text2</h3>
 						</div>
 					</div>
 					<!-- end about module -->
@@ -228,7 +198,7 @@
 					<div class="col-md-3 col-0-gutter mz-about-default text-center">
 						<div class="mz-module-about">
 							<i class="fa fa-camera-retro ot-circle"></i>
-							<h3>现场 真实</h3>
+							<h3 th:text="${obj.text3}">obj.text3</h3>
 						</div>
 					</div>
 					<!-- end about module -->
@@ -236,7 +206,7 @@
 					<div class="col-md-3 col-0-gutter mz-about-dark text-center">
 						<div class="mz-module-about">
 							<i class="fa fa-cube ot-circle"></i>
-							<h3>品质 标准</h3>
+							<h3 th:text="${obj.text4}">obj.text4</h3>
 						</div>
 					</div>
 					<!-- end about module -->
@@ -245,54 +215,26 @@
 			<!-- /.container -->
 		</section>
 
-		<section id="news">
+		<section id="news" th:with="obj=${data[2]},cells=${data[2].cells}">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 text-center">
 						<div class="section-title">
-							<h2>我们即将构建一个去公司化的平台</h2>
+							<h2 th:text="${obj.title}">obj.title</h2>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<!-- team member item -->
-					<div class="col-md-4">
+					<div class="col-md-4" th:each="cell : ${cells}">
 						<div class="team-item">
 							<div class="team-image">
-								<img src="images/demo/author-2.jpg" class="img-responsive" alt="author" />
+								<img src="images/demo/author-2.jpg" th:src="${cell.img}" class="img-responsive" alt="author" />
 							</div>
 							<div class="team-text">
-								<h3>TOM BEKERS</h3>
-								<div class="team-position">CEO amp; Web Design</div>
-								<p>Mida sit una namet, cons uectetur adipiscing adon elit. Aliquam vitae barasa droma.</p>
-							</div>
-						</div>
-					</div>
-					<!-- end team member item -->
-					<!-- team member item -->
-					<div class="col-md-4">
-						<div class="team-item">
-							<div class="team-image">
-								<img src="images/demo/author-6.jpg" class="img-responsive" alt="author"/>
-							</div>
-							<div class="team-text">
-								<h3>LINA GOSATA</h3>
-								<div class="team-position">Photography</div>
-								<p>Worsa dona namet, cons uectetur dipiscing adon elit. Aliquam vitae fringilla unda mir.</p>
-							</div>
-						</div>
-					</div>
-					<!-- end team member item -->
-					<!-- team member item -->
-					<div class="col-md-4">
-						<div class="team-item">
-							<div class="team-image">
-								<img src="images/demo/author-4.jpg" class="img-responsive" alt="author"/>
-							</div>
-							<div class="team-text">
-								<h3>John BEKERS</h3>
-								<div class="team-position">Marketing</div>
-								<p>Dolor sit don namet, cons uectetur beriscing adon elit. Aliquam vitae fringilla unda.</p>
+								<h3 th:text="${cell.name}">cell.name</h3>
+								<div class="team-position" th:text="${cell.title}">cell.title</div>
+								<p th:text="${cell.content}">cell.content</p>
 							</div>
 						</div>
 					</div>
@@ -301,13 +243,13 @@
 			</div>
 		</section>
 
-		<section id="contact">
+		<section id="help" th:with="obj=${data[3]},cells=${data[3].cells}">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 text-center">
 						<div class="section-title">
-							<h2>Contact Us</h2>
-							<p>If you have some Questions or need Help! Please Contact Us!<br/>We make Cool and Clean Design for your Business</p>
+							<h2 th:text="${obj.title}">obj.title</h2>
+							<p th:text="${obj.description}">obj.description</p>
 						</div>
 					</div>
 				</div>
@@ -317,13 +259,13 @@
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="text" class="form-control" placeholder="Your Name *" id="name" required="" data-validation-required-message="Please enter your name."/>
+										<input type="text" class="form-control" placeholder="你的称呼 *" id="name" required="" data-validation-required-message="请输入你的称呼."/>
 										<p class="help-block text-danger"></p>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
-										<input type="email" class="form-control" placeholder="Your Email *" id="email" required="" data-validation-required-message="Please enter your email address."/>
+										<input type="email" class="form-control" placeholder="你的邮箱 *" id="email" required="" data-validation-required-message="请输入你的邮箱."/>
 										<p class="help-block text-danger"></p>
 									</div>
 								</div>
@@ -331,7 +273,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group">
-										<textarea class="form-control" placeholder="Your Message *" id="message" required="" data-validation-required-message="Please enter a message."></textarea>
+										<textarea class="form-control" placeholder="你的建议和问题 *" id="message" required="" data-validation-required-message="请输入你的建议和问题."></textarea>
 										<p class="help-block text-danger"></p>
 									</div>
 								</div>
@@ -340,7 +282,7 @@
 							<div class="row">
 								<div class="col-lg-12 text-center">
 									<div id="success"></div>
-									<button type="submit" class="btn">Send Message</button>
+									<button type="submit" class="btn">提交信息</button>
 								</div>
 							</div>
 						</form>
