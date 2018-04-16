@@ -1,6 +1,6 @@
 
 insert into p1 (id, name, flag, title, description, content, position, text1, text2, text3, text4) values (1, '产品介绍', 'portfolio', '为赞而生', '卓越的技术，优质的产品，良好的服务，只要你有，你想展示，这里就需要你', '', '', '', '', '', '');
-insert into p1 (id, name, flag, title, description, content, position, text1, text2, text3, text4) values (2, '关于我们', 'about', '关于我们', '这是一个tests', '', '', '设计 开发', '记录 展现', '现场 真实', '品质 标准');
+insert into p1 (id, name, flag, title, description, content, position, text1, text2, text3, text4) values (2, '关于我们', 'about', '关于我们', '优秀是能力，敢于优秀是勇气，遇到能欣赏你的人是运气。这里有一个舞台，缺的就是你这个演员!!!<br/>我们致力于为每个优秀的技能工作者，优质的产品提供者，提供便捷良好的推广平台。', '', '', '设计 开发', '记录 展现', '现场 真实', '品质 标准');
 insert into p1 (id, name, flag, title, description, content, position, text1, text2, text3, text4) values (3, '最新动态', 'news', '最新新闻', '这是一个醉醺醺的新闻', '', '', '', '', '', '');
 insert into p1 (id, name, flag, title, description, content, position, text1, text2, text3, text4) values (4, '帮助建议', 'help', '为你服务', '如需帮助和建议，请在下面填写你建议和问题，我们将为你提供继续完善，为你提供更好的解决方案', '', '', '', '', '', '');
 
