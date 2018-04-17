@@ -21,4 +21,4 @@ insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,posi
 insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(13,3,"images/demo/author-4.jpg", '标题3', 'description','http://hao123.com','dataTarget','viewMore','x=120,y=100','内容','名','值');
 
 
-insert into p1_footer(id,text0,href0,target0,title0,text1,href1,title1) values(1,"联系方式请加QQ596760835","href0", 'target0', 'title0','微信kaizongYue','href1','title1');
+insert into p1_footer(id,text0) values(1,"<p>联系请加微信<a href=\"https://weibo.com/u/2039166931\" target=\"_blank\" title=\"标题\">》真想悠哉《</a></p>");
