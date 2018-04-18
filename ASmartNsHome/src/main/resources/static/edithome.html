@@ -66,21 +66,21 @@
 					</div>
 				</div>
 			</div>
-
-				<div class="row row-0-gutter">
+			<div class="row row-0-gutter">
 				<!-- start portfolio item -->
 				<div class="col-md-6 col-0-gutter">
 					<div class="ot-portfolio-item">
 						<figure class="effect-bubba">
 							<img id="preview001" src="images/demo/portfolio-1.jpg" alt="img02" class="img-responsive" />
 							<figcaption>
-								<h2 id="preview002">Dean & Letter</h2>
-								<p id="preview003">Branding, Design</p>
+								<h2>Dean & Letter</h2>
+								<p>Branding, Design</p>
 								<a href="#" data-toggle="modal" data-target="#Modal-1">View more</a>
 							</figcaption>
 						</figure>
-						<input type="file" id="img0" onchange="previewImg(this.id,'preview001');" />
-						<input type="text" id="title0" onchange="previewText(this.id,'preview002');" />
+						<!--<h1 onclick="this.innerHTML='谢谢!'">请点击该文本</h1>-->
+						<input id="img0" type="file" onchange="previewImg(this.id,'preview001');"/>
+						<input id="title0" type="text" onchange="previewText(this.id,'preview001');"/>
 					</div>
 				</div>
 				<!-- end portfolio item -->
@@ -474,7 +474,7 @@
 		<!-- Bootstrap core JavaScript
 			================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/SmoothScroll.js"></script>
 		<script src="js/theme-scripts.js"></script>
