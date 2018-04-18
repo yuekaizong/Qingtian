@@ -26,6 +26,14 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping(value = "/editHome")
+    public String editHome(Model model){
+        model.addAttribute("name", "这是一个thymeleaf");
+        model.addAttribute("data", divJPA.findAll());
+        model.addAttribute("footer", footerJPA.findOne(1l));
+        return "system/editHome";
+    }
+
     @RequestMapping(value = "/data")
     @ResponseBody
     public Object getHomeData(Model model){
