@@ -15,9 +15,11 @@
 		<!-- Custom styles for this template -->
 		<link href="css/style.css" rel="stylesheet"/>
 		<script src="js/editHome.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	</head>
 	<body id="page-top">
 		<!-- Navigation -->
+		<form th:action="@{/editHome}" th:method="post" >
 		<nav class="navbar navbar-default">
 			<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
@@ -36,9 +38,10 @@
 						<li class="hidden">
 							<a href="#page-top"></a>
 						</li>
-							<li th:each="o : ${data}">
-								<a class="page-scroll" th:href="|#${o.flag}|" th:text="${o.name}">Null</a>
-							</li>
+							<ul th:each="o,iter: ${data}">
+								<input th:name="|divEntity[${iter.index}].name|"  th:value="${o.name}"/>
+								<input th:name="|divEntity[${iter.index}].flag|"  th:value="${o.flag}"/>
+							</ul>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -51,8 +54,8 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<div class="section-title">
-						<input id="p_title0" type="text" th:value="obj.title"/><br/>
-						<input id="p_description0" type="text" th:value="obj.description"/>
+						<input name="divEntity[0].title" id="p_title0" type="text" th:value="${obj.title}"/><br/>
+						<input name="divEntity[0].description" id="p_description0" type="text" th:value="${obj.description}"/>
 					</div>
 				</div>
 			</div>
@@ -70,10 +73,10 @@
 
 							</figcaption>
 						</figure>
-						<input id="cell_img001" type="file" onchange="previewImg(this.id,'preview001');"/>
-						<input id="cell_title002" type="text" onchange="previewText(this.id,'preview002');"/>
-						<input id="cell_description003" type="text" onchange="previewText(this.id,'preview003');"/>
-						<input id="cell_viewMore004" type="text" onchange="previewText(this.id,'preview004');"/>
+						<input name="divEntity[0].cells[0].img" id="cell_img001" type="file" onchange="previewImg(this.id,'preview001');" th:value="${cells[0].img}"/>
+						<input name="divEntity[0].cells[0].title" id="cell_title002" type="text" onchange="previewText(this.id,'preview002');" th:value="${cells[0].title}"/>
+						<input name="divEntity[0].cells[0].description" id="cell_description003" type="text" onchange="previewText(this.id,'preview003');" th:value="${cells[0].description}"/>
+						<input name="divEntity[0].cells[0].viewMore" id="cell_viewMore004" type="text" onchange="previewText(this.id,'preview004');" th:value="${cells[0].viewMore}"/>
 					</div>
 				</div>
 				<!-- end portfolio item -->
@@ -88,10 +91,10 @@
 								<a  id="preview014" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
 							</figcaption>
 						</figure>
-						<input id="cell_img011" type="file" onchange="previewImg(this.id,'preview011');"/>
-						<input id="cell_title012" type="text" onchange="previewText(this.id,'preview012');"/>
-						<input id="cell_description013" type="text" onchange="previewText(this.id,'preview013');"/>
-						<input id="cell_viewMore014" type="text" onchange="previewText(this.id,'preview014');"/>
+						<input name="divEntity[0].cells[1].img" id="cell_img011" type="file" onchange="previewImg(this.id,'preview011');" th:value="${cells[1].img}"/>
+						<input name="divEntity[0].cells[0].title" id="cell_title012" type="text" onchange="previewText(this.id,'preview012');" th:value="${cells[1].title}"/>
+						<input name="divEntity[0].cells[0].description" id="cell_description013" type="text" onchange="previewText(this.id,'preview013');" th:value="${cells[1].description}"/>
+						<input name="divEntity[0].cells[0].viewMore" id="cell_viewMore014" type="text" onchange="previewText(this.id,'preview014');" th:value="${cells[1].viewMore}"/>
 					</div>
 				</div>
 				<!-- end portfolio item -->
@@ -108,10 +111,10 @@
 								<a id="preview024" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
 							</figcaption>
 						</figure>
-						<input id="cell_img021" type="file" onchange="previewImg(this.id,'preview021');"/>
-						<input id="cell_title022" type="text" onchange="previewText(this.id,'preview022');"/>
-						<input id="cell_description023" type="text" onchange="previewText(this.id,'preview023');"/>
-						<input id="cell_viewMore024" type="text" onchange="previewText(this.id,'preview024');"/>
+						<input name="divEntity[0].cells[2].img" id="cell_img021" type="file" onchange="previewImg(this.id,'preview021');"  th:value="${cells[2].img}"/>
+						<input name="divEntity[0].cells[2].title" id="cell_title022" type="text" onchange="previewText(this.id,'preview022');"  th:value="${cells[2].title}"/>
+						<input name="divEntity[0].cells[2].description" id="cell_description023" type="text" onchange="previewText(this.id,'preview023');"  th:value="${cells[2].description}"/>
+						<input name="divEntity[0].cells[2].viewMore" id="cell_viewMore024" type="text" onchange="previewText(this.id,'preview024');"  th:value="${cells[2].viewMore}"/>
 					</div>
 				</div>
 				<!-- end portfolio item -->
@@ -126,10 +129,10 @@
 								<a id="preview034" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
 							</figcaption>
 						</figure>
-						<input id="cell_img031" type="file" onchange="previewImg(this.id,'preview031');"/>
-						<input id="cell_title032" type="text" onchange="previewText(this.id,'preview032');"/>
-						<input id="cell_description033" type="text" onchange="previewText(this.id,'preview033');"/>
-						<input id="cell_viewMore035" type="text" onchange="previewText(this.id,'preview034');"/>
+						<input name="divEntity[0].cells[3].img" id="cell_img031" type="file" onchange="previewImg(this.id,'preview031');" th:value="${cells[3].img}"/>
+						<input name="divEntity[0].cells[3].title" id="cell_title032" type="text" onchange="previewText(this.id,'preview032');" th:value="${cells[3].title}"/>
+						<input name="divEntity[0].cells[0].description" id="cell_description033" type="text" onchange="previewText(this.id,'preview033');" th:value="${cells[3].description}"/>
+						<input name="divEntity[0].cells[0].viewMore" id="cell_viewMore035" type="text" onchange="previewText(this.id,'preview034');" th:value="${cells[3].viewMore}"/>
 					</div>
 				</div>
 				<!-- end portfolio item -->
@@ -146,10 +149,10 @@
 								<a id="preview044" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
 							</figcaption>
 						</figure>
-						<input id="img041" type="file" onchange="previewImg(this.id,'preview041');"/>
-						<input id="title042" type="text" onchange="previewText(this.id,'preview042');"/>
-						<input id="description043" type="text" onchange="previewText(this.id,'preview043');"/>
-						<input id="viewMore044" type="text" onchange="previewText(this.id,'preview044');"/>
+						<input name="divEntity[0].cells[4].img" id="img041" type="file" onchange="previewImg(this.id,'preview041');" th:value="${cells[4].img}"/>
+						<input name="divEntity[0].cells[4].title" id="title042" type="text" onchange="previewText(this.id,'preview042');" th:value="${cells[4].title}"/>
+						<input name="divEntity[0].cells[4].description" id="description043" type="text" onchange="previewText(this.id,'preview043');" th:value="${cells[4].description}"/>
+						<input name="divEntity[0].cells[0].viewMore" id="viewMore044" type="text" onchange="previewText(this.id,'preview044');" th:value="${cells[4].viewMore}"/>
 					</div>
 				</div>
 				<!-- end portfolio item -->
@@ -164,10 +167,10 @@
 								<a id="preview054" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
 							</figcaption>
 						</figure>
-						<input id="cell_img051" type="file" onchange="previewImg(this.id,'preview051');"/>
-						<input id="cell_title052" type="text" onchange="previewText(this.id,'preview052');"/>
-						<input id="cell_description053" type="text" onchange="previewText(this.id,'preview053');"/>
-						<input id="cell_viewMore054" type="text" onchange="previewText(this.id,'preview054');"/>
+						<input name="divEntity[0].cells[5].img" id="cell_img051" type="file" onchange="previewImg(this.id,'preview051');"  th:value="${cells[5].img}"/>
+						<input name="divEntity[0].cells[0].title" id="cell_title052" type="text" onchange="previewText(this.id,'preview052');"  th:value="${cells[5].title}"/>
+						<input name="divEntity[0].cells[0].description" id="cell_description053" type="text" onchange="previewText(this.id,'preview053');"  th:value="${cells[5].description}"/>
+						<input name="divEntity[0].cells[0].viewMore" id="cell_viewMore054" type="text" onchange="previewText(this.id,'preview054');" th:value="${cells[5].viewMore}"/>
 					</div>
 				</div>
 				<!-- end portfolio item -->
@@ -180,21 +183,21 @@
 				<div class="row">
 					<div class="col-lg-12 text-center">
 						<div class="section-title">
-						   <input id="title1" type="text" th:value="${obj.title}"/>
+						   <input  name="divEntity[1].title" id="title1" type="text" th:value="${obj.title}"/>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 text-center">
 						<div class="mz-about-container">
-                            <input id="description1" type="text" th:value="${obj.description}"/>
+                            <input name="divEntity[1].description" id="description1" type="text" th:value="${obj.description}"/>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<!-- skill bar item -->
 						<div class="skillbar-item" th:each="cell,iter: ${cells}">
-                            <input th:id="|title11+${iter.index}|" th:value="|${cell.title}|"/>
-                            <input th:id="|value11+${iter.index}|" th:value="|${cell.value}|"/>
+                            <input th:name="|divEntity[1].cells[${iter.index}].title|" th:id="|title11+${iter.index}|" th:value="|${cell.title}|"/>
+                            <input th:name="|divEntity[1].cells[${iter.index}].value|" th:id="|value11+${iter.index}|" th:value="|${cell.value}|"/>
 						</div>
 					</div>
 				</div>
@@ -203,7 +206,7 @@
 					<div class="col-md-3 col-0-gutter mz-about-default text-center">
 						<div class="mz-module-about">
 							<i class="fa fa-briefcase ot-circle"></i>
-                            <input id="text101" th:value="|${cell.text1}|"/>
+                            <input name="divEntity[1].text1" id="text101" th:value="|${obj.text1}|"/>
 						</div>
 					</div>
 					<!-- end about module -->
@@ -211,7 +214,7 @@
 					<div class="col-md-3 col-0-gutter mz-about-dark text-center">
 						<div class="mz-module-about">
 							<i class="fa fa-photo ot-circle"></i>
-                            <input id="text102" th:value="|${cell.text2}|"/>
+                            <input name="divEntity[1].text2" id="text102" th:value="|${obj.text2}|"/>
 						</div>
 					</div>
 					<!-- end about module -->
@@ -219,7 +222,7 @@
 					<div class="col-md-3 col-0-gutter mz-about-default text-center">
 						<div class="mz-module-about">
 							<i class="fa fa-camera-retro ot-circle"></i>
-                            <input id="text103" th:value="|${cell.text3}|"/>
+                            <input name="divEntity[1].text3" id="text103" th:value="|${obj.text3}|"/>
 						</div>
 					</div>
 					<!-- end about module -->
@@ -227,7 +230,7 @@
 					<div class="col-md-3 col-0-gutter mz-about-dark text-center">
 						<div class="mz-module-about">
 							<i class="fa fa-cube ot-circle"></i>
-                            <input id="text104" th:value="|${cell.text4}|"/>
+                            <input name="divEntity[1].text4" id="text104" th:value="|${obj.text4}|"/>
 						</div>
 					</div>
 					<!-- end about module -->
@@ -241,22 +244,22 @@
 				<div class="row">
 					<div class="col-lg-12 text-center">
 						<div class="section-title">
-	                         <input id="title2" th:value="|${obj.title}|"/>
+	                         <input name="divEntity[2].title" id="title2" th:value="|${obj.title}|"/>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<!-- team member item -->
-					<div class="col-md-4" th:each="cell iter: ${cells}">
+					<div class="col-md-4" th:each="cell,iter: ${cells}">
 						<div class="team-item">
 							<div class="team-image">
 								<img src="images/demo/author-2.jpg" th:src="${cell.img}" class="img-responsive" alt="author" />
-                                <input th:id="|cell_img2+${iter.index}|" th:value="|${obj.title}|"/>
+                                <input th:name="|divEntity[2].cells[${iter.index}].img|" th:id="|cell_img2+${iter.index}|" th:value="|${cell.img}|"/>
 							</div>
 							<div class="team-text">
-								<input th:id="|cell_name2+${iter.index}|" th:value="|${obj.name}|"/>
-								<input th:id="|cell_title2+${iter.index}|" th:value="|${obj.title}|"/>
-								<input th:id="|cell_content2+${iter.index}|" th:value="|${obj.title}|"/>
+								<input th:name="|divEntity[2].cells[${iter.index}].img|" th:id="|cell_name2+${iter.index}|" th:value="|${cell.name}|"/>
+								<input th:name="|divEntity[2].cells[${iter.index}].title|" th:id="|cell_title2+${iter.index}|" th:value="|${cell.title}|"/>
+								<input th:name="|divEntity[2].cells[${iter.index}].content|" th:id="|cell_content2+${iter.index}|" th:value="|${cell.content}|"/>
 							</div>
 						</div>
 					</div>
@@ -270,8 +273,8 @@
 				<div class="row">
 					<div class="col-lg-12 text-center">
 						<div class="section-title">
-							<input id="title3" th:value="${obj.title}"/>
-							<input id="description3" th:value="${obj.description}"/>
+							<input name="divEntity[3].title" id="title3" th:value="${obj.title}"/>
+							<input name="divEntity[3].description" id="description3" th:value="${obj.description}"/>
 						</div>
 					</div>
 				</div>
@@ -289,6 +292,7 @@
             </div>
         </div>
 		</section>
+		</form>
 		<p id="back-top">
 			<a href="#top"><i class="fa fa-angle-up"></i></a>
 		</p>
@@ -401,7 +405,6 @@
 		<!-- Bootstrap core JavaScript
 			================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/SmoothScroll.js"></script>
 		<script src="js/theme-scripts.js"></script>
