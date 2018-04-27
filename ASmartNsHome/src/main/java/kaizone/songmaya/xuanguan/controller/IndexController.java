@@ -6,12 +6,10 @@ import kaizone.songmaya.xuanguan.jpa.FooterJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class IndexController {
@@ -39,16 +37,29 @@ public class IndexController {
         return "system/editHome";
     }
 
-    @RequestMapping(value = "/editHome", method = RequestMethod.POST)
-    @ResponseBody
-    public String editHomeSave(@RequestBody List<DivEntity> model){
-        System.out.println(model.toString());
-        return "success";
+//    @RequestMapping(value = "/editHome", method = RequestMethod.POST)
+//    @ResponseBody
+//    public String editHomeSave(@RequestBody List<DivEntity> model){
+//        System.out.println(model.toString());
+//        return "success";
+//    }
+
+    @PostMapping("/editHome")
+    public String editHomeSave1(@RequestParam Map<String, String> body){
+        System.out.println(body);
+        return "successs";
     }
 
     @RequestMapping(value = "/data")
     @ResponseBody
     public Object getHomeData(Model model){
         return divJPA.findAll();
+    }
+
+    @RequestMapping(value = "/saveData", method = RequestMethod.POST)
+    @ResponseBody
+    public Object saveHomeData(Model model){
+        System.out.println(model);
+        return model.toString();
     }
 }

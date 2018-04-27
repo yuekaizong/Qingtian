@@ -1,285 +1,340 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<meta name="description" content=""/>
-		<meta name="author" content=""/>
-		<link rel="icon" href="favicon.ico"/>
-		<title>Treviso - Clean amp; Elegant Onepage Multipurpose Bootstrap HTML</title>
-		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet"/>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
-		<!-- Custom styles for this template -->
-		<link href="css/style.css" rel="stylesheet"/>
-		<script src="js/editHome.js"></script>
-		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	</head>
-	<body id="page-top">
-		<!-- Navigation -->
-		<form th:action="@{/editHome}" th:method="post" >
-		<nav class="navbar navbar-default">
-			<div class="container">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header page-scroll">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand page-scroll" href="#page-top"><img src="images/logo.png" alt="Treviso theme logo"/></a>
-				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="hidden">
-							<a href="#page-top"></a>
-						</li>
-							<ul th:each="o,iter: ${data}">
-								<input th:name="|divEntity[${iter.index}].name|"  th:value="${o.name}"/>
-								<input th:name="|divEntity[${iter.index}].flag|"  th:value="${o.flag}"/>
-							</ul>
-					</ul>
-				</div>
-				<!-- /.navbar-collapse -->
-			</div>
-			<!-- /.container-fluid -->
-		</nav>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    <link rel="icon" href="favicon.ico"/>
+    <title>Treviso - Clean amp; Elegant Onepage Multipurpose Bootstrap HTML</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet"/>
+    <script src="js/editHome.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery.serializejson.js"></script>
+</head>
+<body id="page-top">
+<!-- Navigation -->
+<button onclick="getData(this);"/>
+<form id="form1" >
+        <input name="[0][name]" value="tom" type="text">
+        <input name="[0][sex]" value="17" type="text">
+        <input name="[0][cells][0][title]" value="者">
+        <input name="[0][cells][1][title]" value="高">
+        <input name="[0][cells][2][title]" value="莫">
 
-		<section id="portfolio" th:with="obj=${data[0]},cells=${data[0].cells}">
-			<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="section-title">
-						<input name="divEntity[0].title" id="p_title0" type="text" th:value="${obj.title}"/><br/>
-						<input name="divEntity[0].description" id="p_description0" type="text" th:value="${obj.description}"/>
-					</div>
-				</div>
-			</div>
+        <input name="[1][name]" value="yuelibiao" type="text">
+        <input name="[1][age]" value="27" type="text">
+</form>
+<form id="form2" th:action="@{/editHome}" th:method="post">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top"><img src="images/logo.png"
+                                                                          alt="Treviso theme logo"/></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <ul th:each="o,iter: ${data}">
+                        <input th:name="|[${iter.index}][name]|" th:value="${o.name}"/>
+                        <input th:name="|[${iter.index}][flag]|" th:value="${o.flag}"/>
+                    </ul>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
 
-			<div class="row row-0-gutter">
-				<!-- start portfolio item -->
-				<div class="col-md-6 col-0-gutter">
-					<div class="ot-portfolio-item">
-						<figure class="effect-bubba">
-							<img id="preview001" src="images/demo/portfolio-1.jpg" th:src="${cells[0].img}" alt="img02" class="img-responsive" />
-							<figcaption>
-								<h2 id="preview002" th:text="${cells[0].title}">cells[0].title</h2>
-								<p id="preview003" th:text="${cells[0].description}"> cells[0].description</p>
-								<a id="preview004" th:href="|${cells[0].viewMore}|" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
+    <section id="portfolio" th:with="obj=${data[0]},cells=${data[0].cells}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <input name="[0][title]" id="p_title0" type="text" th:value="${obj.title}"/><br/>
+                        <input name="[0][description]" id="p_description0" type="text"
+                               th:value="${obj.description}"/>
+                    </div>
+                </div>
+            </div>
 
-							</figcaption>
-						</figure>
-						<input name="divEntity[0].cells[0].img" id="cell_img001" type="file" onchange="previewImg(this.id,'preview001');" th:value="${cells[0].img}"/>
-						<input name="divEntity[0].cells[0].title" id="cell_title002" type="text" onchange="previewText(this.id,'preview002');" th:value="${cells[0].title}"/>
-						<input name="divEntity[0].cells[0].description" id="cell_description003" type="text" onchange="previewText(this.id,'preview003');" th:value="${cells[0].description}"/>
-						<input name="divEntity[0].cells[0].viewMore" id="cell_viewMore004" type="text" onchange="previewText(this.id,'preview004');" th:value="${cells[0].viewMore}"/>
-					</div>
-				</div>
-				<!-- end portfolio item -->
-				<!-- start portfolio item -->
-				<div class="col-md-6 col-0-gutter">
-					<div class="ot-portfolio-item">
-						<figure class="effect-bubba">
-							<img id="preview011" src="images/demo/portfolio-2.jpg" th:src="${cells[1].img}" alt="img02" class="img-responsive" />
-							<figcaption>
-								<h2  id="preview012" th:text="${cells[1].title}">cells[1].title</h2>
-								<p  id="preview013" th:text="${cells[1].description}"> cells[1].description</p>
-								<a  id="preview014" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
-							</figcaption>
-						</figure>
-						<input name="divEntity[0].cells[1].img" id="cell_img011" type="file" onchange="previewImg(this.id,'preview011');" th:value="${cells[1].img}"/>
-						<input name="divEntity[0].cells[0].title" id="cell_title012" type="text" onchange="previewText(this.id,'preview012');" th:value="${cells[1].title}"/>
-						<input name="divEntity[0].cells[0].description" id="cell_description013" type="text" onchange="previewText(this.id,'preview013');" th:value="${cells[1].description}"/>
-						<input name="divEntity[0].cells[0].viewMore" id="cell_viewMore014" type="text" onchange="previewText(this.id,'preview014');" th:value="${cells[1].viewMore}"/>
-					</div>
-				</div>
-				<!-- end portfolio item -->
-			</div>
-			<div class="row row-0-gutter">
-				<!-- start portfolio item -->
-				<div class="col-md-6 col-0-gutter">
-					<div class="ot-portfolio-item">
-						<figure class="effect-bubba">
-							<img id="preview021" th:src="${cells[2].img}" alt="img02" class="img-responsive" />
-							<figcaption>
-								<h2 id="preview022" th:text="${cells[2].title}">cells[2].title</h2>
-								<p id="preview023" th:text="${cells[2].description}"> cells[2].description</p>
-								<a id="preview024" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
-							</figcaption>
-						</figure>
-						<input name="divEntity[0].cells[2].img" id="cell_img021" type="file" onchange="previewImg(this.id,'preview021');"  th:value="${cells[2].img}"/>
-						<input name="divEntity[0].cells[2].title" id="cell_title022" type="text" onchange="previewText(this.id,'preview022');"  th:value="${cells[2].title}"/>
-						<input name="divEntity[0].cells[2].description" id="cell_description023" type="text" onchange="previewText(this.id,'preview023');"  th:value="${cells[2].description}"/>
-						<input name="divEntity[0].cells[2].viewMore" id="cell_viewMore024" type="text" onchange="previewText(this.id,'preview024');"  th:value="${cells[2].viewMore}"/>
-					</div>
-				</div>
-				<!-- end portfolio item -->
-				<!-- start portfolio item -->
-				<div class="col-md-6 col-0-gutter">
-					<div class="ot-portfolio-item">
-						<figure class="effect-bubba">
-							<img id="preview031" src="images/demo/portfolio-2.jpg" th:src="${cells[3].img}" alt="img02" class="img-responsive" />
-							<figcaption>
-								<h2 id="preview032" th:text="${cells[3].title}">cells[3].title</h2>
-								<p id="preview033" th:text="${cells[3].description}"> cells[3].description</p>
-								<a id="preview034" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
-							</figcaption>
-						</figure>
-						<input name="divEntity[0].cells[3].img" id="cell_img031" type="file" onchange="previewImg(this.id,'preview031');" th:value="${cells[3].img}"/>
-						<input name="divEntity[0].cells[3].title" id="cell_title032" type="text" onchange="previewText(this.id,'preview032');" th:value="${cells[3].title}"/>
-						<input name="divEntity[0].cells[0].description" id="cell_description033" type="text" onchange="previewText(this.id,'preview033');" th:value="${cells[3].description}"/>
-						<input name="divEntity[0].cells[0].viewMore" id="cell_viewMore035" type="text" onchange="previewText(this.id,'preview034');" th:value="${cells[3].viewMore}"/>
-					</div>
-				</div>
-				<!-- end portfolio item -->
-			</div>
-			<div class="row row-0-gutter">
-				<!-- start portfolio item -->
-				<div class="col-md-6 col-0-gutter">
-					<div class="ot-portfolio-item">
-						<figure class="effect-bubba">
-							<img id="preview041" src="images/demo/portfolio-2.jpg" th:src="${cells[4].img}" alt="img02" class="img-responsive" />
-							<figcaption>
-								<h2 id="preview042" th:text="${cells[4].title}">cells[4].title</h2>
-								<p id="preview043" th:text="${cells[4].description}"> cells[4].description</p>
-								<a id="preview044" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
-							</figcaption>
-						</figure>
-						<input name="divEntity[0].cells[4].img" id="img041" type="file" onchange="previewImg(this.id,'preview041');" th:value="${cells[4].img}"/>
-						<input name="divEntity[0].cells[4].title" id="title042" type="text" onchange="previewText(this.id,'preview042');" th:value="${cells[4].title}"/>
-						<input name="divEntity[0].cells[4].description" id="description043" type="text" onchange="previewText(this.id,'preview043');" th:value="${cells[4].description}"/>
-						<input name="divEntity[0].cells[0].viewMore" id="viewMore044" type="text" onchange="previewText(this.id,'preview044');" th:value="${cells[4].viewMore}"/>
-					</div>
-				</div>
-				<!-- end portfolio item -->
-				<!-- start portfolio item -->
-				<div class="col-md-6 col-0-gutter">
-					<div class="ot-portfolio-item">
-						<figure class="effect-bubba">
-							<img id="preview051" src="images/demo/portfolio-2.jpg" th:src="${cells[5].img}" alt="img02" class="img-responsive" />
-							<figcaption>
-								<h2 id="preview052" th:text="${cells[5].title}">cells[5].title</h2>
-								<p id="preview053" th:text="${cells[5].description}"> cells[5].description</p>
-								<a id="preview054" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
-							</figcaption>
-						</figure>
-						<input name="divEntity[0].cells[5].img" id="cell_img051" type="file" onchange="previewImg(this.id,'preview051');"  th:value="${cells[5].img}"/>
-						<input name="divEntity[0].cells[0].title" id="cell_title052" type="text" onchange="previewText(this.id,'preview052');"  th:value="${cells[5].title}"/>
-						<input name="divEntity[0].cells[0].description" id="cell_description053" type="text" onchange="previewText(this.id,'preview053');"  th:value="${cells[5].description}"/>
-						<input name="divEntity[0].cells[0].viewMore" id="cell_viewMore054" type="text" onchange="previewText(this.id,'preview054');" th:value="${cells[5].viewMore}"/>
-					</div>
-				</div>
-				<!-- end portfolio item -->
-			</div>
-			</div><!-- container -->
-		</section>
+            <div class="row row-0-gutter">
+                <!-- start portfolio item -->
+                <div class="col-md-6 col-0-gutter">
+                    <div class="ot-portfolio-item">
+                        <figure class="effect-bubba">
+                            <img id="preview001" src="images/demo/portfolio-1.jpg" th:src="${cells[0].img}" alt="img02"
+                                 class="img-responsive"/>
+                            <figcaption>
+                                <h2 id="preview002" th:text="${cells[0].title}">cells[0].title</h2>
+                                <p id="preview003" th:text="${cells[0].description}"> cells[0].description</p>
+                                <a id="preview004" th:href="|${cells[0].viewMore}|" href="#" data-toggle="modal"
+                                   data-target="#Modal-2">View more</a>
 
-		<section id="about" class="mz-module" th:with="obj=${data[1]},cells=${data[1].cells}">
-			<div class="container light-bg">
-				<div class="row">
-					<div class="col-lg-12 text-center">
-						<div class="section-title">
-						   <input  name="divEntity[1].title" id="title1" type="text" th:value="${obj.title}"/>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6 text-center">
-						<div class="mz-about-container">
-                            <input name="divEntity[1].description" id="description1" type="text" th:value="${obj.description}"/>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<!-- skill bar item -->
-						<div class="skillbar-item" th:each="cell,iter: ${cells}">
-                            <input th:name="|divEntity[1].cells[${iter.index}].title|" th:id="|title11+${iter.index}|" th:value="|${cell.title}|"/>
-                            <input th:name="|divEntity[1].cells[${iter.index}].value|" th:id="|value11+${iter.index}|" th:value="|${cell.value}|"/>
-						</div>
-					</div>
-				</div>
-				<div class="row row-0-gutter">
-					<!-- about module -->
-					<div class="col-md-3 col-0-gutter mz-about-default text-center">
-						<div class="mz-module-about">
-							<i class="fa fa-briefcase ot-circle"></i>
-                            <input name="divEntity[1].text1" id="text101" th:value="|${obj.text1}|"/>
-						</div>
-					</div>
-					<!-- end about module -->
-					<!-- about module -->
-					<div class="col-md-3 col-0-gutter mz-about-dark text-center">
-						<div class="mz-module-about">
-							<i class="fa fa-photo ot-circle"></i>
-                            <input name="divEntity[1].text2" id="text102" th:value="|${obj.text2}|"/>
-						</div>
-					</div>
-					<!-- end about module -->
-					<!-- about module -->
-					<div class="col-md-3 col-0-gutter mz-about-default text-center">
-						<div class="mz-module-about">
-							<i class="fa fa-camera-retro ot-circle"></i>
-                            <input name="divEntity[1].text3" id="text103" th:value="|${obj.text3}|"/>
-						</div>
-					</div>
-					<!-- end about module -->
-					<!-- about module -->
-					<div class="col-md-3 col-0-gutter mz-about-dark text-center">
-						<div class="mz-module-about">
-							<i class="fa fa-cube ot-circle"></i>
-                            <input name="divEntity[1].text4" id="text104" th:value="|${obj.text4}|"/>
-						</div>
-					</div>
-					<!-- end about module -->
-				</div>
-			</div>
-			<!-- /.container -->
-		</section>
+                            </figcaption>
+                        </figure>
+                        <input name="[0][cells][0][img]" id="cell_img001" type="file"
+                               onchange="previewImg(this.id,'preview001');" th:value="${cells[0].img}"/>
+                        <input name="[0][cells][0][title]" id="cell_title002" type="text"
+                               onchange="previewText(this.id,'preview002');" th:value="${cells[0].title}"/>
+                        <input name="[0][cells][0][description]" id="cell_description003" type="text"
+                               onchange="previewText(this.id,'preview003');" th:value="${cells[0].description}"/>
+                        <input name="[0][cells][0][viewMore]" id="cell_viewMore004" type="text"
+                               onchange="previewText(this.id,'preview004');" th:value="${cells[0].viewMore}"/>
+                    </div>
+                </div>
+                <!-- end portfolio item -->
+                <!-- start portfolio item -->
+                <div class="col-md-6 col-0-gutter">
+                    <div class="ot-portfolio-item">
+                        <figure class="effect-bubba">
+                            <img id="preview011" src="images/demo/portfolio-2.jpg" th:src="${cells[1].img}" alt="img02"
+                                 class="img-responsive"/>
+                            <figcaption>
+                                <h2 id="preview012" th:text="${cells[1].title}">cells[1].title</h2>
+                                <p id="preview013" th:text="${cells[1].description}"> cells[1].description</p>
+                                <a id="preview014" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
+                            </figcaption>
+                        </figure>
+                        <input name="[0][cells][1][img]" id="cell_img011" type="file"
+                               onchange="previewImg(this.id,'preview011');" th:value="${cells[1].img}"/>
+                        <input name="[0][cells][1][title]" id="cell_title012" type="text"
+                               onchange="previewText(this.id,'preview012');" th:value="${cells[1].title}"/>
+                        <input name="[0][cells][1][description]" id="cell_description013" type="text"
+                               onchange="previewText(this.id,'preview013');" th:value="${cells[1].description}"/>
+                        <input name="[0][cells][1][viewMore]" id="cell_viewMore014" type="text"
+                               onchange="previewText(this.id,'preview014');" th:value="${cells[1].viewMore}"/>
+                    </div>
+                </div>
+                <!-- end portfolio item -->
+            </div>
+            <div class="row row-0-gutter">
+                <!-- start portfolio item -->
+                <div class="col-md-6 col-0-gutter">
+                    <div class="ot-portfolio-item">
+                        <figure class="effect-bubba">
+                            <img id="preview021" th:src="${cells[2].img}" alt="img02" class="img-responsive"/>
+                            <figcaption>
+                                <h2 id="preview022" th:text="${cells[2].title}">cells[2].title</h2>
+                                <p id="preview023" th:text="${cells[2].description}"> cells[2].description</p>
+                                <a id="preview024" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
+                            </figcaption>
+                        </figure>
+                        <input name="[0][cells][2][img]" id="cell_img021" type="file"
+                               onchange="previewImg(this.id,'preview021');" th:value="${cells[2].img}"/>
+                        <input name="[0][cells][2][title]" id="cell_title022" type="text"
+                               onchange="previewText(this.id,'preview022');" th:value="${cells[2].title}"/>
+                        <input name="[0][cells][2][description]" id="cell_description023" type="text"
+                               onchange="previewText(this.id,'preview023');" th:value="${cells[2].description}"/>
+                        <input name="[0][cells][2][viewMore]" id="cell_viewMore024" type="text"
+                               onchange="previewText(this.id,'preview024');" th:value="${cells[2].viewMore}"/>
+                    </div>
+                </div>
+                <!-- end portfolio item -->
+                <!-- start portfolio item -->
+                <div class="col-md-6 col-0-gutter">
+                    <div class="ot-portfolio-item">
+                        <figure class="effect-bubba">
+                            <img id="preview031" src="images/demo/portfolio-2.jpg" th:src="${cells[3].img}" alt="img02"
+                                 class="img-responsive"/>
+                            <figcaption>
+                                <h2 id="preview032" th:text="${cells[3].title}">cells[3].title</h2>
+                                <p id="preview033" th:text="${cells[3].description}"> cells[3].description</p>
+                                <a id="preview034" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
+                            </figcaption>
+                        </figure>
+                        <input name="[0][cells][3][img]" id="cell_img031" type="file"
+                               onchange="previewImg(this.id,'preview031');" th:value="${cells[3].img}"/>
+                        <input name="[0][cells][3][title]" id="cell_title032" type="text"
+                               onchange="previewText(this.id,'preview032');" th:value="${cells[3].title}"/>
+                        <input name="[0][cells][3][description]" id="cell_description033" type="text"
+                               onchange="previewText(this.id,'preview033');" th:value="${cells[3].description}"/>
+                        <input name="[0][cells][3][viewMore]" id="cell_viewMore035" type="text"
+                               onchange="previewText(this.id,'preview034');" th:value="${cells[3].viewMore}"/>
+                    </div>
+                </div>
+                <!-- end portfolio item -->
+            </div>
+            <div class="row row-0-gutter">
+                <!-- start portfolio item -->
+                <div class="col-md-6 col-0-gutter">
+                    <div class="ot-portfolio-item">
+                        <figure class="effect-bubba">
+                            <img id="preview041" src="images/demo/portfolio-2.jpg" th:src="${cells[4].img}" alt="img02"
+                                 class="img-responsive"/>
+                            <figcaption>
+                                <h2 id="preview042" th:text="${cells[4].title}">cells[4].title</h2>
+                                <p id="preview043" th:text="${cells[4].description}"> cells[4].description</p>
+                                <a id="preview044" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
+                            </figcaption>
+                        </figure>
+                        <input name="[0][cells][4][img]" id="img041" type="file"
+                               onchange="previewImg(this.id,'preview041');" th:value="${cells[4].img}"/>
+                        <input name="[0][cells][4][title]" id="title042" type="text"
+                               onchange="previewText(this.id,'preview042');" th:value="${cells[4].title}"/>
+                        <input name="[0][cells][4][description]" id="description043" type="text"
+                               onchange="previewText(this.id,'preview043');" th:value="${cells[4].description}"/>
+                        <input name="[0][cells][4][viewMore]" id="viewMore044" type="text"
+                               onchange="previewText(this.id,'preview044');" th:value="${cells[4].viewMore}"/>
+                    </div>
+                </div>
+                <!-- end portfolio item -->
+                <!-- start portfolio item -->
+                <div class="col-md-6 col-0-gutter">
+                    <div class="ot-portfolio-item">
+                        <figure class="effect-bubba">
+                            <img id="preview051" src="images/demo/portfolio-2.jpg" th:src="${cells[5].img}" alt="img02"
+                                 class="img-responsive"/>
+                            <figcaption>
+                                <h2 id="preview052" th:text="${cells[5].title}">cells[5].title</h2>
+                                <p id="preview053" th:text="${cells[5].description}"> cells[5].description</p>
+                                <a id="preview054" href="#" data-toggle="modal" data-target="#Modal-2">View more</a>
+                            </figcaption>
+                        </figure>
+                        <input name="[0][cells][5][img]" id="cell_img051" type="file"
+                               onchange="previewImg(this.id,'preview051');" th:value="${cells[5].img}"/>
+                        <input name="[0][cells][5][title]" id="cell_title052" type="text"
+                               onchange="previewText(this.id,'preview052');" th:value="${cells[5].title}"/>
+                        <input name="[0][cells][5][description]" id="cell_description053" type="text"
+                               onchange="previewText(this.id,'preview053');" th:value="${cells[5].description}"/>
+                        <input name="[0][cells][5][viewMore]" id="cell_viewMore054" type="text"
+                               onchange="previewText(this.id,'preview054');" th:value="${cells[5].viewMore}"/>
+                    </div>
+                </div>
+                <!-- end portfolio item -->
+            </div>
+        </div><!-- container -->
+    </section>
 
-		<section id="news" th:with="obj=${data[2]},cells=${data[2].cells}">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 text-center">
-						<div class="section-title">
-	                         <input name="divEntity[2].title" id="title2" th:value="|${obj.title}|"/>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<!-- team member item -->
-					<div class="col-md-4" th:each="cell,iter: ${cells}">
-						<div class="team-item">
-							<div class="team-image">
-								<img src="images/demo/author-2.jpg" th:src="${cell.img}" class="img-responsive" alt="author" />
-                                <input th:name="|divEntity[2].cells[${iter.index}].img|" th:id="|cell_img2+${iter.index}|" th:value="|${cell.img}|"/>
-							</div>
-							<div class="team-text">
-								<input th:name="|divEntity[2].cells[${iter.index}].img|" th:id="|cell_name2+${iter.index}|" th:value="|${cell.name}|"/>
-								<input th:name="|divEntity[2].cells[${iter.index}].title|" th:id="|cell_title2+${iter.index}|" th:value="|${cell.title}|"/>
-								<input th:name="|divEntity[2].cells[${iter.index}].content|" th:id="|cell_content2+${iter.index}|" th:value="|${cell.content}|"/>
-							</div>
-						</div>
-					</div>
-					<!-- end team member item -->
-				</div>
-			</div>
-		</section>
+    <section id="about" class="mz-module" th:with="obj=${data[1]},cells=${data[1].cells}">
+        <div class="container light-bg">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <input name="[1][title]" id="title1" type="text" th:value="${obj.title}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <div class="mz-about-container">
+                        <input name="[1][description]" id="description1" type="text"
+                               th:value="${obj.description}"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- skill bar item -->
+                    <div class="skillbar-item" th:each="cell,iter: ${cells}">
+                        <input th:name="|[1][cells][${iter.index}][title]|" th:id="|title11+${iter.index}|"
+                               th:value="|${cell.title}|"/>
+                        <input th:name="|[1][cells][${iter.index}][value]|" th:id="|value11+${iter.index}|"
+                               th:value="|${cell.value}|"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-0-gutter">
+                <!-- about module -->
+                <div class="col-md-3 col-0-gutter mz-about-default text-center">
+                    <div class="mz-module-about">
+                        <i class="fa fa-briefcase ot-circle"></i>
+                        <input name="[1][text1]" id="text101" th:value="|${obj.text1}|"/>
+                    </div>
+                </div>
+                <!-- end about module -->
+                <!-- about module -->
+                <div class="col-md-3 col-0-gutter mz-about-dark text-center">
+                    <div class="mz-module-about">
+                        <i class="fa fa-photo ot-circle"></i>
+                        <input name="[1][text2]" id="text102" th:value="|${obj.text2}|"/>
+                    </div>
+                </div>
+                <!-- end about module -->
+                <!-- about module -->
+                <div class="col-md-3 col-0-gutter mz-about-default text-center">
+                    <div class="mz-module-about">
+                        <i class="fa fa-camera-retro ot-circle"></i>
+                        <input name="[1][text3]" id="text103" th:value="|${obj.text3}|"/>
+                    </div>
+                </div>
+                <!-- end about module -->
+                <!-- about module -->
+                <div class="col-md-3 col-0-gutter mz-about-dark text-center">
+                    <div class="mz-module-about">
+                        <i class="fa fa-cube ot-circle"></i>
+                        <input name="[1][text4]" id="text104" th:value="|${obj.text4}|"/>
+                    </div>
+                </div>
+                <!-- end about module -->
+            </div>
+        </div>
+        <!-- /.container -->
+    </section>
 
-		<section id="help" th:with="obj=${data[3]},cells=${data[3].cells}">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12 text-center">
-						<div class="section-title">
-							<input name="divEntity[3].title" id="title3" th:value="${obj.title}"/>
-							<input name="divEntity[3].description" id="description3" th:value="${obj.description}"/>
-						</div>
-					</div>
-				</div>
+    <section id="news" th:with="obj=${data[2]},cells=${data[2].cells}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <input name="[2][title]" id="title2" th:value="|${obj.title}|"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- team member item -->
+                <div class="col-md-4" th:each="cell,iter: ${cells}">
+                    <div class="team-item">
+                        <div class="team-image">
+                            <img src="images/demo/author-2.jpg" th:src="${cell.img}" class="img-responsive"
+                                 alt="author"/>
+                            <input th:name="|[2][cells][${iter.index}][img]|" th:id="|cell_img2+${iter.index}|"
+                                   th:value="|${cell.img}|"/>
+                        </div>
+                        <div class="team-text">
+                            <input th:name="|[2][cells][${iter.index}][img]|" th:id="|cell_name2+${iter.index}|"
+                                   th:value="|${cell.name}|"/>
+                            <input th:name="|[2][cells][${iter.index}][title]|"
+                                   th:id="|cell_title2+${iter.index}|" th:value="|${cell.title}|"/>
+                            <input th:name="|[2][cells][${iter.index}][content]|"
+                                   th:id="|cell_content2+${iter.index}|" th:value="|${cell.content}|"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- end team member item -->
+            </div>
+        </div>
+    </section>
 
-			</div><div class="row">
+    <section id="help" th:with="obj=${data[3]},cells=${data[3].cells}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <input name="[3][title]" id="title3" th:value="${obj.title}"/>
+                        <input name="[3][description]" id="description3" th:value="${obj.description}"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
             <div class="col-lg-12 text-center">
                 <form name="sentMessage" id="contactForm" novalidate="">
                     <div class="row">
@@ -291,122 +346,127 @@
                 </form>
             </div>
         </div>
-		</section>
-		</form>
-		<p id="back-top">
-			<a href="#top"><i class="fa fa-angle-up"></i></a>
-		</p>
-		<footer>
-			<div class="container text-center">
-				<a th:utext="${footer.text0}" > footer.text0 </a>
-			</div>
-		</footer>
+    </section>
+</form>
+<p id="back-top">
+    <a href="#top"><i class="fa fa-angle-up"></i></a>
+</p>
+<footer>
+    <div class="container text-center">
+        <a th:utext="${footer.text0}"> footer.text0 </a>
+    </div>
+</footer>
 
-		<!-- Modal for portfolio item 1 -->
-		<div class="modal fade" id="Modal-1" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">amp;times;</span></button>
-						<h4 class="modal-title" id="Modal-label-1">Dean amp; Letter</h4>
-					</div>
-					<div class="modal-body">
-						<img src="images/demo/portfolio-1.jpg" alt="img01" class="img-responsive" />
-						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
+<!-- Modal for portfolio item 1 -->
+<div class="modal fade" id="Modal-1" tabindex="-1" role="dialog" aria-labelledby="Modal-label-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">amp;times;</span>
+                </button>
+                <h4 class="modal-title" id="Modal-label-1">Dean amp; Letter</h4>
+            </div>
+            <div class="modal-body">
+                <img src="images/demo/portfolio-1.jpg" alt="img01" class="img-responsive"/>
+                <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
+                <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-		<!-- Modal for portfolio item 2 -->
-		<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog" aria-labelledby="Modal-label-2">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">amp;times;</span></button>
-						<h4 class="modal-title" id="Modal-label-2">Startup Framework</h4>
-					</div>
-					<div class="modal-body">
-						<img src="images/demo/portfolio-2.jpg" alt="img01" class="img-responsive" />
-						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
+<!-- Modal for portfolio item 2 -->
+<div class="modal fade" id="Modal-2" tabindex="-1" role="dialog" aria-labelledby="Modal-label-2">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">amp;times;</span>
+                </button>
+                <h4 class="modal-title" id="Modal-label-2">Startup Framework</h4>
+            </div>
+            <div class="modal-body">
+                <img src="images/demo/portfolio-2.jpg" alt="img01" class="img-responsive"/>
+                <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
+                <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-		<!-- Modal for portfolio item 3 -->
-		<div class="modal fade" id="Modal-3" tabindex="-1" role="dialog" aria-labelledby="Modal-label-3">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">amp;times;</span></button>
-						<h4 class="modal-title" id="Modal-label-3">Lamp amp; Velvet</h4>
-					</div>
-					<div class="modal-body">
-						<img src="images/demo/portfolio-3.jpg" alt="img01" class="img-responsive" />
-						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
+<!-- Modal for portfolio item 3 -->
+<div class="modal fade" id="Modal-3" tabindex="-1" role="dialog" aria-labelledby="Modal-label-3">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">amp;times;</span>
+                </button>
+                <h4 class="modal-title" id="Modal-label-3">Lamp amp; Velvet</h4>
+            </div>
+            <div class="modal-body">
+                <img src="images/demo/portfolio-3.jpg" alt="img01" class="img-responsive"/>
+                <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
+                <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-		<!-- Modal for portfolio item 4 -->
-		<div class="modal fade" id="Modal-4" tabindex="-1" role="dialog" aria-labelledby="Modal-label-4">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">amp;times;</span></button>
-						<h4 class="modal-title" id="Modal-label-4">Smart Name</h4>
-					</div>
-					<div class="modal-body">
-						<img src="images/demo/portfolio-4.jpg" alt="img01" class="img-responsive" />
-						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
+<!-- Modal for portfolio item 4 -->
+<div class="modal fade" id="Modal-4" tabindex="-1" role="dialog" aria-labelledby="Modal-label-4">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">amp;times;</span>
+                </button>
+                <h4 class="modal-title" id="Modal-label-4">Smart Name</h4>
+            </div>
+            <div class="modal-body">
+                <img src="images/demo/portfolio-4.jpg" alt="img01" class="img-responsive"/>
+                <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
+                <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-		<!-- Modal for portfolio item 5 -->
-		<div class="modal fade" id="Modal-5" tabindex="-1" role="dialog" aria-labelledby="Modal-label-5">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">amp;times;</span></button>
-						<h4 class="modal-title" id="Modal-label-5">Fast People</h4>
-					</div>
-					<div class="modal-body">
-						<img src="images/demo/portfolio-5.jpg" alt="img01" class="img-responsive" />
-						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
-						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
+<!-- Modal for portfolio item 5 -->
+<div class="modal fade" id="Modal-5" tabindex="-1" role="dialog" aria-labelledby="Modal-label-5">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">amp;times;</span>
+                </button>
+                <h4 class="modal-title" id="Modal-label-5">Fast People</h4>
+            </div>
+            <div class="modal-body">
+                <img src="images/demo/portfolio-5.jpg" alt="img01" class="img-responsive"/>
+                <div class="modal-works"><span>Branding</span><span>Web Design</span></div>
+                <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-		<!-- Bootstrap core JavaScript
-			================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/SmoothScroll.js"></script>
-		<script src="js/theme-scripts.js"></script>
-	</body>
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/SmoothScroll.js"></script>
+<script src="js/theme-scripts.js"></script>
+</body>
 </html>
