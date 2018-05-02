@@ -25,6 +25,7 @@ public class FilesController {
     private ResourceLoader resourceLoader;
 
     @RequestMapping(method = RequestMethod.POST, value = "/save")
+    @ResponseBody
     public String saveFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         System.out.println(request.getParameter("member"));
         System.out.println(System.getProperty("user.dir"));
@@ -46,7 +47,7 @@ public class FilesController {
             redirectAttributes.addFlashAttribute("message", "Failed to upload " + file.getOriginalFilename() + " because it was empty");
         }
 
-        return "redirect:/";
+        return "file upload success";
     }
 
     //显示图片的方法关键 匹配路径像 localhost:8080/b7c76eb3-5a67-4d41-ae5c-1642af3f8746.png
