@@ -10,7 +10,19 @@ sourceCompatibility = 1.8
 
 jar{
     baseName = 'aSmartNsHome'
-    version = '1.0'
+    version = '1.0.0'
+}
+
+task buildJarDocker(type: Docker, dependsOn: build, group: "custom"){
+    push = false
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/DockerfileJar')
+    doFirst{
+        copy{
+            from jar
+            into stageDir
+        }
+    }
 }
 
 dependencies {
