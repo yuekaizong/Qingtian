@@ -11,13 +11,16 @@
     <link rel="icon" href="favicon.ico"/>
     <title>Treviso - Clean amp; Elegant Onepage Multipurpose Bootstrap HTML</title>
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet"/>
-    <script src="js/editHome.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/jquery.serializejson.js"></script>
+    <link href="../css/style.css" rel="stylesheet"/>
+    <script src="../js/editHome.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/jquery.serializejson.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/SmoothScroll.js"></script>
+    <script src="../js/theme-scripts.js"></script>
 </head>
 <body id="page-top">
 <!-- Navigation -->
@@ -46,6 +49,7 @@
                     <ul th:each="o,iter: ${data}">
                         <input th:name="|[${iter.index}][name]|" th:value="${o.name}"/>
                         <input th:name="|[${iter.index}][flag]|" th:value="${o.flag}"/>
+                        <input th:name="|[${iter.index}][id]|" th:value="${o.id}"/>
                     </ul>
                 </ul>
             </div>
@@ -59,6 +63,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="section-title">
+                        <!--<input name="[0][id]" th:value="${obj.id}" type="hidden"/>-->
                         <input name="[0][title]" id="p_title0" type="text" th:value="${obj.title}"/><br/>
                         <input name="[0][description]" id="p_description0" type="text"
                                th:value="${obj.description}"/>
@@ -71,7 +76,7 @@
                 <div class="col-md-6 col-0-gutter">
                     <div class="ot-portfolio-item">
                         <figure class="effect-bubba">
-                            <img id="preview001" src="images/demo/portfolio-1.jpg" th:src="@{${cells[0].img}}"
+                            <img id="preview001" src="../images/demo/portfolio-1.jpg" th:src="@{${cells[0].img}}"
                                  alt="img02"
                                  class="img-responsive"/>
                             <figcaption>
@@ -97,7 +102,7 @@
                 <div class="col-md-6 col-0-gutter">
                     <div class="ot-portfolio-item">
                         <figure class="effect-bubba">
-                            <img id="preview011" src="images/demo/portfolio-2.jpg" th:src="@{${cells[1].img}}"
+                            <img id="preview011" src="../images/demo/portfolio-2.jpg" th:src="@{${cells[1].img}}"
                                  alt="img02"
                                  class="img-responsive"/>
                             <figcaption>
@@ -145,7 +150,7 @@
                 <div class="col-md-6 col-0-gutter">
                     <div class="ot-portfolio-item">
                         <figure class="effect-bubba">
-                            <img id="preview031" src="images/demo/portfolio-2.jpg" th:src="@{${cells[3].img}}"
+                            <img id="preview031" src="../images/demo/portfolio-2.jpg" th:src="@{${cells[3].img}}"
                                  alt="img02"
                                  class="img-responsive"/>
                             <figcaption>
@@ -171,7 +176,7 @@
                 <div class="col-md-6 col-0-gutter">
                     <div class="ot-portfolio-item">
                         <figure class="effect-bubba">
-                            <img id="preview041" src="images/demo/portfolio-2.jpg" th:src="@{${cells[4].img}}"
+                            <img id="preview041" src="../images/demo/portfolio-2.jpg" th:src="@{${cells[4].img}}"
                                  alt="img02"
                                  class="img-responsive"/>
                             <figcaption>
@@ -195,7 +200,7 @@
                 <div class="col-md-6 col-0-gutter">
                     <div class="ot-portfolio-item">
                         <figure class="effect-bubba">
-                            <img id="preview051" src="images/demo/portfolio-2.jpg" th:src="@{${cells[5].img}}"
+                            <img id="preview051" src="../images/demo/portfolio-2.jpg" th:src="@{${cells[5].img}}"
                                  alt="img02"
                                  class="img-responsive"/>
                             <figcaption>
@@ -224,6 +229,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="section-title">
+                        <!--<input name="[1][id]" th:value="${obj.id}"/>-->
                         <input name="[1][title]" id="title1" type="text" th:value="${obj.title}"/>
                     </div>
                 </div>
@@ -288,6 +294,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="section-title">
+                        <!--<input name="[2][id]" th:value="${obj.id}"/>-->
                         <input name="[2][title]" id="title2" th:value="|${obj.title}|"/>
                     </div>
                 </div>
@@ -322,6 +329,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="section-title">
+                        <!--<input name="[3][id]" th:value="${obj.id}"/>-->
                         <input name="[3][title]" id="title3" th:value="${obj.title}"/>
                         <input name="[3][description]" id="description3" th:value="${obj.description}"/>
                     </div>
@@ -335,7 +343,7 @@
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <div id="success"></div>
-                            <button type="submit" class="btn">提交信息</button>
+                            <button onclick="editHomeSave(this);" class="btn">提交信息</button>
                         </div>
                     </div>
                 </form>
@@ -355,12 +363,5 @@
         <a th:utext="${footer.text0}"> footer.text0 </a>
     </div>
 </footer>
-
-<!-- Bootstrap core JavaScript
-    ================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/SmoothScroll.js"></script>
-<script src="js/theme-scripts.js"></script>
 </body>
 </html>

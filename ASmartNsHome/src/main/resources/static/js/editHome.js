@@ -76,6 +76,30 @@ function formParseArray(obj){
     return data;
 }
 
+function editHomeSave(source){
+    var json = JSON.stringify($('#form1').serializeJSON());
+    var obj = JSON.parse(json);
+    var array = formParseArray(obj);
+    console.log(array);
+   $.ajax({
+     type: "POST",
+     url: "/admin/editHome",
+     contentType: "application/json",
+     data: JSON.stringify(array),
+     crossDomain: true,
+     success: success,
+     error: fail
+   });
+
+   function success(result){
+      alert(result);
+   }
+
+   function fail(result){
+     alert(result);
+   }
+}
+
 function sendData(source){
    $.ajax({
      type: "POST",
