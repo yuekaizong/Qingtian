@@ -9,7 +9,7 @@ apply plugin: 'docker'
 sourceCompatibility = 1.8
 
 jar{
-    baseName = 'aSmartNsHome'
+    baseName = 'asmartnshome'
     version = '1.0.0'
 }
 
