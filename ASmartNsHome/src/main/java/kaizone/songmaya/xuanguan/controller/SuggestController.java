@@ -25,7 +25,7 @@ public class SuggestController {
         entity.setEmail(body.get("email"));
         entity.setContent(body.get("content"));
         suggestJpa.save(entity);
-        return "success";
+        return "你的建议已成功提交，谢谢";
     }
 
     @PostMapping("/suggest/save1")
