@@ -4,11 +4,11 @@ insert into p1 (id, name, flag, title, description, content, position, text1, te
 insert into p1 (id, name, flag, title, description, content, position, text1, text2, text3, text4) values (3, '技术支持', 'support', '技术保障', '这是一个醉醺醺的新闻', '', '', '', '', '', '');
 insert into p1 (id, name, flag, title, description, content, position, text1, text2, text3, text4) values (4, '帮助建议', 'help', '为你服务', '如需帮助和建议，请在下面填写你建议和问题，我们将为你提供继续完善，为你提供更好的解决方案', '', '', '', '', '', '');
 
-insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(101,1,"images/demo/portfolio-1.jpg", '青', '取之于蓝，而青于蓝','http://hao123.com','dataTarget','viewMore','x=120,y=100','内容','名','值');
+insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(101,1,"images/demo/portfolio-1.jpg", '青', '取之于蓝，而青于蓝','#','dataTarget','viewMore','x=120,y=100','内容','名','值');
 insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(102,1,"images/demo/portfolio-2.jpg", '事者', '生于虑，成于务，失于傲','http://hao123.com','dataTarget','viewMore','x=120,y=100','内容','名','值');
-insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(103,1,"images/demo/portfolio-3.jpg", '你穷',  '是因为你没有野心','http://hao123.com','dataTarget','viewMore','x=120,y=100','内容','名','值');
+insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(103,1,"images/demo/portfolio-3.jpg", '你穷',  '是因为你没有野心','#','dataTarget','viewMore','x=120,y=100','内容','名','值');
 insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(104,1,"images/demo/portfolio-4.jpg", '鸡蛋',  '从外打破是食物,从内打破是生命','http://hao123.com','dataTarget','viewMore','x=120,y=100','内容','名','值');
-insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(105,1,"images/demo/portfolio-5.jpg", '有非凡志向',  '才有非凡成就','http://hao123.com','dataTarget','viewMore','x=120,y=100','内容','名','值');
+insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(105,1,"images/demo/portfolio-5.jpg", '有非凡志向',  '才有非凡成就','#','dataTarget','viewMore','x=120,y=100','内容','名','值');
 insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(106,1,"images/demo/portfolio-6.jpg", '我们不做市场调查,我们不招收顾问……', '我们只想做出伟大的产品','http://hao123.com','dataTarget','viewMore','x=120,y=100','内容','名','值');
 
 insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,position,content,name,value) values(201,2,"img", '技能', 'description','http://hao123.com','dataTarget','viewMore','x=120,y=100','内容','名','99%');
