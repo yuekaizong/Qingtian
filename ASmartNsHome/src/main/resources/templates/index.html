@@ -45,7 +45,7 @@
 			<!-- /.container-fluid -->
 		</nav>
 
-		<section id="portfolio" th:with="obj=${data[0]},cells=${data[0].cells}">
+		<section th:with="obj=${data[0]},cells=${data[0].cells}" th:id="${obj.flag}">
 			<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
@@ -148,7 +148,7 @@
 			</div><!-- container -->
 		</section>
 
-		<section id="about" class="mz-module" th:with="obj=${data[1]},cells=${data[1].cells}">
+		<section class="mz-module" th:with="obj=${data[1]},cells=${data[1].cells}"  th:id="${obj.flag}" >
 			<div class="container light-bg">
 				<div class="row">
 					<div class="col-lg-12 text-center">
@@ -214,7 +214,7 @@
 			<!-- /.container -->
 		</section>
 
-		<section id="news" th:with="obj=${data[2]},cells=${data[2].cells}">
+		<section th:with="obj=${data[2]},cells=${data[2].cells}"  th:id="${obj.flag}">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 text-center">
@@ -242,7 +242,7 @@
 			</div>
 		</section>
 
-		<section id="help" th:with="obj=${data[3]},cells=${data[3].cells}">
+		<section th:with="obj=${data[3]},cells=${data[3].cells}"  th:id="${obj.flag}">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 text-center">
