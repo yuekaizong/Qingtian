@@ -1,0 +1,14 @@
+server:
+   port: 8888
+spring:
+   aplication:
+      name: config-server
+   cloud:
+      config:
+           server:
+              git:
+                 uri : https://github
+                 searchPaths: re
+                 username: yuekaizong
+                 password: xxx
+            label: master

@@ -20,4 +20,6 @@ rootProject.name = 'Qingtian'
 include 'AMoo'
 include 'ASmartNsHome'
 include 'ASmartNsAdmin'
+include 'CloudConfigServer'
+include 'CloudConfigServer'
 
