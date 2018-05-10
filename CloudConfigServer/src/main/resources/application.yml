@@ -3,12 +3,12 @@ server:
 spring:
   application:
     name: config-server
-      cloud:
+  cloud:
         config:
           server:
             git:
-              uri: https://github.com/yuekaizong/Qingtian.git
-              searchPaths: Qingtian/CloudConfigServer
+              uri: https://github.com/yuekaizong/Qingtian/
+              searchPaths: CloudConfigServer
 #                 username: yuekaizong
 #                 password: xxx
           label: master

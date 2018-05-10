@@ -22,4 +22,5 @@ include 'ASmartNsHome'
 include 'ASmartNsAdmin'
 include 'CloudConfigServer'
 include 'CloudConfigServer'
+include 'CloudConfigClient'
 
