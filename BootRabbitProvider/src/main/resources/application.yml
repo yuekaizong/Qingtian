@@ -1,0 +1,14 @@
+spring:
+  rabbitmq:
+    username: guest
+    password: guest
+    host: 192.168.99.100
+    virtual-host: /
+    port: 5672
+    publisher-confirms: true
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.99.100:13306/test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+      username: root
+      password: 8664835
