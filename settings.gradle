@@ -25,4 +25,5 @@ include 'ASmartNsAdmin'
 include 'BootRabbitProvider'
 include 'BootRabbitCommon'
 include 'BootRabbitConsumer'
+include 'BootRabbitComsumerNode2'
 

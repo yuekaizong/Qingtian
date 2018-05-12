@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: rabbitmq-consumer-node2
+  rabbitmq:
+    username: guest
+    password: guest
+    host: 192.168.99.100
+    virtual-host: /
+    port: 5672
+    publisher-confirms: true
+server:
+  port: 8898

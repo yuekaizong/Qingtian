@@ -14,7 +14,7 @@ public class UserConsumer {
 
     @RabbitHandler
     public void execute(Long userId){
-        logger.info("用户注册消费者【节点1】获取消息，用户编号：{}",userId);
+        logger.info("用户注册消费者【节点2】获取消息，用户编号：{}",userId);
 
         //...//自行业务逻辑处理
     }
