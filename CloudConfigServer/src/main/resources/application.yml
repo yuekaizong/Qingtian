@@ -12,3 +12,8 @@ spring:
 #                 username: yuekaizong
 #                 password: xxx
           label: master
+#高可用的分布式配置中心
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:18761/eureka/

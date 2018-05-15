@@ -18,6 +18,7 @@ dependencyManagement {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.cloud:spring-cloud-starter-eureka')
     compile('org.springframework.cloud:spring-cloud-starter-config')
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
