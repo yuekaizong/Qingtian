@@ -16,7 +16,16 @@ public class HelloService {
         return restTemplate.getForObject("http://SERVICE-HI/hi?name=" + name, String.class);
     }
 
+    @HystrixCommand(fallbackMethod = "goError")
+    public String goService(String name) {
+        return restTemplate.getForObject("http://SERVICE-HI/hi?name=" + name, String.class);
+    }
+
     public String hiError(String name) {
         return "hi, "+name+", sorry, error!";
+    }
+
+    public String goError(String name) {
+        return "go, "+name+", sorry, error!";
     }
 }
