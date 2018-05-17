@@ -18,7 +18,16 @@ public class HelloService {
 
     @HystrixCommand(fallbackMethod = "goError")
     public String goService(String name) {
-        return restTemplate.getForObject("http://SERVICE-HI/hi?name=" + name, String.class);
+        return restTemplate.getForObject("http://SERVICE-HI/go?name=" + name, String.class);
+    }
+
+    @HystrixCommand(fallbackMethod = "error")
+    public String yaya() {
+        return restTemplate.getForObject("http://SERVICE-ya/ya", String.class);
+    }
+
+    public String yala() {
+        return restTemplate.getForObject("http://SERVICE-ya/la", String.class);
     }
 
     public String hiError(String name) {
@@ -27,5 +36,9 @@ public class HelloService {
 
     public String goError(String name) {
         return "go, "+name+", sorry, error!";
+    }
+
+    public String error(){
+        return "这是一个错误";
     }
 }

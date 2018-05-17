@@ -1,5 +1,6 @@
 package kaizone.songmaya.qingtian.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import kaizone.songmaya.qingtian.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,5 +22,17 @@ public class HelloController {
     public String go(@RequestParam String name){
         return helloService.goService(name);
     }
+
+    @RequestMapping(value = "yaya")
+    public String yaya(){
+        return helloService.yaya();
+    }
+
+    @HystrixCommand(fallbackMethod = "error")
+    @RequestMapping(value = "yala")
+    public String yala(){
+        return helloService.yala();
+    }
+
 
 }

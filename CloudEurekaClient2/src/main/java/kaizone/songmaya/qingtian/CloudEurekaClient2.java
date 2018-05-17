@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @EnableEurekaClient
 @RestController
-public class CloudEurekaClient {
+public class CloudEurekaClient2 {
     public static void main(String[] args) {
-        SpringApplication.run(CloudEurekaClient.class, args);
+        SpringApplication.run(CloudEurekaClient2.class, args);
     }
 
     @Value("${server.port}")
     String port;
 
-    @RequestMapping("hi")
-    public String hi(@RequestParam String name) {
-        return "hi " + name + ", i am from port:" + port;
+    @RequestMapping("ya")
+    public String ya() {
+        return "这个丫丫的 port:" + port;
     }
 
-    @RequestMapping("go")
-    public String go(@RequestParam String name) {
-        return  name + "le's go" + port;
+    @RequestMapping("la")
+    public String go() {
+        return   "lalalala yaka " + port;
     }
 }
