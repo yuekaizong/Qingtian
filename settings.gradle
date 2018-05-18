@@ -27,4 +27,5 @@ include 'ASmartNsAdmin'
 //include 'BootRabbitCommon'
 //include 'BootRabbitConsumer'
 //include 'BootRabbitComsumerNode2'
+include 'CloudZipkinServer'
 
