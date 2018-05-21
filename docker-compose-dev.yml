@@ -1,0 +1,13 @@
+version: '3'
+services:
+  eureka-server:
+    build: CloudEurekaServerDocker
+    ports:
+      - 18761:18761
+
+  service-hi:
+    build: CloudEurekaClient
+    ports:
+      - 18762:18762
+
+

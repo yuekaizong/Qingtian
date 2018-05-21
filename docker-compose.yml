@@ -1,0 +1,15 @@
+version: '3'
+services:
+  eureka-server:
+    image: kaizone.songmaya/cloud-eureka-server:1.0-SNAPSHOT
+    restart: always
+    ports:
+      - 18761:18761
+
+  service-hi:
+    image: kaizone.songmaya/cloud-eureka-client:1.0-SNAPSHOT
+    restart: always
+    ports:
+      - 18762:18762
+
+

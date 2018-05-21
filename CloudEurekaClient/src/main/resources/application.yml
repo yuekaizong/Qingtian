@@ -1,7 +1,9 @@
 eureka:
     client:
         serviceUrl:
-          defaultZone: http://localhost:18761/eureka
+#          defaultZone: http://localhost:18761/eureka
+           #部署到docker需要更改对应服务
+           defaultZone: http://eureka-server:18761/eureka
 server:
      port: 18762
 spring:
