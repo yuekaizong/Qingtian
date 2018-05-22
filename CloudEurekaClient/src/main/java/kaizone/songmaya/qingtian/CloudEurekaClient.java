@@ -1,11 +1,15 @@
 package kaizone.songmaya.qingtian;
 
 import com.netflix.discovery.converters.Auto;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +23,9 @@ import java.util.logging.Logger;
 @SpringBootApplication
 @EnableEurekaClient
 @RestController
+@EnableHystrix
+@EnableHystrixDashboard
+@EnableCircuitBreaker
 public class CloudEurekaClient {
     private static final Logger LOG = Logger.getLogger(CloudEurekaClient.class.getName());
 
@@ -42,6 +49,16 @@ public class CloudEurekaClient {
         return "hi " + name + ", i am from port:" + port;
     }
 
+    @RequestMapping("divide")
+    @HystrixCommand(fallbackMethod = "divideError")
+    public String divide(@RequestParam int divisor, @RequestParam int dividend) {
+        return String.format("%s/%s=%s", dividend, divisor, dividend / divisor);
+    }
+
+    public String divideError(int divisor, int dividend) {
+        return "divide Error!!!";
+    }
+
     @RequestMapping("go")
     public String go(@RequestParam String name) {
         return name + "le's go" + port;
@@ -54,16 +71,15 @@ public class CloudEurekaClient {
     }
 
     @RequestMapping("/info")
-    public String info(){
+    public String info() {
         LOG.log(Level.INFO, "calling trace service-hi");
         return "i'm cloudEurekaClient!!";
     }
 
     @Bean
-    public AlwaysSampler defaultSampler(){
+    public AlwaysSampler defaultSampler() {
         return new AlwaysSampler();
     }
-
 
 
 }
