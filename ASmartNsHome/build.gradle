@@ -28,9 +28,10 @@ task buildJarDocker(type: Docker, dependsOn: build, group: "custom"){
 dependencies {
 //    compile project(':ASmartNsAdmin')
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-test")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("com.alibaba:druid:1.1.4")
     compile("mysql:mysql-connector-java:6.0.6")
-//    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
