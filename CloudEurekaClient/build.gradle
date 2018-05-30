@@ -32,6 +32,7 @@ task buildJarDocker(type: Docker, dependsOn: build, group: "custom"){
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-configuration-processor")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile('org.springframework.cloud:spring-cloud-starter-eureka')
     compile('org.springframework.cloud:spring-cloud-starter-zipkin')

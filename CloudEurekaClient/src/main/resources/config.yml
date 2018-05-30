@@ -1,0 +1,9 @@
+#java -jar xx.jar -Dfile.codeing=UTF-8 --spring.config.location=./application.yml,./config.yml
+config:
+  samples:
+    -
+      name: "Rabbitmq Consumer"
+      description: "@Component @RabbitListener(queue=...) @RabbitHandler"
+    -
+      name: "OAuth2"
+      description: "@EnableResourceServer extends ResourceServerConfigurerAdapter override configure(HttpSecurity http), @EnableAuthorizationServer extends AuthorizationServerConfigurerAdapter implements EnvironmentAware configure(AuthorizationServerEndpoints endpoints) configure(ClientDetailsServiceConfigurer clients)"
