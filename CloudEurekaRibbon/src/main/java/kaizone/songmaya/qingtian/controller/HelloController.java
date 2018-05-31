@@ -28,6 +28,11 @@ public class HelloController {
         return helloService.yaya();
     }
 
+    @RequestMapping(value = "youxi")
+    public String youxi(){
+        return "youxi";
+    }
+
     @HystrixCommand(fallbackMethod = "error")
     @RequestMapping(value = "yala")
     public String yala(){

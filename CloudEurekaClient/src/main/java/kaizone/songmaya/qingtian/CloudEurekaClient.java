@@ -66,9 +66,31 @@ public class CloudEurekaClient {
     }
 
     @RequestMapping("/callCloudEurekaClient2Ya")
+    @HystrixCommand(fallbackMethod = "callQError")
     public String callQ() {
         LOG.log(Level.INFO, "calling trace other client");
         return restTemplate.getForObject("http://localhost:18763/ya", String.class);
+    }
+
+    @RequestMapping("/callQ2")
+    @HystrixCommand(fallbackMethod = "callQ2Error")
+    public String callQ2() {
+        LOG.log(Level.INFO, "calling trace other client");
+        String str1 = restTemplate.getForObject("http://localhost:18763/ya", String.class);
+//        String str2 = restTemplate.getForObject("http://localhost:18765/ka", String.class);
+        String str2 = restTemplate.getForObject("http://localhost:18764/youxi", String.class);
+        StringBuilder sb = new StringBuilder();
+        sb.append(str1).append("\n");
+        sb.append(str2).append("\n");
+        return sb.toString();
+    }
+
+    public String callQError() {
+        return String.format("callQ error");
+    }
+
+    public String callQ2Error(Throwable t) {
+        return String.format("callQ error, %s", t);
     }
 
     @RequestMapping("/info")

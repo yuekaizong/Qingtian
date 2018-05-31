@@ -18,4 +18,9 @@ public class HiController {
         return schedualServiceHi.sayHiFromClientOne(name);
     }
 
+    @RequestMapping(value = "ka", method = RequestMethod.GET)
+    public String sayKa() {
+        return "this this sayKa";
+    }
+
 }
