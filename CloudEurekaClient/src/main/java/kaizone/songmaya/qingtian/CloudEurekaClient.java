@@ -40,10 +40,10 @@ public class CloudEurekaClient {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Bean
-    public RestTemplate getRestTemplate() {
-        return new RestTemplate();
-    }
+//    @Bean
+//    public RestTemplate getRestTemplate() {
+//        return new RestTemplate();
+//    }
 
     @RequestMapping("hi")
     public String hi(@RequestParam String name) {
@@ -75,6 +75,18 @@ public class CloudEurekaClient {
     @RequestMapping("/callQ2")
     @HystrixCommand(fallbackMethod = "callQ2Error")
     public String callQ2() {
+        LOG.log(Level.INFO, "calling trace other client");
+        String str1 = restTemplate.getForObject("http://localhost:18763/ya", String.class);
+//        String str2 = restTemplate.getForObject("http://localhost:18765/ka", String.class);
+        String str2 = restTemplate.getForObject("http://localhost:18764/youxi", String.class);
+        StringBuilder sb = new StringBuilder();
+        sb.append(str1).append("\n");
+        sb.append(str2).append("\n");
+        return sb.toString();
+    }
+
+    @RequestMapping("/callQ3")
+    public String callQ3() {
         LOG.log(Level.INFO, "calling trace other client");
         String str1 = restTemplate.getForObject("http://localhost:18763/ya", String.class);
 //        String str2 = restTemplate.getForObject("http://localhost:18765/ka", String.class);

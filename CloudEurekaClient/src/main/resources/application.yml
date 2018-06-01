@@ -19,3 +19,9 @@ spring:
 #    -
 #      name: "OAuth2"
 #      description: "@EnableResourceServer extends ResourceServerConfigurerAdapter override configure(HttpSecurity http), @EnableAuthorizationServer extends AuthorizationServerConfigurerAdapter implements EnvironmentAware configure(AuthorizationServerEndpoints endpoints) configure(ClientDetailsServiceConfigurer clients)"
+restTemplateMock:
+  mockItems:
+  -
+    url: "https://mvnrepository.com/artifact/commons-io/commons-io/2.4"
+    status: "ok"
+    body: "hello mock"
