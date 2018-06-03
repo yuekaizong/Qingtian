@@ -1,12 +1,11 @@
 package kaizone.songmaya.qingtian;
 
-import com.netflix.discovery.converters.Auto;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
@@ -73,7 +72,11 @@ public class CloudEurekaClient {
     }
 
     @RequestMapping("/callQ2")
-    @HystrixCommand(fallbackMethod = "callQ2Error")
+    @HystrixCommand(fallbackMethod = "callQ2Error", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000"),//指定多久超时，单位毫秒。超时进fallback
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),//判断熔断的最少请求数，默认是10；只有在一个统计窗口内处理的请求数量达到这个阈值，才会进行熔断与否的判断
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "10"),//判断熔断的阈值，默认值50，表示在一个统计窗口内有50%的请求处理失败，会触发熔断
+    })
     public String callQ2() {
         LOG.log(Level.INFO, "calling trace other client");
         String str1 = restTemplate.getForObject("http://localhost:18763/ya", String.class);
@@ -88,9 +91,9 @@ public class CloudEurekaClient {
     @RequestMapping("/callQ3")
     public String callQ3() {
         LOG.log(Level.INFO, "calling trace other client");
-        String str1 = restTemplate.getForObject("http://localhost:18763/ya", String.class);
+        String str1 = restTemplate.getForObject("http://SERVICE-YA/ya", String.class);
 //        String str2 = restTemplate.getForObject("http://localhost:18765/ka", String.class);
-        String str2 = restTemplate.getForObject("http://localhost:18764/youxi", String.class);
+        String str2 = restTemplate.getForObject("http://SERVICE-RIBBON/youxi", String.class);
         StringBuilder sb = new StringBuilder();
         sb.append(str1).append("\n");
         sb.append(str2).append("\n");
