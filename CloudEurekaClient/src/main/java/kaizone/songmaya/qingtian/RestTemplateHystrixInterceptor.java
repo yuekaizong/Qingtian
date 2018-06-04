@@ -132,7 +132,7 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
             HystrixCommandProperties.Setter commandProperties = HystrixCommandProperties.Setter()
                     .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)
                     .withExecutionIsolationThreadInterruptOnTimeout(true)
-                    .withExecutionTimeoutInMilliseconds(8 * 1000) //设置自动熔断超时时间
+                    .withExecutionTimeoutInMilliseconds(5 * 1000) //设置自动熔断超时时间
                     .withCircuitBreakerErrorThresholdPercentage(20);//失败率达到20%自动熔断
 
             //返回
