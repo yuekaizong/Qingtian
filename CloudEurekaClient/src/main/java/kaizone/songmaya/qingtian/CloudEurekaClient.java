@@ -92,8 +92,19 @@ public class CloudEurekaClient {
     public String callQ3() {
         LOG.log(Level.INFO, "calling trace other client");
         String str1 = restTemplate.getForObject("http://SERVICE-YA/ya", String.class);
+        String str2 = restTemplate.getForObject("http://SERVICE-RIBBON/normal", String.class);
+        StringBuilder sb = new StringBuilder();
+        sb.append(str1).append("\n");
+        sb.append(str2).append("\n");
+        return sb.toString();
+    }
+
+    @RequestMapping("/callQ4")
+    public String callQ4() {
+        LOG.log(Level.INFO, "calling trace other client");
+        String str1 = restTemplate.getForObject("http://SERVICE-YA/sleep", String.class);
 //        String str2 = restTemplate.getForObject("http://localhost:18765/ka", String.class);
-        String str2 = restTemplate.getForObject("http://SERVICE-RIBBON/youxi", String.class);
+        String str2 = restTemplate.getForObject("http://SERVICE-RIBBON/normal", String.class);
         StringBuilder sb = new StringBuilder();
         sb.append(str1).append("\n");
         sb.append(str2).append("\n");

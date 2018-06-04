@@ -34,6 +34,16 @@ public class CloudEurekaClient2 {
         return "这个丫丫的 port:" + port;
     }
 
+    @RequestMapping(value = "sleep")
+    public String sleep() {
+        try {
+            Thread.currentThread().sleep(10 * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return String.format("this is sleep, %s", Thread.currentThread().getName());
+    }
+
     @RequestMapping("la")
     public String go() {
         return "lalalala yaka " + port;

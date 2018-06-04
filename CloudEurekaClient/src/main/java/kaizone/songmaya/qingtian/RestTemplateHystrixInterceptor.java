@@ -26,9 +26,21 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, final ClientHttpRequestExecution execution) throws IOException {
         final URI requestURI = request.getURI();
         String commandKeyName = mapCommandKey(requestURI);
-        ClientHttpResponse run = execution.execute(request, body);
-        ClientHttpResponse fallback = new MyClientHttpResponse(mockResponseConfig.getMockItems().get(0));
 
+//        ClientHttpResponse run = execution.execute(request, body);
+//        ClientHttpResponse fallback = new MyClientHttpResponse(mockResponseConfig.getMockItems().get(0));
+        ClientHttpResponseImpl run = () -> {
+            try {
+                return execution.execute(request, body);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        };
+
+        ClientHttpResponseImpl fallback = () -> {
+            return new MyClientHttpResponse(mockResponseConfig.getMockItems().get(0));
+        };
         return new RestTemplateHystrixCommnad(commandKeyName, run, fallback).execute();
     }
 
@@ -55,12 +67,15 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
         System.out.println(threadPoolKeyName(uri));
     }
 
+    public interface ClientHttpResponseImpl {
+        ClientHttpResponse action();
+    }
 
     public static class RestTemplateHystrixCommnad extends HystrixCommand<ClientHttpResponse> {
-        private final ClientHttpResponse run;
-        private final ClientHttpResponse fallback;
+        private final ClientHttpResponseImpl run;
+        private final ClientHttpResponseImpl fallback;
 
-        public RestTemplateHystrixCommnad(String commandKeyName, ClientHttpResponse run, ClientHttpResponse fallback) {
+        public RestTemplateHystrixCommnad(String commandKeyName, ClientHttpResponseImpl run, ClientHttpResponseImpl fallback) {
             super(ApiSetter.setter(commandKeyName));
             this.run = run;
             this.fallback = fallback;
@@ -68,12 +83,12 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
 
         @Override
         protected ClientHttpResponse run() {
-            return run;
+            return run.action();
         }
 
         @Override
         protected ClientHttpResponse getFallback() {
-            return fallback;
+            return fallback.action();
         }
     }
 
@@ -117,7 +132,7 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
             HystrixCommandProperties.Setter commandProperties = HystrixCommandProperties.Setter()
                     .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)
                     .withExecutionIsolationThreadInterruptOnTimeout(true)
-                    .withExecutionTimeoutInMilliseconds(60 * 1000) //设置自动熔断超时时间
+                    .withExecutionTimeoutInMilliseconds(8 * 1000) //设置自动熔断超时时间
                     .withCircuitBreakerErrorThresholdPercentage(20);//失败率达到20%自动熔断
 
             //返回
