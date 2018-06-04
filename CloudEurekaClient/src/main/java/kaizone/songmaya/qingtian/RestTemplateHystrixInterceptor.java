@@ -2,6 +2,7 @@ package kaizone.songmaya.qingtian;
 
 import com.netflix.hystrix.*;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
@@ -24,57 +25,60 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, final ClientHttpRequestExecution execution) throws IOException {
         final URI requestURI = request.getURI();
-        System.out.println(requestURI.toString());
-        final String serverName = "RestTemplate";
+        String commandKeyName = mapCommandKey(requestURI);
+        ClientHttpResponse run = execution.execute(request, body);
+        ClientHttpResponse fallback = new MyClientHttpResponse(mockResponseConfig.getMockItems().get(0));
 
-        ClientHttpResponseImpl run = new ClientHttpResponseImpl() {
-            @Override
-            public ClientHttpResponse action() {
-                try {
-                    return execution.execute(request, body);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-        };
+        return new RestTemplateHystrixCommnad(commandKeyName, run, fallback).execute();
+    }
 
-        ClientHttpResponseImpl fallback = new ClientHttpResponseImpl() {
-            @Override
-            public ClientHttpResponse action() {
-                return new MyClientHttpResponse(mockResponseConfig.getMockItems().get(0));
-            }
-        };
+    public static String mapCommandKey(URI uri) {
+        if (uri == null)
+            return null;
+        if (StringUtils.isEmpty(uri.getPath()))
+            return null;
+        return StringUtils.substringAfterLast(uri.getPath(), "/");
+    }
 
-        return new RestTemplateHystrixCommnad(serverName, run, fallback).execute();
+    public static String threadPoolKeyName(URI uri) {
+        if (uri == null)
+            return null;
+        if (StringUtils.isEmpty(uri.getPath()))
+            return null;
+        String str1 = StringUtils.substringAfter(uri.getPath(), "appserver/");
+        return StringUtils.substringBefore(str1, "/");
+    }
+
+    public static void main(String[] args) {
+        URI uri = URI.create("http://localhost:18764/app/appserver/crm/cust/yayaya");
+        System.out.println(mapCommandKey(uri));
+        System.out.println(threadPoolKeyName(uri));
     }
 
 
     public static class RestTemplateHystrixCommnad extends HystrixCommand<ClientHttpResponse> {
-        private final ClientHttpResponseImpl run;
-        private final ClientHttpResponseImpl fallback;
+        private final ClientHttpResponse run;
+        private final ClientHttpResponse fallback;
 
-        public RestTemplateHystrixCommnad(String name, ClientHttpResponseImpl run, ClientHttpResponseImpl fallback) {
-            super(ApiSetter.setter("RestTemplateHystrixCommnad"));
+        public RestTemplateHystrixCommnad(String commandKeyName, ClientHttpResponse run, ClientHttpResponse fallback) {
+            super(ApiSetter.setter(commandKeyName));
             this.run = run;
             this.fallback = fallback;
         }
 
         @Override
         protected ClientHttpResponse run() {
-            return run.action();
+            return run;
         }
 
         @Override
         protected ClientHttpResponse getFallback() {
-            return fallback.action();
+            return fallback;
         }
     }
 
     /**
      * 调用API设置的参数或公共参数
-     *
-     * @author liweihan
      */
     public static class ApiSetter {
 
@@ -113,7 +117,7 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
             HystrixCommandProperties.Setter commandProperties = HystrixCommandProperties.Setter()
                     .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD)
                     .withExecutionIsolationThreadInterruptOnTimeout(true)
-                    .withExecutionTimeoutInMilliseconds(60*1000) //设置超时时间为3秒时自动熔断
+                    .withExecutionTimeoutInMilliseconds(60 * 1000) //设置自动熔断超时时间
                     .withCircuitBreakerErrorThresholdPercentage(20);//失败率达到20%自动熔断
 
             //返回
@@ -151,9 +155,6 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
 
     }
 
-    public interface ClientHttpResponseImpl {
-        ClientHttpResponse action();
-    }
 
     final class MyClientHttpResponse implements ClientHttpResponse {
 
