@@ -92,7 +92,13 @@ public class CloudEurekaClient {
     public String callQ3() {
         LOG.log(Level.INFO, "calling trace other client");
         String str1 = restTemplate.getForObject("http://SERVICE-YA/ya", String.class);
+        if (str1 == null){
+            str1 = "http://SERVICE-YA/ya-->null";
+        }
         String str2 = restTemplate.getForObject("http://SERVICE-RIBBON/normal", String.class);
+        if (str2 == null){
+            str2 = "http://SERVICE-RIBBON/normal-->null";
+        }
         StringBuilder sb = new StringBuilder();
         sb.append(str1).append("\n");
         sb.append(str2).append("\n");

@@ -39,7 +39,10 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
         };
 
         ClientHttpResponseImpl fallback = () -> {
-            return new MyClientHttpResponse(mockResponseConfig.getMockItems().get(0));
+            if (mockResponseConfig.getMockItems() != null && !mockResponseConfig.getMockItems().isEmpty()) {
+                return new MyClientHttpResponse(mockResponseConfig.getMockItems().get(0));
+            }
+            return new MyClientHttpResponse(null);
         };
         return new RestTemplateHystrixCommnad(commandKeyName, run, fallback).execute();
     }
@@ -171,7 +174,7 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
     }
 
 
-    final class MyClientHttpResponse implements ClientHttpResponse {
+    private final class MyClientHttpResponse implements ClientHttpResponse {
 
         private final MockResponseConfig.MockItem mockInfo;
 
@@ -183,29 +186,28 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
 
 
         MyClientHttpResponse(MockResponseConfig.MockItem mockInfo) {
-
-            if (mockInfo == null) {
-                throw new IllegalArgumentException("mockInfo");
-            }
             this.mockInfo = mockInfo;
             init();
         }
 
         private void init() {
-            if (org.apache.commons.lang3.StringUtils.isBlank(this.mockInfo.getStatus())
-                    || !org.apache.commons.lang3.StringUtils.isNumeric(this.mockInfo.getStatus().trim())) {
+            if (mockInfo == null) {
+                status = HttpStatus.OK;
+            } else if (StringUtils.isBlank(this.mockInfo.getStatus())
+                    || StringUtils.isNumeric(this.mockInfo.getStatus().trim())) {
                 status = HttpStatus.OK;
             } else {
                 status = HttpStatus.valueOf(Integer.valueOf(this.mockInfo.getStatus().trim()));
             }
 
             headers = new HttpHeaders();
-            if (this.mockInfo.getHeaders() == null || this.mockInfo.getHeaders().size() == 0) {
+            if (mockInfo == null) {
+                headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+            } else if (this.mockInfo.getHeaders() == null || this.mockInfo.getHeaders().size() == 0) {
                 headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
             } else {
                 headers.putAll(this.mockInfo.getHeaders());
             }
-
         }
 
         @Override
@@ -230,6 +232,9 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
 
         @Override
         public InputStream getBody() throws IOException {
+            if (mockInfo == null) {
+                return null;
+            }
             return IOUtils.toInputStream(this.mockInfo.getBody(), StandardCharsets.UTF_8);
         }
 
