@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 @EnableHystrixDashboard
 @EnableCircuitBreaker
 public class CloudEurekaClient {
-    private static final Logger LOG = Logger.getLogger(CloudEurekaClient.class.getName());
+    private static final Logger logger = Logger.getLogger(CloudEurekaClient.class.getName());
 
     public static void main(String[] args) {
         SpringApplication.run(CloudEurekaClient.class, args);
@@ -45,8 +45,8 @@ public class CloudEurekaClient {
 //    }
 
     @RequestMapping("hi")
-    public String hi(@RequestParam String name) {
-        return "hi " + name + ", i am from port:" + port;
+    public String hi() {
+        return "hi " + ", i am from port:" + port;
     }
 
     @RequestMapping("divide")
@@ -67,7 +67,7 @@ public class CloudEurekaClient {
     @RequestMapping("/callCloudEurekaClient2Ya")
     @HystrixCommand(fallbackMethod = "callQError")
     public String callQ() {
-        LOG.log(Level.INFO, "calling trace other client");
+        logger.log(Level.INFO, "calling trace other client");
         return restTemplate.getForObject("http://localhost:18763/ya", String.class);
     }
 
@@ -78,42 +78,52 @@ public class CloudEurekaClient {
             @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "10"),//判断熔断的阈值，默认值50，表示在一个统计窗口内有50%的请求处理失败，会触发熔断
     })
     public String callQ2() {
-        LOG.log(Level.INFO, "calling trace other client");
+        logger.info("--------------------callQ2 start---------------------");
         String str1 = restTemplate.getForObject("http://localhost:18763/ya", String.class);
+        logger.info("str1=" + str1);
 //        String str2 = restTemplate.getForObject("http://localhost:18765/ka", String.class);
         String str2 = restTemplate.getForObject("http://localhost:18764/youxi", String.class);
+        logger.info("str2=" + str2);
         StringBuilder sb = new StringBuilder();
         sb.append(str1).append("\n");
         sb.append(str2).append("\n");
+        logger.info("--------------------callQ2 start---------------------");
         return sb.toString();
     }
 
     @RequestMapping("/callQ3")
     public String callQ3() {
-        LOG.log(Level.INFO, "calling trace other client");
+        logger.log(Level.INFO, "-----------callQ3 start-------------");
         String str1 = restTemplate.getForObject("http://SERVICE-YA/ya", String.class);
-        if (str1 == null){
+        logger.info(String.format("http://SERVICE-YA/sleep %s", str1));
+        if (str1 == null) {
             str1 = "http://SERVICE-YA/ya-->null";
         }
+
         String str2 = restTemplate.getForObject("http://SERVICE-RIBBON/normal", String.class);
-        if (str2 == null){
+        logger.info(String.format("http://SERVICE-RIBBON/normal %s", str2));
+        if (str2 == null) {
             str2 = "http://SERVICE-RIBBON/normal-->null";
         }
+
         StringBuilder sb = new StringBuilder();
         sb.append(str1).append("\n");
         sb.append(str2).append("\n");
+        logger.log(Level.INFO, "-----------callQ3 end-------------");
         return sb.toString();
     }
 
     @RequestMapping("/callQ4")
     public String callQ4() {
-        LOG.log(Level.INFO, "calling trace other client");
+        logger.log(Level.INFO, "-----------callQ4 start-------------");
         String str1 = restTemplate.getForObject("http://SERVICE-YA/sleep", String.class);
-//        String str2 = restTemplate.getForObject("http://localhost:18765/ka", String.class);
+        logger.info(String.format("http://SERVICE-YA/sleep %s", str1));
         String str2 = restTemplate.getForObject("http://SERVICE-RIBBON/normal", String.class);
+        logger.info(String.format("http://SERVICE-RIBBON/normal %s", str2));
         StringBuilder sb = new StringBuilder();
         sb.append(str1).append("\n");
         sb.append(str2).append("\n");
+        logger.log(Level.INFO, "-----------callQ4 end-------------");
         return sb.toString();
     }
 
@@ -127,7 +137,7 @@ public class CloudEurekaClient {
 
     @RequestMapping("/info")
     public String info() {
-        LOG.log(Level.INFO, "calling trace service-hi");
+        logger.log(Level.INFO, "calling trace service-hi");
         return "i'm cloudEurekaClient!!";
     }
 
