@@ -3,7 +3,10 @@ package kaizone.songmaya.qingtian;
 import com.netflix.hystrix.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
@@ -19,8 +22,13 @@ import java.nio.charset.StandardCharsets;
 
 public class RestTemplateHystrixInterceptor implements ClientHttpRequestInterceptor {
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private MockResponseConfig mockResponseConfig;
+
+    @Autowired
+    private Tracer tracer;
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, final ClientHttpRequestExecution execution) throws IOException {
@@ -31,6 +39,8 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
 //        ClientHttpResponse fallback = new MyClientHttpResponse(mockResponseConfig.getMockItems().get(0));
         ClientHttpResponseImpl run = () -> {
             try {
+                logger.info(String.format("%s,%s", request.getURI(), request.getMethod()));
+//                tracer.close(tracer.getCurrentSpan());
                 return execution.execute(request, body);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -79,7 +89,8 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
         private final ClientHttpResponseImpl fallback;
 
         public RestTemplateHystrixCommnad(String commandKeyName, ClientHttpResponseImpl run, ClientHttpResponseImpl fallback) {
-            super(ApiSetter.setter(commandKeyName));
+//            super(ApiSetter.setter(commandKeyName));
+            super(ApiSetter.semaphoreSetter(commandKeyName));
             this.run = run;
             this.fallback = fallback;
         }
@@ -100,12 +111,12 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
      */
     public static class ApiSetter {
 
-        public static HystrixCommand.Setter setter(String commandKeyName, String threadPoolKeyName) {
-            return setter("ApiGroup", commandKeyName, threadPoolKeyName);
+        public static HystrixCommand.Setter threadSetter(String commandKeyName, String threadPoolKeyName) {
+            return threadSetter("ApiGroup", commandKeyName, threadPoolKeyName);
         }
 
         public static HystrixCommand.Setter setter(String commandKeyName) {
-            return setter(commandKeyName, "Api-Pool");
+            return threadSetter(commandKeyName, "Api-Pool");
         }
 
         /**
@@ -117,7 +128,7 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
          * @time 2017/12/20 16:57
          * @description 相关参数设置
          */
-        public static HystrixCommand.Setter setter(String groupKeyName, String commandKeyName, String threadPoolKeyName) {
+        public static HystrixCommand.Setter threadSetter(String groupKeyName, String commandKeyName, String threadPoolKeyName) {
             //服务分组
             HystrixCommandGroupKey groupKey = HystrixCommandGroupKey.Factory.asKey(groupKeyName);
             //服务标识
@@ -149,27 +160,45 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
 
         /**
          * ☆参数说明：
-         1.HystrixCommandGroupKey：服务分组，以上groupKey分组就包括多个服务，必填选项
-
-         2.HystrixCommandKey：服务的名称，唯一标识，如果不配置，则默认是类名
-
-         3.HystrixThreadPoolKey：线程池的名称，相同线程池名称的线程池是同一个，如果不配置，默认为分组名
-
-         4.HystrixThreadPoolProperties：线程池的配置，
-         coreSize配置核心线程池的大小，
-         maxQueueSize线程池队列的最大大小，
-         queueSizeRejectionThreshold，限制当前队列的大小，
-         实际队列大小由这个参数决定，即到达队列里面条数到达10000，则都会被拒绝。
-
-         5.HystrixCommandProperties：配置命令的一些参数，
-         如executionIsolationStrategy，配置执行隔离策略，默认是使用线程隔离，THREAD即为线程池隔离，
-
-         ExecutionIsolationThreadInterruptOnTimeout 使用线程隔离时,是否对命令执行超时的线程调用中断操作.默认：true
-         和ExecutionTimeoutInMilliseconds配置了启用超时和最大执行时间，这里为3s，
-
-         circuitBreakerErrorThresholdPercentage失败率配置，默认为50%，
-         这里配置的为25%，即失败率到达25%触发熔断
+         * 1.HystrixCommandGroupKey：服务分组，以上groupKey分组就包括多个服务，必填选项
+         * <p>
+         * 2.HystrixCommandKey：服务的名称，唯一标识，如果不配置，则默认是类名
+         * <p>
+         * 3.HystrixThreadPoolKey：线程池的名称，相同线程池名称的线程池是同一个，如果不配置，默认为分组名
+         * <p>
+         * 4.HystrixThreadPoolProperties：线程池的配置，
+         * coreSize配置核心线程池的大小，
+         * maxQueueSize线程池队列的最大大小，
+         * queueSizeRejectionThreshold，限制当前队列的大小，
+         * 实际队列大小由这个参数决定，即到达队列里面条数到达10000，则都会被拒绝。
+         * <p>
+         * 5.HystrixCommandProperties：配置命令的一些参数，
+         * 如executionIsolationStrategy，配置执行隔离策略，默认是使用线程隔离，THREAD即为线程池隔离，
+         * <p>
+         * ExecutionIsolationThreadInterruptOnTimeout 使用线程隔离时,是否对命令执行超时的线程调用中断操作.默认：true
+         * 和ExecutionTimeoutInMilliseconds配置了启用超时和最大执行时间，这里为3s，
+         * <p>
+         * circuitBreakerErrorThresholdPercentage失败率配置，默认为50%，
+         * 这里配置的为25%，即失败率到达25%触发熔断
          */
+
+        public static HystrixCommand.Setter semaphoreSetter(String key) {
+            return HystrixCommand.Setter
+                    //设置GroupKey 用于dashboard 分组展示
+                    .withGroupKey(HystrixCommandGroupKey.Factory.asKey("hello"))
+                    //设置CommandKey 用于Semaphore分组，相同的CommandKey属于同一组隔离资源
+                    .andCommandKey(HystrixCommandKey.Factory.asKey("hello" + key))
+                    //设置隔离级别：Semaphore
+                    .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
+                            //是否开启熔断器机制
+                            .withCircuitBreakerEnabled(true)
+                            //舱壁隔离策略
+                            .withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.SEMAPHORE)
+                            //设置每组command可以申请的permit最大数
+                            .withExecutionIsolationSemaphoreMaxConcurrentRequests(50)
+                            //circuitBreaker打开后多久关闭
+                            .withCircuitBreakerSleepWindowInMilliseconds(5000));
+        }
 
     }
 

@@ -10,6 +10,8 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.cloud.sleuth.Span;
+import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +40,9 @@ public class CloudEurekaClient {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private Tracer tracer;
 
 //    @Bean
 //    public RestTemplate getRestTemplate() {
@@ -69,6 +74,25 @@ public class CloudEurekaClient {
     public String callQ() {
         logger.log(Level.INFO, "calling trace other client");
         return restTemplate.getForObject("http://localhost:18763/ya", String.class);
+    }
+
+    @RequestMapping("/callQ1")
+    public String callQ1() {
+        logger.log(Level.INFO, "-----------callQ1 start-------------");
+        String str1 = restTemplate.getForObject("http://SERVICE-YA/ya", String.class);
+        Span span = tracer.getCurrentSpan();
+        if (span == null) {
+            logger.info(String.format("span is null"));
+            span = tracer.createSpan("callQ1");
+        } else {
+            span.stop();
+        }
+        logger.info(String.format("span=%s", span));
+        logger.info(String.format("http://SERVICE-YA/ya %s", str1));
+        StringBuilder sb = new StringBuilder();
+        sb.append(str1).append("\n");
+        logger.log(Level.INFO, "-----------callQ1 end-------------");
+        return sb.toString();
     }
 
     @RequestMapping("/callQ2")

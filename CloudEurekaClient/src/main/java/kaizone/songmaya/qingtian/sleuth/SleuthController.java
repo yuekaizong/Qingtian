@@ -37,8 +37,9 @@ public class SleuthController {
 
     @GetMapping("/new-span")
     public String helloSleuthNewSpan() throws InterruptedException {
-        logger.info("New Span");
+        logger.info("----------------New Span start-------------------");
         sleuthService.doSomeWorkNewSpan();
+        logger.info("----------------New Span end---------------------");
         return "success";
     }
 

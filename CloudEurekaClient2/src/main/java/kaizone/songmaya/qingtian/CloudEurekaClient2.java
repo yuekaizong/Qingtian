@@ -71,6 +71,20 @@ public class CloudEurekaClient2 {
             @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),//判断熔断的最少请求数，默认是10；只有在一个统计窗口内处理的请求数量达到这个阈值，才会进行熔断与否的判断
             @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "10"),//判断熔断的阈值，默认值50，表示在一个统计窗口内有50%的请求处理失败，会触发熔断
     })
+    @RequestMapping("/callQ1/info1")
+    public String callQ11() {
+        logger.info("-------------callQ1 start ---------------");
+        String str = restTemplate.getForObject("http://localhost:18762/info", String.class);
+        logger.info("str=" + str);
+        logger.info("-------------callQ1 end ------------------");
+        return str;
+    }
+
+    @HystrixCommand(fallbackMethod = "callQError", commandProperties = {
+            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000"),//指定多久超时，单位毫秒。超时进fallback
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),//判断熔断的最少请求数，默认是10；只有在一个统计窗口内处理的请求数量达到这个阈值，才会进行熔断与否的判断
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "10"),//判断熔断的阈值，默认值50，表示在一个统计窗口内有50%的请求处理失败，会触发熔断
+    })
     @RequestMapping("/callQ1/hiInfo")
     public String callQ2() {
         logger.info("-------------callQ2 start ---------------");
