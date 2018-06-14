@@ -7,10 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.sleuth.Tracer;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
@@ -19,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.util.function.Supplier;
 
 public class RestTemplateHystrixInterceptor implements ClientHttpRequestInterceptor {
 
@@ -37,10 +35,9 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
 
 //        ClientHttpResponse run = execution.execute(request, body);
 //        ClientHttpResponse fallback = new MyClientHttpResponse(mockResponseConfig.getMockItems().get(0));
-        ClientHttpResponseImpl run = () -> {
+        Supplier<ClientHttpResponse> run = () -> {
             try {
                 logger.info(String.format("%s,%s", request.getURI(), request.getMethod()));
-//                tracer.close(tracer.getCurrentSpan());
                 return execution.execute(request, body);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -48,13 +45,13 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
             return null;
         };
 
-        ClientHttpResponseImpl fallback = () -> {
+        Supplier<ClientHttpResponse> fallback = () -> {
             if (mockResponseConfig.getMockItems() != null && !mockResponseConfig.getMockItems().isEmpty()) {
                 return new MyClientHttpResponse(mockResponseConfig.getMockItems().get(0));
             }
             return new MyClientHttpResponse(null);
         };
-        return new RestTemplateHystrixCommnad(commandKeyName, run, fallback).execute();
+        return new RestTemplateHystrixCommnad(request, run, fallback).execute();
     }
 
     public static String mapCommandKey(URI uri) {
@@ -80,61 +77,54 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
         System.out.println(threadPoolKeyName(uri));
     }
 
-    public interface ClientHttpResponseImpl {
-        ClientHttpResponse action();
-    }
-
     public static class RestTemplateHystrixCommnad extends HystrixCommand<ClientHttpResponse> {
-        private final ClientHttpResponseImpl run;
-        private final ClientHttpResponseImpl fallback;
+        private final Supplier<ClientHttpResponse> run;
+        private final Supplier<ClientHttpResponse> fallback;
+        private final HttpRequest request;
 
-        public RestTemplateHystrixCommnad(String commandKeyName, ClientHttpResponseImpl run, ClientHttpResponseImpl fallback) {
+        public RestTemplateHystrixCommnad(HttpRequest request, Supplier<ClientHttpResponse> run, Supplier<ClientHttpResponse> fallback) {
 //            super(ApiSetter.setter(commandKeyName));
-            super(ApiSetter.semaphoreSetter(commandKeyName));
+            super(ApiSetter.semaphoreSetter(request.getURI(), request.getMethod()));
+            this.request = request;
             this.run = run;
             this.fallback = fallback;
         }
 
         @Override
         protected ClientHttpResponse run() {
-            return run.action();
+            ClientHttpResponse response = run.get();
+            if (response == null) {
+                throw new RuntimeException(String.format("No response:%s %s", this.request.getMethod(), this.request.getURI()));
+            }
+            return response;
         }
 
         @Override
         protected ClientHttpResponse getFallback() {
-            return fallback.action();
+            if (this.fallback != null) {
+                return this.fallback.get();
+            } else {
+                return super.getFallback();
+            }
         }
     }
 
     /**
      * 调用API设置的参数或公共参数
      */
-    public static class ApiSetter {
+    /**
+     * 调用API设置的参数或公共参数
+     */
+    private static class ApiSetter {
 
-        public static HystrixCommand.Setter threadSetter(String commandKeyName, String threadPoolKeyName) {
-            return threadSetter("ApiGroup", commandKeyName, threadPoolKeyName);
-        }
+        public static HystrixCommand.Setter threadSetter(URI url, HttpMethod method) {
 
-        public static HystrixCommand.Setter setter(String commandKeyName) {
-            return threadSetter(commandKeyName, "Api-Pool");
-        }
-
-        /**
-         * @param groupKeyName      服务分组名
-         * @param commandKeyName    服务标识名称
-         * @param threadPoolKeyName 线程池名称
-         * @return
-         * @author liweihan
-         * @time 2017/12/20 16:57
-         * @description 相关参数设置
-         */
-        public static HystrixCommand.Setter threadSetter(String groupKeyName, String commandKeyName, String threadPoolKeyName) {
             //服务分组
-            HystrixCommandGroupKey groupKey = HystrixCommandGroupKey.Factory.asKey(groupKeyName);
+            HystrixCommandGroupKey groupKey = HystrixCommandGroupKey.Factory.asKey(url.getHost());
             //服务标识
-            HystrixCommandKey commandKey = HystrixCommandKey.Factory.asKey(commandKeyName);
+            HystrixCommandKey commandKey = HystrixCommandKey.Factory.asKey(url.getPath() + "|" + method.name());
             //线程池名称
-            HystrixThreadPoolKey threadPoolKey = HystrixThreadPoolKey.Factory.asKey(threadPoolKeyName);
+            HystrixThreadPoolKey threadPoolKey = HystrixThreadPoolKey.Factory.asKey(url.getHost());
             //线程配置
             HystrixThreadPoolProperties.Setter threadPoolProperties = HystrixThreadPoolProperties.Setter()
                     .withCoreSize(25)
@@ -182,12 +172,13 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
          * 这里配置的为25%，即失败率到达25%触发熔断
          */
 
-        public static HystrixCommand.Setter semaphoreSetter(String key) {
+
+        public static HystrixCommand.Setter semaphoreSetter(URI url, HttpMethod method) {
             return HystrixCommand.Setter
                     //设置GroupKey 用于dashboard 分组展示
-                    .withGroupKey(HystrixCommandGroupKey.Factory.asKey("hello"))
+                    .withGroupKey(HystrixCommandGroupKey.Factory.asKey(url.getHost()))
                     //设置CommandKey 用于Semaphore分组，相同的CommandKey属于同一组隔离资源
-                    .andCommandKey(HystrixCommandKey.Factory.asKey("hello" + key))
+                    .andCommandKey(HystrixCommandKey.Factory.asKey(url.getPath() + "|" + method.name()))
                     //设置隔离级别：Semaphore
                     .andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
                             //是否开启熔断器机制
@@ -199,7 +190,6 @@ public class RestTemplateHystrixInterceptor implements ClientHttpRequestIntercep
                             //circuitBreaker打开后多久关闭
                             .withCircuitBreakerSleepWindowInMilliseconds(5000));
         }
-
     }
 
 
