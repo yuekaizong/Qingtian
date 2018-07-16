@@ -1,5 +1,6 @@
 package kaizone.songmaya.xuanguan.entity;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -126,4 +127,8 @@ public class User implements Serializable, UserDetails{
         this.roles = roles;
     }
 
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 }

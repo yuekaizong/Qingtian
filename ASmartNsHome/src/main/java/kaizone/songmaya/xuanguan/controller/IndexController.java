@@ -41,6 +41,11 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping(value = "/login")
+    public String login(Model model) {
+        return "login";
+    }
+
     @RequestMapping(value = "/admin/editHome")
     public String editHome(Model model) {
         model.addAttribute("name", "这是一个thymeleaf");

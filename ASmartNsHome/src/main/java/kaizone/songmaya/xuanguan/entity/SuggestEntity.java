@@ -1,5 +1,7 @@
 package kaizone.songmaya.xuanguan.entity;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import javax.persistence.*;
 
 @Entity
@@ -44,5 +46,10 @@ public class SuggestEntity {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

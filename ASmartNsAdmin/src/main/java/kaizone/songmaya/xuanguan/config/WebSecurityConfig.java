@@ -20,10 +20,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
 //                .anyRequest().authenticated()//所有请求必须登陆后访问
-                .antMatchers("*").permitAll()
-                .antMatchers("/index").permitAll()
-                .antMatchers("/user/**").authenticated()
-                .antMatchers("/admin/**").authenticated()
+//                .antMatchers("*").permitAll()
+                .antMatchers("/", "/static/**", "/public/**", "/index/**").permitAll()
+                .antMatchers("/user/**", "/admin/**").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")

@@ -22,3 +22,5 @@ insert into p1_cell(id,pid,img,title,description,href,data_target,view_more,posi
 
 
 insert into p1_footer(id,text0) values(1,"<p>联系请加微信<a href=\"https://weibo.com/u/2039166931\" target=\"_blank\" title=\"标题\">》真想悠哉《</a></p>");
+
+insert into t_user(t_id, t_address, t_age, t_name, t_password) values(1, '你在哪里', 28, 'admin', 'admin');
