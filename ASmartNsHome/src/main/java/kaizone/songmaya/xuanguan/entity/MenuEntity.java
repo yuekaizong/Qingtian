@@ -3,7 +3,7 @@ package kaizone.songmaya.xuanguan.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "menu")
+@Table(name = "sns_menu")
 public class MenuEntity {
     @Id
 //    @GeneratedValue

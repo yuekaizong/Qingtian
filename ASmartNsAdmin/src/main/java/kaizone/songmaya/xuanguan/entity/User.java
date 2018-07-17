@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "t_user")
+@Table(name = "sns_user")
 public class User implements Serializable, UserDetails{
     @Id
     @GeneratedValue
@@ -33,12 +33,12 @@ public class User implements Serializable, UserDetails{
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "t_user_role",
+            name = "sns_user_role",
             joinColumns = {
-                    @JoinColumn(name = "ur_user_id")
+                    @JoinColumn(name = "user_id")
             },
             inverseJoinColumns = {
-                    @JoinColumn(name = "ur_role_id")
+                    @JoinColumn(name = "role_id")
             }
     )
     private List<Role> roles;

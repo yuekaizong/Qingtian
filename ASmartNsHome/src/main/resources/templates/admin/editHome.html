@@ -9,7 +9,7 @@
     <meta name="author" content=""/>
     <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
     <link rel="icon" href="favicon.ico"/>
-    <title>Treviso - Clean amp; Elegant Onepage Multipurpose Bootstrap HTML</title>
+    <title>主页编辑</title>
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
@@ -24,7 +24,7 @@
 </head>
 <body id="page-top">
 <!-- Navigation -->
-<button onclick="getData(this);"/>
+<button onclick="getData(this);"/><a th:href="@{/logout}">logout</a>
 <form id="form1" th:action="@{/admin/editHome}" th:method="post">
     <nav class="navbar navbar-default">
         <div class="container">

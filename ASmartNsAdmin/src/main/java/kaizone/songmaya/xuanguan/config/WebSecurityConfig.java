@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()//登录界面，错误界面可以直接访问
                 .and()
                 .logout()
+                .logoutUrl("/logout")
                 .permitAll();//注销请求可直接访问
     }
 }

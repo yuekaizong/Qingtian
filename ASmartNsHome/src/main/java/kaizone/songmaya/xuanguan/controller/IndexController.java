@@ -46,6 +46,11 @@ public class IndexController {
         return "login";
     }
 
+    @GetMapping(value = "/logout")
+    public String logout(Model model) {
+        return "logout";
+    }
+
     @RequestMapping(value = "/admin/editHome")
     public String editHome(Model model) {
         model.addAttribute("name", "这是一个thymeleaf");

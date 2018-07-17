@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "p1")
+@Table(name = "sns_p1")
 public class DivEntity {
     @Id
 //    @GeneratedValue

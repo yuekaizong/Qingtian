@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "p1_footer")
+@Table(name = "sns_footer")
 public class FooterEntity {
 
     @Id

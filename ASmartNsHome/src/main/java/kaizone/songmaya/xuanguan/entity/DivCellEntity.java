@@ -3,7 +3,7 @@ package kaizone.songmaya.xuanguan.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "p1_cell")
+@Table(name = "sns_cell")
 public class DivCellEntity {
 
     @Id
