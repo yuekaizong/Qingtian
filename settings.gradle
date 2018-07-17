@@ -30,4 +30,5 @@ include 'ASmartNsAdmin'
 //include 'BootRabbitConsumer'
 //include 'BootRabbitComsumerNode2'
 include 'CloudZipkinServer'
+include 'BootSecurity4Bcrypt'
 

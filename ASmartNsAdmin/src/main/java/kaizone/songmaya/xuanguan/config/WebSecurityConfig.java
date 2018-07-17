@@ -26,7 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .failureUrl("/login?error")
+                .failureUrl("/login?error=true")
                 .permitAll()//登录界面，错误界面可以直接访问
                 .and()
                 .logout()
