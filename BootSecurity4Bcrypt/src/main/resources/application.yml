@@ -35,10 +35,11 @@ spring:
     database : MYSQL
     show-sql : true
     hibernate:
-#      ddl-auto : update
-      naming-strategy : org.hibernate.cfg.ImprovedNamingStrategy
+      ddl-auto : update
+      naming-strategy : org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 无修改命名策略
     properties:
       hibernate:
+#        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
         dialect : org.hibernate.dialect.MySQL5Dialect
   thymeleaf:
       cache: true

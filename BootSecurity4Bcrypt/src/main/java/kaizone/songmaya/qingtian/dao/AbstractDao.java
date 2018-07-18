@@ -1,4 +1,5 @@
 package kaizone.songmaya.qingtian.dao;
+
 import java.io.Serializable;
 
 import java.lang.reflect.ParameterizedType;
@@ -8,13 +9,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.EntityManagerFactory;
+
 public abstract class AbstractDao<PK extends Serializable, T> {
 
     private final Class<T> persistentClass;
 
     @SuppressWarnings("unchecked")
-    public AbstractDao(){
-        this.persistentClass =(Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+    public AbstractDao() {
+        this.persistentClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
 
     @Autowired
@@ -23,6 +26,14 @@ public abstract class AbstractDao<PK extends Serializable, T> {
     protected Session getSession(){
         return sessionFactory.getCurrentSession();
     }
+
+//    @Autowired
+//    public void setSessionFactory(EntityManagerFactory factory) {
+//        if (factory.unwrap(SessionFactory.class) == null) {
+//            throw new NullPointerException("factory is not a hibernate factory");
+//        }
+//        this.sessionFactory = factory.unwrap(SessionFactory.class);
+//    }
 
     @SuppressWarnings("unchecked")
     public T getByKey(PK key) {
@@ -37,7 +48,7 @@ public abstract class AbstractDao<PK extends Serializable, T> {
         getSession().delete(entity);
     }
 
-    protected Criteria createEntityCriteria(){
+    protected Criteria createEntityCriteria() {
         return getSession().createCriteria(persistentClass);
     }
 

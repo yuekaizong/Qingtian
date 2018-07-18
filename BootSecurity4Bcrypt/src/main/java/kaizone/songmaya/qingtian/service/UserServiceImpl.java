@@ -1,6 +1,6 @@
 package kaizone.songmaya.qingtian.service;
 
-import kaizone.songmaya.qingtian.dao.UserDao;
+import kaizone.songmaya.qingtian.jpa.UserJpa;
 import kaizone.songmaya.qingtian.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-    private UserDao dao;
+    private UserJpa dao;
+//    private UserDao dao;
+
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -28,7 +30,7 @@ public class UserServiceImpl implements UserService{
     }
 
     public User findBySso(String sso) {
-        return dao.findBySSO(sso);
+        return dao.findBySsoId(sso);
     }
 
 }
