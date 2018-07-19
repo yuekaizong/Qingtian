@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Admin page</title>
+    <link th:href="@{/static/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/app.css}" rel="stylesheet"/>
+</head>
+<body>
+    <div class="success">
+        Dear <strong>${user}</strong>, Welcome to Admin Page.
+        <br/>
+        Would you like to <a href="<c:url value='/newUser' />">Add Some Users</a> to keep yourself busy?
+        <br/>
+        <a href="@{/logout}">Logout</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>AccessDenied page</title>
+    <link th:href="@{/static/css/bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/static/css/app.css}" rel="stylesheet"/>
+</head>
+<body>
+    Dear <strong>${user}</strong>, You are not authorized to access this page.
+    <br/>
+    <a th:href="@{/home}" />">Go to home</a> OR <a th:href="@{/logout}" />">Logout</a>
+</body>
+</html>
