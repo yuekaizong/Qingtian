@@ -1,7 +1,7 @@
 package kaizone.songmaya.xuanguan.jpa;
 
 import kaizone.songmaya.xuanguan.HomeApp;
-import kaizone.songmaya.xuanguan.entity.User;
+import kaizone.songmaya.xuanguan.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class UserJpaTest {
 
     @Test
     public void findByName(){
-        User user = userJpa.findByName("admin");
+        User user = userJpa.findBySsoId("admin");
         System.out.println(user);
     }
 

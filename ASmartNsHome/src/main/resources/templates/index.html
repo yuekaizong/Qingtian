@@ -10,14 +10,14 @@
 		<link rel="icon" href="favicon.ico"/>
 		<title>a smart ns</title>
 		<!-- Bootstrap core CSS -->
-		<link href="css/bootstrap.min.css" rel="stylesheet"/>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+		<link href="static/css/bootstrap.min.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="static/css/font-awesome.min.css"/>
 		<!-- Custom styles for this template -->
-		<link href="css/style.css" rel="stylesheet"/>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/SmoothScroll.js"></script>
-		<script src="js/theme-scripts.js"></script>
+		<link href="static/css/style.css" rel="stylesheet"/>
+		<script src="static/js/jquery-3.3.1.min.js"></script>
+		<script src="static/js/bootstrap.min.js"></script>
+		<script src="static/js/SmoothScroll.js"></script>
+		<script src="static/js/theme-scripts.js"></script>
 	</head>
 	<body id="page-top">
 		<!-- Navigation -->
@@ -31,7 +31,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand page-scroll" href="#page-top"><img src="images/logo.png" alt="Treviso theme logo"/></a>
+					<a class="navbar-brand page-scroll" href="#page-top"><img src="static/images/logo.png" alt="Treviso theme logo"/></a>
 				</div>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -64,7 +64,7 @@
 				<div class="col-md-6 col-0-gutter">
 					<div class="ot-portfolio-item">
 						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-1.jpg" th:src="@{${cells[0].img}}" alt="img02" class="img-responsive" />
+							<img src="static/images/demo/portfolio-1.jpg" th:src="@{${cells[0].img}}" alt="img02" class="img-responsive" />
 							<figcaption>
 								<h2 th:text="${cells[0].title}">cells[0].title</h2>
 								<p th:text="${cells[0].description}"> cells[0].description</p>
@@ -78,7 +78,7 @@
 				<div class="col-md-6 col-0-gutter">
 					<div class="ot-portfolio-item">
 						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-2.jpg" th:src="@{${cells[1].img}}" alt="img02" class="img-responsive" />
+							<img src="static/images/demo/portfolio-2.jpg" th:src="@{${cells[1].img}}" alt="img02" class="img-responsive" />
 							<figcaption>
 								<h2 th:text="${cells[1].title}">cells[1].title</h2>
 								<p th:text="${cells[1].description}"> cells[1].description</p>
@@ -108,7 +108,7 @@
 				<div class="col-md-6 col-0-gutter">
 					<div class="ot-portfolio-item">
 						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-2.jpg" th:src="@{${cells[3].img}}" alt="img02" class="img-responsive" />
+							<img src="static/images/demo/portfolio-2.jpg" th:src="@{${cells[3].img}}" alt="img02" class="img-responsive" />
 							<figcaption>
 								<h2 th:text="${cells[3].title}">cells[3].title</h2>
 								<p th:text="${cells[3].description}"> cells[3].description</p>
@@ -124,7 +124,7 @@
 				<div class="col-md-6 col-0-gutter">
 					<div class="ot-portfolio-item">
 						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-2.jpg" th:src="@{${cells[4].img}}" alt="img02" class="img-responsive" />
+							<img src="static/images/demo/portfolio-2.jpg" th:src="@{${cells[4].img}}" alt="img02" class="img-responsive" />
 							<figcaption>
 								<h2 th:text="${cells[4].title}">cells[4].title</h2>
 								<p th:text="${cells[4].description}"> cells[4].description</p>
@@ -138,7 +138,7 @@
 				<div class="col-md-6 col-0-gutter">
 					<div class="ot-portfolio-item">
 						<figure class="effect-bubba">
-							<img src="images/demo/portfolio-2.jpg" th:src="@{${cells[5].img}}" alt="img02" class="img-responsive" />
+							<img src="static/images/demo/portfolio-2.jpg" th:src="@{${cells[5].img}}" alt="img02" class="img-responsive" />
 							<figcaption>
 								<h2 th:text="${cells[5].title}">cells[5].title</h2>
 								<p th:text="${cells[5].description}"> cells[5].description</p>
@@ -232,7 +232,7 @@
 					<div class="col-md-4" th:each="cell : ${cells}">
 						<div class="team-item">
 							<div class="team-image">
-								<img src="images/demo/author-0.jpg" th:src="${cell.img}" class="img-responsive" alt="author" />
+								<img src="static/images/demo/author-0.jpg" th:src="${cell.img}" class="img-responsive" alt="author" />
 							</div>
 							<div class="team-text">
 								<h3 th:text="${cell.name}">cell.name</h3>
@@ -311,7 +311,7 @@
 						<h4 class="modal-title" id="Modal-label-1">Dean amp; Letter</h4>
 					</div>
 					<div class="modal-body">
-						<img src="images/demo/portfolio-1.jpg" alt="img01" class="img-responsive" />
+						<img src="static/images/demo/portfolio-1.jpg" alt="img01" class="img-responsive" />
 						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
 						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
 					</div>
@@ -331,7 +331,7 @@
 						<h4 class="modal-title" id="Modal-label-2">Startup Framework</h4>
 					</div>
 					<div class="modal-body">
-						<img src="images/demo/portfolio-2.jpg" alt="img01" class="img-responsive" />
+						<img src="static/images/demo/portfolio-2.jpg" alt="img01" class="img-responsive" />
 						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
 						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
 					</div>
@@ -351,7 +351,7 @@
 						<h4 class="modal-title" id="Modal-label-3">Lamp amp; Velvet</h4>
 					</div>
 					<div class="modal-body">
-						<img src="images/demo/portfolio-3.jpg" alt="img01" class="img-responsive" />
+						<img src="static/images/demo/portfolio-3.jpg" alt="img01" class="img-responsive" />
 						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
 						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
 					</div>
@@ -371,7 +371,7 @@
 						<h4 class="modal-title" id="Modal-label-4">Smart Name</h4>
 					</div>
 					<div class="modal-body">
-						<img src="images/demo/portfolio-4.jpg" alt="img01" class="img-responsive" />
+						<img src="static/images/demo/portfolio-4.jpg" alt="img01" class="img-responsive" />
 						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
 						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
 					</div>
@@ -391,7 +391,7 @@
 						<h4 class="modal-title" id="Modal-label-5">Fast People</h4>
 					</div>
 					<div class="modal-body">
-						<img src="images/demo/portfolio-5.jpg" alt="img01" class="img-responsive" />
+						<img src="static/images/demo/portfolio-5.jpg" alt="img01" class="img-responsive" />
 						<div class="modal-works"><span>Branding</span><span>Web Design</span></div>
 						<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe</p>
 					</div>
