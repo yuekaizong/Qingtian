@@ -19,7 +19,7 @@ import java.nio.file.Paths;
 @RequestMapping("files")
 public class FilesController {
 
-    public final static String STORE_DIR = "storage/";
+    public final static String STORE_DIR = "storage";
 
     @Autowired
     private ResourceLoader resourceLoader;
@@ -33,11 +33,11 @@ public class FilesController {
         String contextPath = request.getServletContext().getRealPath("/");
         if (!file.isEmpty()) {
             try {
-                File dir = new File(contextPath + STORE_DIR);
+                File dir = new File(contextPath + File.separator + STORE_DIR);
                 if (!dir.exists()) {
                     dir.mkdir();
                 }
-                Files.copy(file.getInputStream(), Paths.get(contextPath + STORE_DIR, file.getOriginalFilename()));
+                Files.copy(file.getInputStream(), Paths.get(dir.getPath(), file.getOriginalFilename()));
                 redirectAttributes.addFlashAttribute("message",
                         "You successfully uploaded " + file.getOriginalFilename() + "!");
             } catch (IOException | RuntimeException e) {
@@ -56,7 +56,7 @@ public class FilesController {
     public ResponseEntity<?> getFile(@PathVariable String path, @PathVariable String filename, HttpServletRequest request) {
         try {
             String contextPath = request.getServletContext().getRealPath("/");
-            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(contextPath + path, filename).toString()));
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(contextPath + File.separator + path, filename).toString()));
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
