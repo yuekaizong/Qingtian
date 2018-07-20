@@ -6,8 +6,10 @@
     <link th:href="@{/static/css/app.css}" rel="stylesheet"/>
 </head>
 <body>
-    Dear <strong>${user}</strong>, You are not authorized to access this page.
-    <br/>
-    <a th:href="@{/home}" />">Go to home</a> OR <a th:href="@{/logout}" />">Logout</a>
+    <dir class="success">
+        Dear <strong th:text="${user}">${user}</strong>, You are not authorized to access this page.
+        <br/>
+        <a th:href="@{/home}" >Go to home</a> OR <a th:href="@{/logout}" >Logout</a>
+    </dir>
 </body>
 </html>

@@ -4,13 +4,26 @@ import kaizone.songmaya.xuanguan.entity.DivCellEntity;
 import kaizone.songmaya.xuanguan.entity.DivEntity;
 import kaizone.songmaya.xuanguan.jpa.DivJPA;
 import kaizone.songmaya.xuanguan.jpa.FooterJPA;
+import kaizone.songmaya.xuanguan.model.User;
+import kaizone.songmaya.xuanguan.model.UserProfile;
+import kaizone.songmaya.xuanguan.service.UserProfileService;
+import kaizone.songmaya.xuanguan.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +37,12 @@ public class IndexController {
 
     @Autowired
     private FooterJPA footerJPA;
+
+    @Autowired
+    UserProfileService userProfileService;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "/")
     public String home(Model model) {
@@ -47,8 +66,30 @@ public class IndexController {
     }
 
     @GetMapping(value = "/logout")
-    public String logout(Model model) {
-        return "logout";
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/login?logout";
+    }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String adminPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
+        return "admin";
+    }
+
+    @RequestMapping(value = "/db", method = RequestMethod.GET)
+    public String dbaPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
+        return "dba";
+    }
+
+    @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
+    public String accessDeniedPage(ModelMap model) {
+        model.addAttribute("user", getPrincipal());
+        return "accessDenied";
     }
 
     @RequestMapping(value = "/admin/editHome")
@@ -77,10 +118,45 @@ public class IndexController {
         return "success";
     }
 
+
     @PostMapping("/admin/editHome1")
     public String editHomeSave1(@RequestParam Map<String, String> body) {
         System.out.println(body);
         return "successs";
+    }
+
+    @RequestMapping(value = "/newUser", method = RequestMethod.GET)
+    public String newRegistration(ModelMap model) {
+        User user = new User();
+        model.addAttribute("user", user);
+        return "newuser";
+    }
+
+    @RequestMapping(value = "/newUser", method = RequestMethod.POST)
+    public String saveRegistration(@Valid User user,
+                                   BindingResult result, ModelMap model) {
+
+        if (result.hasErrors()) {
+            System.out.println("There are errors");
+            logger.error("{}", result.getModel());
+            return "newuser";
+        }
+        userService.save(user);
+
+        System.out.println("First Name : " + user.getFirstName());
+        System.out.println("Last Name : " + user.getLastName());
+        System.out.println("SSO ID : " + user.getSsoId());
+        System.out.println("Password : " + user.getPassword());
+        System.out.println("Email : " + user.getEmail());
+        System.out.println("Checking UsrProfiles....");
+        if (user.getUserProfiles() != null) {
+            for (UserProfile profile : user.getUserProfiles()) {
+                System.out.println("Profile : " + profile.getType());
+            }
+        }
+
+        model.addAttribute("success", "User " + user.getFirstName() + " has been registered successfully");
+        return "registrationsuccess";
     }
 
     @RequestMapping(value = "/data")
@@ -95,4 +171,23 @@ public class IndexController {
         System.out.println(model);
         return model.toString();
     }
+
+
+    private String getPrincipal() {
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
+    }
+
+    @ModelAttribute("roles")
+    public List<UserProfile> initializeProfiles() {
+        return userProfileService.findAll();
+    }
+
 }

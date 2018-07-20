@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>User Registration Form</title>
+    <title th:text="#{app.title}"> Title </title>
     <link th:href="@{/static/css/bootstrap.css}" rel="stylesheet"/>
     <link th:href="@{/static/css/app.css}" rel="stylesheet"/>
 </head>
@@ -12,15 +12,15 @@
 
     <h1>New User Registration Form</h1>
 
-    <form:form method="POST" modelAttribute="user" class="form-horizontal">
+    <form method="POST" th:action="@{/newUser}" th:object="${user}" class="form-horizontal">
 
         <div class="row">
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="firstName">First Name</label>
                 <div class="col-md-7">
-                    <form:input type="text" path="firstName" id="firstName" class="form-control input-sm"/>
-                    <div class="has-error">
-                        <form:errors path="firstName" class="help-inline"/>
+                    <input type="text" th:field="*{firstName}" id="firstName" class="form-control input-sm"/>
+                    <div th:if="${#fields.hasErrors('firstName')}" class="has-error">
+                        <errors path="firstName" class="help-inline" th:text="#{error.user.firstName}" >First Name Error </errors>
                     </div>
                 </div>
             </div>
@@ -30,9 +30,9 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="lastName">Last Name</label>
                 <div class="col-md-7">
-                    <form:input type="text" path="lastName" id="lastName" class="form-control input-sm"/>
-                    <div class="has-error">
-                        <form:errors path="lastName" class="help-inline"/>
+                    <input type="text" th:field="*{lastName}" id="lastName" class="form-control input-sm"/>
+                    <div th:if="${#fields.hasErrors('lastName')}" class="has-error">
+                        <errors path="lastName" class="help-inline"  th:text="#{error.user.lastName}" >Last Name Error </errors>
                     </div>
                 </div>
             </div>
@@ -42,9 +42,9 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="ssoId">SSO ID</label>
                 <div class="col-md-7">
-                    <form:input type="text" path="ssoId" id="ssoId" class="form-control input-sm"/>
-                    <div class="has-error">
-                        <form:errors path="ssoId" class="help-inline"/>
+                    <input type="text" th:field="*{ssoId}" id="ssoId" class="form-control input-sm"/>
+                    <div th:if="${#fields.hasErrors('ssoId')}" class="has-error">
+                        <errors path="ssoId" class="help-inline" th:text="#{error.user.ssoId}" >SSO ID Error</errors>
                     </div>
                 </div>
             </div>
@@ -54,9 +54,9 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="password">Password</label>
                 <div class="col-md-7">
-                    <form:input type="password" path="password" id="password" class="form-control input-sm"/>
-                    <div class="has-error">
-                        <form:errors path="password" class="help-inline"/>
+                    <input type="password" th:field="*{password}" id="password" class="form-control input-sm"/>
+                    <div th:if="${#fields.hasErrors('password')}" class="has-error">
+                        <errors path="password" class="help-inline" th:text="#{error.user.password}" >Password Error</errors>
                     </div>
                 </div>
             </div>
@@ -66,9 +66,9 @@
             <div class="form-group col-md-12">
                 <label class="col-md-3 control-lable" for="email">Email</label>
                 <div class="col-md-7">
-                    <form:input type="text" path="email" id="email" class="form-control input-sm"/>
-                    <div class="has-error">
-                        <form:errors path="email" class="help-inline"/>
+                    <input type="text" th:field="*{email}" id="email" class="form-control input-sm"/>
+                    <div th:if="${#fields.hasErrors('email')}" class="has-error">
+                        <errors path="email" class="help-inline" th:text="#{error.user.email}" >Email Error</errors>
                     </div>
                 </div>
             </div>
@@ -77,11 +77,13 @@
 
         <div class="row">
             <div class="form-group col-md-12">
-                <label class="col-md-3 control-lable" for="userProfiles">Roles</label>
+                <label class="col-md-3 control-lable">Roles</label>
                 <div class="col-md-7">
-                    <form:select path="userProfiles" items="${roles}" multiple="true" itemValue="id" itemLabel="type" class="form-control input-sm"/>
-                    <div class="has-error">
-                        <form:errors path="userProfiles" class="help-inline"/>
+                    <select th:field="*{userProfiles}"  multiple="true" itemValue="id" itemLabel="type" class="form-control input-sm">
+                        <option th:each="role : ${roles}" th:value ="${role.id}" th:text="${role.type}">${role}</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('userProfiles')}" class="has-error">
+                        <errors path="userProfiles" class="help-inline" th:text="#{error.user.userProfiles}" >UserProfiles Error</errors>
                     </div>
                 </div>
             </div>
@@ -89,10 +91,10 @@
 
         <div class="row">
             <div class="form-actions floatRight">
-                <input type="submit" value="Register" class="btn btn-primary btn-sm"> or <a th:href="@{/admin}">Cancel</a>
+                <input type="submit" value="Register" class="btn btn-primary btn-sm" /> or <a th:href="@{/admin}">Cancel</a>
             </div>
         </div>
-    </form:form>
+    </form>
     </div>
 </body>
 </html>
