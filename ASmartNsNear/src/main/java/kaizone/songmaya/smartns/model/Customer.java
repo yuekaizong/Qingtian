@@ -1,6 +1,7 @@
-package kaizone.songmaya.xuanguan.entity;
+package kaizone.songmaya.smartns.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,31 +10,39 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "sns_user")
-public class User implements Serializable, UserDetails{
+@Table(name = "near_customer")
+public class Customer implements Serializable, UserDetails {
     @Id
     @GeneratedValue
-    @Column(name = "t_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "t_name")
-    private String name;
+    @NotEmpty
+    @Column(name = "sso_id", unique = true, nullable = false)
+    private String ssoId;
 
-    @Column(name = "t_age")
-    private int age;
+    @Column(name = "username")
+    private String username;
 
-    @Column(name = "t_address")
+    @Column(name = "nickname")
+    private String nickname;
+
+    @Column(name = "birth")
+    private Date birth;
+
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "t_password")
+    @Column(name = "password")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "sns_user_role",
+            name = "near_user_role",
             joinColumns = {
                     @JoinColumn(name = "user_id")
             },
@@ -60,7 +69,7 @@ public class User implements Serializable, UserDetails{
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     @Override
@@ -91,20 +100,32 @@ public class User implements Serializable, UserDetails{
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getSsoId() {
+        return ssoId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSsoId(String ssoId) {
+        this.ssoId = ssoId;
     }
 
-    public int getAge() {
-        return age;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
     }
 
     public String getAddress() {

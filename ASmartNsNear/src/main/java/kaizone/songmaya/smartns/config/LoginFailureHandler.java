@@ -1,4 +1,4 @@
-package kaizone.songmaya.xuanguan.config;
+package kaizone.songmaya.smartns.config;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;

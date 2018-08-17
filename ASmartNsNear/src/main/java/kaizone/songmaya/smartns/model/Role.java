@@ -1,4 +1,4 @@
-package kaizone.songmaya.xuanguan.entity;
+package kaizone.songmaya.smartns.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,16 +7,16 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "sns_role")
+@Table(name = "near_role")
 public class Role implements Serializable {
     @Id
-    @Column(name = "r_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "r_name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "r_flag")
+    @Column(name = "flag")
     private String flag;
 
     public Long getId() {

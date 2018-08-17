@@ -1,7 +1,7 @@
-package kaizone.songmaya.xuanguan.service;
+package kaizone.songmaya.smartns.service;
 
-import kaizone.songmaya.xuanguan.entity.User;
-import kaizone.songmaya.xuanguan.jpa.UserJpa;
+import kaizone.songmaya.smartns.model.Customer;
+import kaizone.songmaya.smartns.jpa.CustomerJpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @CacheConfig(cacheNames = "user")
-public class UserService implements UserDetailsService{
+public class CustomerService implements UserDetailsService{
 
     @Autowired
-    private UserJpa userJpa;
+    private CustomerJpa userJpa;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userJpa.findByName(username);
+        Customer user = userJpa.findByUsername(username);
         if (user == null){
             throw new UsernameNotFoundException("未查询到用户："+username+"信息！");
         }
