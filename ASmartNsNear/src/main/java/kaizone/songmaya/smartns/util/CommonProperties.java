@@ -1,14 +1,11 @@
 package kaizone.songmaya.smartns.util;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
 import java.util.Map;
 
-@ConfigurationProperties(
-        prefix = "common"
-)
-@Component
+//@ConfigurationProperties(
+//        prefix = "common"
+//)
+//@Component
 public class CommonProperties {
     private static Map<String, Object> sign;
     private static Map<String, Object> redis;

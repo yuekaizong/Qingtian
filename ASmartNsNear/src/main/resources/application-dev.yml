@@ -46,10 +46,17 @@ spring:
       encoding: UTF-8
       prefix: classpath:/templates/
       suffix: .html
-#  mvc:
-#    view:
-#      prefix: /WEB-INF/jsp/
-#      suffix: .jsp
+  redis:
+    host: 192.168.99.100
+    port: 16379
+    prefix: "APP_SERVER:MAIN:"
+    default_expire_time: 14400
+    max_total: 500
+    max_idle: 200
+    min_idle: 10
+    max_wait_millis: 5000
+  session:
+    store-type: redis
 server:
    port: 8081
    tomcat:
@@ -59,15 +66,7 @@ server:
 logging:
    path: D:\develop\code\javaweb\haier-web\Qingtian\ASmartNsNear\log
 common:
-  redis:
-    host: 10.164.194.142
-    port: 6379
-    prefix: "APP_SERVER:MAIN:"
-    default_expire_time: 14400
-    max_total: 500
-    max_idle: 200
-    min_idle: 10
-    max_wait_millis: 5000
   app:
     isEncode: true
     checkAuth: true
+    rootDir: D:\develop\code\javaweb\test

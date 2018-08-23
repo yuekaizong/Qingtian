@@ -8,4 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface CustomerJpa extends JpaRepository<Customer, Long> {
 
     Customer findByUsername(String name);
+
+    Customer findBySsoId(String ssoId);
 }

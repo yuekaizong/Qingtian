@@ -24,21 +24,19 @@ public class RedisConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisConfig.class);
 
     @Autowired
-    private  RedisProperties redisProperties;
-
-
+    private RedisProperties redisProperties;
 
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
 
         JedisConnectionFactory jedisConnectionFactory = null;
-        if(StringUtils.isNotBlank(redisProperties.getClusterNodes())){
+        if (StringUtils.isNotBlank(redisProperties.getClusterNodes())) {
             String[] nodes = redisProperties.getClusterNodes().trim()
                     .split(Pattern.quote(","));
             RedisClusterConfiguration redisClusterConfiguration =
                     new RedisClusterConfiguration(Arrays.asList(nodes));
             jedisConnectionFactory = new JedisConnectionFactory(redisClusterConfiguration);
-        }else{
+        } else {
             jedisConnectionFactory = new JedisConnectionFactory();
             jedisConnectionFactory.setHostName(redisProperties.getHost());
             jedisConnectionFactory.setPort(Integer.parseInt(redisProperties.getPort()));
@@ -47,28 +45,28 @@ public class RedisConfig {
         JedisPoolConfig config = new JedisPoolConfig();
         //可用连接实例的最大数目，默认值为8；
         //如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)。
-        if(redisProperties.getMaxTotal() != 0){
+        if (redisProperties.getMaxTotal() != 0) {
             LOGGER.debug("JedisPoolConfig set maxTotal = " + String.valueOf(redisProperties.getMaxTotal()));
             config.setMaxTotal(redisProperties.getMaxTotal());
         }
         //控制一个pool最多有多少个状态为idle(空闲的)的jedis实例。
-        if(redisProperties.getMaxIdle() != 0){
+        if (redisProperties.getMaxIdle() != 0) {
             LOGGER.debug("JedisPoolConfig set maxIdle = " + String.valueOf(redisProperties.getMaxIdle()));
             config.setMaxIdle(redisProperties.getMaxIdle());
         }
-        if(redisProperties.getMinIdle() != 0){
+        if (redisProperties.getMinIdle() != 0) {
             LOGGER.debug("JedisPoolConfig set minIdle = " + String.valueOf(redisProperties.getMinIdle()));
             config.setMinIdle(redisProperties.getMinIdle());
         }
         //表示当borrow(引入)一个jedis实例时，最大的等待时间，如果超过等待时间，则直接抛出JedisConnectionException；
-        if(redisProperties.getMaxWaitMillis() != 0){
+        if (redisProperties.getMaxWaitMillis() != 0) {
             LOGGER.debug("JedisPoolConfig set maxWaitMillis = " + String.valueOf(redisProperties.getMaxWaitMillis()));
             config.setMaxWaitMillis(redisProperties.getMaxWaitMillis());
         }
         //在borrow一个jedis实例时，是否提前进行validate操作；如果为true，则得到的jedis实例均是可用的；
         config.setTestOnBorrow(true);
 
-        if(redisProperties.getConnTimeout() != 0){
+        if (redisProperties.getConnTimeout() != 0) {
             LOGGER.debug("JedisConnectionFactory set connTimeout = " + String.valueOf(redisProperties.getConnTimeout()));
             jedisConnectionFactory.setTimeout(redisProperties.getConnTimeout());
         }
@@ -101,7 +99,6 @@ public class RedisConfig {
         template.setConnectionFactory(jedisConnectionFactory);
         return template;
     }
-
 
 
 }

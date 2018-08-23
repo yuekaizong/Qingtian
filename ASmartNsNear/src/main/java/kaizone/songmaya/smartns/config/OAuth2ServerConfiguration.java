@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,7 +36,16 @@ public class OAuth2ServerConfiguration {
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
-            super.configure(http);
+            if (checkAuth ==null || !checkAuth){
+                http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated();
+            }else{
+                http.authorizeRequests().antMatchers("/",
+                        "/redisKey",
+                        "/redisValue",
+                        "/customer/save",
+                        "/customer/login")
+                        .permitAll().anyRequest().authenticated().and().headers().frameOptions().sameOrigin();
+            }
         }
     }
 
@@ -49,12 +59,15 @@ public class OAuth2ServerConfiguration {
         @Autowired
         private MyClientDetailsService clientDetailsService;
 
+        @Autowired
+        JedisConnectionFactory jedisConnectionFactor;
+
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
             endpoints.tokenStore(tokenStore())
                     .reuseRefreshTokens(true) //刷新token不失效
                     .authenticationManager(this.authenticationManager)
-                    .pathMapping("/oauth/token", "/app/appserver/token")
+                    .pathMapping("/oauth/token", "/app/oauth/token")
                     .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
         }
 
@@ -70,7 +83,7 @@ public class OAuth2ServerConfiguration {
 
         @Bean
         public TokenStore tokenStore() {
-            return new MyTokenStore();
+            return new RedisTokenStore(jedisConnectionFactor);
         }
     }
 

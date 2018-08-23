@@ -1,5 +1,8 @@
 package kaizone.songmaya.smartns.model;
 
+import kaizone.songmaya.smartns.util.ObjectUtil;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
@@ -39,6 +42,9 @@ public class Customer implements Serializable, UserDetails {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "device_id")
+    private String deviceId;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -146,6 +152,18 @@ public class Customer implements Serializable, UserDetails {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public void fill(Customer c) {
+        ObjectUtil.fill(c, this);
     }
 
     @Override

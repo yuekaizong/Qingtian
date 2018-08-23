@@ -3,8 +3,8 @@ package kaizone.songmaya.smartns.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@ConfigurationProperties(prefix = "common.redis")
-@Component("appServerRedisProperties")
+@ConfigurationProperties(prefix = "spring.redis")
+@Component("redisProperties")
 public class RedisProperties {
     private String host;
     private String port;

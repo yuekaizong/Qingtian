@@ -1,5 +1,5 @@
 rootProject.name = 'Qingtian'
-//include 'BootRedis'
+include 'BootRedis'
 //include 'CloudEurekaServer'
 //include 'CloudEurekaServerDocker'
 //include 'CloudEurekaServer2'

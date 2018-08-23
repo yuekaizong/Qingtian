@@ -1,7 +1,6 @@
 package kaizone.songmaya.smartns.config;
 
 import kaizone.songmaya.smartns.jpa.UAuthUserTokenRepository;
-import kaizone.songmaya.smartns.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowire;
@@ -21,7 +20,7 @@ import org.springframework.security.oauth2.provider.token.DefaultAuthenticationK
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
@@ -73,24 +72,24 @@ public class RedisTokenStore implements TokenStore {
         redisTemplate.setStringSerializer(new RedisSerializer<String>() {
             @Override
             public byte[] serialize(String s) throws SerializationException {
-                return RedisUtil.serialize(s);
+                return RedisTokenStore.serialize(s);
             }
 
             @Override
             public String deserialize(byte[] bytes) throws SerializationException {
-                return (String) RedisUtil.unserialize(bytes);
+                return (String) RedisTokenStore.unserialize(bytes);
             }
         });
 
         RedisSerializer<Object> defaultObjectSerializer = new RedisSerializer<Object>() {
             @Override
             public byte[] serialize(Object o) throws SerializationException {
-                return RedisUtil.serialize(o);
+                return RedisTokenStore.serialize(o);
             }
 
             @Override
             public Object deserialize(byte[] bytes) throws SerializationException {
-                return RedisUtil.unserialize(bytes);
+                return RedisTokenStore.unserialize(bytes);
             }
         };
 
@@ -472,6 +471,37 @@ public class RedisTokenStore implements TokenStore {
                 }
             }
 
+        }
+    }
+
+    public static byte[] serialize(Object object) {
+        if (object == null) {
+            return null;
+        } else {
+            try {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ObjectOutputStream oos = new ObjectOutputStream(baos);
+                oos.writeObject(object);
+                return baos.toByteArray();
+            } catch (IOException var3) {
+                return null;
+            }
+        }
+    }
+
+    public static Object unserialize(byte[] bytes) {
+        if (bytes == null) {
+            return null;
+        } else {
+            try {
+                ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                ObjectInputStream ois = new ObjectInputStream(bais);
+                return ois.readObject();
+            } catch (IOException var3) {
+                return null;
+            } catch (ClassNotFoundException var4) {
+                return null;
+            }
         }
     }
 }
