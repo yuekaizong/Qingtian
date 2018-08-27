@@ -42,6 +42,7 @@ public class OAuth2ServerConfiguration {
                 http.authorizeRequests().antMatchers("/",
                         "/redisKey",
                         "/redisValue",
+                        "/loan/list",
                         "/customer/save",
                         "/customer/login")
                         .permitAll().anyRequest().authenticated().and().headers().frameOptions().sameOrigin();
