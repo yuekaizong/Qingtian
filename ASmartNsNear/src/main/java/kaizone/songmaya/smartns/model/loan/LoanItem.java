@@ -1,4 +1,4 @@
-package kaizone.songmaya.smartns.model.jsjjd;
+package kaizone.songmaya.smartns.model.loan;
 
 public class LoanItem {
     private String id;

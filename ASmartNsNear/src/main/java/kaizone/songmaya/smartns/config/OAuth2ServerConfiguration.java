@@ -44,6 +44,7 @@ public class OAuth2ServerConfiguration {
                         "/redisValue",
                         "/loan/list",
                         "/customer/save",
+                        "/loan/dict/find/pid",
                         "/customer/login")
                         .permitAll().anyRequest().authenticated().and().headers().frameOptions().sameOrigin();
             }

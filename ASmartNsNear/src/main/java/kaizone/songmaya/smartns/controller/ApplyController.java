@@ -41,7 +41,7 @@ public class ApplyController extends BaseController {
         }
 
         customerExtraJpa.save(params);
-        return success("提交功能");
+        return success("提交成功");
     }
 
 
