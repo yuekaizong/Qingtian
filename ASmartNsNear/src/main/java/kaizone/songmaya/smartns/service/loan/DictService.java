@@ -16,7 +16,7 @@ public class DictService {
     DictJpa dictJpa;
 
     public Map<String, List<Dict>> findByPid(String pid) {
-        List<Dict> list = dictJpa.findByPid(Long.parseLong(pid));
+        List<Dict> list = dictJpa.findByPid(pid);
         Map<String, List<Dict>> map = list.stream().collect(Collectors.toMap(d -> d.getFlag(), d -> dictJpa.findByPid(d.getId())));
         return map;
     }

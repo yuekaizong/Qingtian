@@ -43,8 +43,10 @@ public class OAuth2ServerConfiguration {
                         "/redisKey",
                         "/redisValue",
                         "/loan/list",
+                        "/loan/dict/userInfoParams",
+                        "/loan/apply/setup1",
+                        "/loan/apply/setup2",
                         "/customer/save",
-                        "/loan/dict/find/pid",
                         "/customer/login")
                         .permitAll().anyRequest().authenticated().and().headers().frameOptions().sameOrigin();
             }
@@ -66,7 +68,8 @@ public class OAuth2ServerConfiguration {
 
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-            endpoints.tokenStore(tokenStore())
+            endpoints
+//                    .tokenStore(tokenStore())
                     .reuseRefreshTokens(true) //刷新token不失效
                     .authenticationManager(this.authenticationManager)
                     .pathMapping("/oauth/token", "/app/oauth/token")

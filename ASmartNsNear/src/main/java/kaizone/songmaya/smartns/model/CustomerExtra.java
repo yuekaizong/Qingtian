@@ -23,20 +23,19 @@ public class CustomerExtra {
 
     private String borrowAmt;
     private String borrowLimit;
-    private String profession; //职业身份
-    private String monthIncome;  //月收入
-    private String houseFlag;  //房产情况
-    private int houseCode;
-    private String carFlag;
-    private int carCode;
+    private String workAsCode; //职业身份
+    private String incomeAsCode;   //收入类型
+    private String income;  //月收入
+    private int houseAsCode;
+    private int carAsCode;
     private String workAddress;  //单位地址
     private String liveAddress;  //家庭住址
 
-    private String liveProCode;
+    private String liveProvinceCode;
     private String liveCityCode;
     private String liveAreaCode;
 
-    private String workProCode;
+    private String workProvinceCode;
     private String workCityCode;
     private String workAreaCode;
 
@@ -80,6 +79,22 @@ public class CustomerExtra {
         this.idHold = idHold;
     }
 
+    public String getWorkAsCode() {
+        return workAsCode;
+    }
+
+    public void setWorkAsCode(String workAsCode) {
+        this.workAsCode = workAsCode;
+    }
+
+    public String getIncomeAsCode() {
+        return incomeAsCode;
+    }
+
+    public void setIncomeAsCode(String incomeAsCode) {
+        this.incomeAsCode = incomeAsCode;
+    }
+
     public String getContacts() {
         return contacts;
     }
@@ -104,52 +119,29 @@ public class CustomerExtra {
         this.borrowLimit = borrowLimit;
     }
 
-    public String getProfession() {
-        return profession;
+    public String getIncome() {
+        return income;
     }
 
-    public void setProfession(String profession) {
-        this.profession = profession;
+    public void setIncome(String income) {
+        this.income = income;
     }
 
-    public String getMonthIncome() {
-        return monthIncome;
+    public int getHouseAsCode() {
+        return houseAsCode;
     }
 
-    public void setMonthIncome(String monthIncome) {
-        this.monthIncome = monthIncome;
+    public void setHouseAsCode(int houseAsCode) {
+        this.houseAsCode = houseAsCode;
     }
 
-    public String getHouseFlag() {
-        return houseFlag;
+
+    public int getCarAsCode() {
+        return carAsCode;
     }
 
-    public void setHouseFlag(String houseFlag) {
-        this.houseFlag = houseFlag;
-    }
-
-    public int getHouseCode() {
-        return houseCode;
-    }
-
-    public void setHouseCode(int houseCode) {
-        this.houseCode = houseCode;
-    }
-
-    public String getCarFlag() {
-        return carFlag;
-    }
-
-    public void setCarFlag(String carFlag) {
-        this.carFlag = carFlag;
-    }
-
-    public int getCarCode() {
-        return carCode;
-    }
-
-    public void setCarCode(int carCode) {
-        this.carCode = carCode;
+    public void setCarAsCode(int carAsCode) {
+        this.carAsCode = carAsCode;
     }
 
     public String getWorkAddress() {
@@ -168,12 +160,12 @@ public class CustomerExtra {
         this.liveAddress = liveAddress;
     }
 
-    public String getLiveProCode() {
-        return liveProCode;
+    public String getLiveProvinceCode() {
+        return liveProvinceCode;
     }
 
-    public void setLiveProCode(String liveProCode) {
-        this.liveProCode = liveProCode;
+    public void setLiveProvinceCode(String liveProvinceCode) {
+        this.liveProvinceCode = liveProvinceCode;
     }
 
     public String getLiveCityCode() {
@@ -192,12 +184,12 @@ public class CustomerExtra {
         this.liveAreaCode = liveAreaCode;
     }
 
-    public String getWorkProCode() {
-        return workProCode;
+    public String getWorkProvinceCode() {
+        return workProvinceCode;
     }
 
-    public void setWorkProCode(String workProCode) {
-        this.workProCode = workProCode;
+    public void setWorkProvinceCode(String workProvinceCode) {
+        this.workProvinceCode = workProvinceCode;
     }
 
     public String getWorkCityCode() {

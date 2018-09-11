@@ -52,8 +52,9 @@ public class LoanController extends BaseController {
         return success("提交成功");
     }
 
-    @GetMapping("/loan/dict/find/pid")
-    public Map<String, Object> dictFind(String pid) {
+    @GetMapping("/loan/dict/userInfoParams")
+    public Map<String, Object> userInfoParams() {
+        String pid = "102";
         return success(dictService.findByPid(pid));
     }
 

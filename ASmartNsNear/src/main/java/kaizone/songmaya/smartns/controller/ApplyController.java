@@ -26,7 +26,7 @@ public class ApplyController extends BaseController {
     @Value("${common.app.rootDir}")
     private String rootDir;
 
-    @RequestMapping(value = "/loan/setup1", method = RequestMethod.POST)
+    @RequestMapping(value = "/loan/apply/setup1", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> setup1(@RequestBody CustomerExtra params) {
         String ssoId = params.getSsoId();
@@ -45,7 +45,7 @@ public class ApplyController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/loan/setup2", method = RequestMethod.POST)
+    @RequestMapping(value = "/loan/apply/setup2", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> setup2(@RequestBody CustomerExtra params) throws Exception {
         String ssoId = params.getSsoId();

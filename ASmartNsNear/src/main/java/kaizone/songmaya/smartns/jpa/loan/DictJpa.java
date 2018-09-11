@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
-public interface DictJpa extends JpaRepository<Dict, Long> {
+public interface DictJpa extends JpaRepository<Dict, String> {
 
-    List<Dict> findByPid(Long pid);
+    List<Dict> findByPid(String pid);
 
 }

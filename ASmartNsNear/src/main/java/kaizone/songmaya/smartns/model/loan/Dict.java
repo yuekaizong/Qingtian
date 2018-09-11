@@ -9,25 +9,25 @@ import javax.persistence.Table;
 @Table(name = "near_dict")
 public class Dict {
     @Id
-    private Long id;
-    private Long pid;
+    private String id;
+    private String pid;
     private String name;
     private String flag;
     private String type;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getPid() {
+    public String getPid() {
         return pid;
     }
 
-    public void setPid(Long pid) {
+    public void setPid(String pid) {
         this.pid = pid;
     }
 
