@@ -16,6 +16,9 @@ public class CustomerExtra {
 
     @Column(name = "sso_id", unique = true, nullable = false)
     private String ssoId;
+
+    private String certNo;  //身份证
+    private String realName;  //真实姓名
     private String idFront;
     private String idReverse;
     private String idHold;
@@ -53,6 +56,22 @@ public class CustomerExtra {
 
     public void setSsoId(String ssoId) {
         this.ssoId = ssoId;
+    }
+
+    public String getCertNo() {
+        return certNo;
+    }
+
+    public void setCertNo(String certNo) {
+        this.certNo = certNo;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public String getIdFront() {

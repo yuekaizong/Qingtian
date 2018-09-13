@@ -1,0 +1,11 @@
+loanConfig:
+  nimeConfig:
+    title: 大家好
+    detail: 今天是8102年X月X日
+    functions:
+    -
+      name:
+      type:
+      url:
+
+

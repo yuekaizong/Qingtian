@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -26,6 +27,29 @@ public class LoanController extends BaseController {
 
     @Autowired
     DictService dictService;
+
+    @GetMapping("/loan/home")
+    public Map<String, Object> home(String ssoId){
+        Map<String, String> data = new HashMap<>();
+        data.put("text1", "大家好");
+        data.put("text2", "壹佰万");
+        data.put("text3", "快但过来");
+        data.put("text4", "马上干");
+        return success(data);
+    }
+
+    @GetMapping("/loan/mine")
+    public Map<String, Object> mine(String ssoId){
+        Map<String, String> data = new HashMap<>();
+        data.put("title", "");
+        data.put("detail", "");
+        data.put("func1", "");
+        data.put("func2", "");
+        data.put("func3", "");
+        data.put("func4", "");
+        data.put("func5", "");
+        return success(data);
+    }
 
     @GetMapping("/loan/list")
     public Map<String, Object> list() {

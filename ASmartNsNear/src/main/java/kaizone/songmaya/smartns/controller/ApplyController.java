@@ -26,6 +26,29 @@ public class ApplyController extends BaseController {
     @Value("${common.app.rootDir}")
     private String rootDir;
 
+    @RequestMapping(value = "/loan/apply/IDVerify", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> setup0(@RequestBody CustomerExtra params) {
+        String ssoId = params.getSsoId();
+        if (StringUtils.isEmpty(ssoId)) {
+            return fail("参数错误");
+        } else if (StringUtils.isEmpty(params.getCertNo())) {
+            return fail("参数错误");
+        } else if (StringUtils.isEmpty(params.getRealName())) {
+            return fail("参数错误");
+        }
+
+        CustomerExtra extraInfo = customerExtraJpa.findBySsoId(ssoId);
+        if (extraInfo != null) {
+            params.setId(extraInfo.getId());
+            params.setSsoId(ssoId);
+            params.fill(extraInfo);
+        }
+
+        customerExtraJpa.save(params);
+        return success("提交成功");
+    }
+
     @RequestMapping(value = "/loan/apply/setup1", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> setup1(@RequestBody CustomerExtra params) {

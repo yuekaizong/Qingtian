@@ -45,7 +45,7 @@ public class IndexController extends BaseController {
     public Map<String, Object> customerLogin(@RequestBody Map<String, Object> params) {
         Map<String, Object> result = new HashMap();
 
-        String userId = (String) params.get("userId");
+        String userId = (String) params.get("ssoId");
         String deviceId = (String) params.get("deviceId");
         String deviceType = (String) params.get("deviceType");
         String password = (String) params.get("password");
@@ -77,7 +77,7 @@ public class IndexController extends BaseController {
 
     @RequestMapping(value = "/customer/save", method = RequestMethod.POST)
     public Map<String, Object> customerSave(@RequestBody Map<String, Object> params) {
-        String userId = (String) params.get("userId");
+        String userId = (String) params.get("ssoId");
         String username = (String) params.get("username");
         String nickname = (String) params.get("nickname");
         String deviceId = (String) params.get("deviceId");
