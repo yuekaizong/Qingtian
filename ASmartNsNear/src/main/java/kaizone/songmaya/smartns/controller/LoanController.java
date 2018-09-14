@@ -1,5 +1,6 @@
 package kaizone.songmaya.smartns.controller;
 
+import kaizone.songmaya.smartns.config.LoanConfig;
 import kaizone.songmaya.smartns.jpa.LoanJpa;
 import kaizone.songmaya.smartns.model.Loan;
 import kaizone.songmaya.smartns.model.loan.Dict;
@@ -28,26 +29,16 @@ public class LoanController extends BaseController {
     @Autowired
     DictService dictService;
 
+    @Autowired
+    LoanConfig loanConfig;
+
     @GetMapping("/loan/home")
-    public Map<String, Object> home(String ssoId){
+    public Map<String, Object> home(String ssoId) {
         Map<String, String> data = new HashMap<>();
         data.put("text1", "大家好");
         data.put("text2", "壹佰万");
         data.put("text3", "快但过来");
         data.put("text4", "马上干");
-        return success(data);
-    }
-
-    @GetMapping("/loan/mine")
-    public Map<String, Object> mine(String ssoId){
-        Map<String, String> data = new HashMap<>();
-        data.put("title", "");
-        data.put("detail", "");
-        data.put("func1", "");
-        data.put("func2", "");
-        data.put("func3", "");
-        data.put("func4", "");
-        data.put("func5", "");
         return success(data);
     }
 
@@ -85,5 +76,10 @@ public class LoanController extends BaseController {
     @GetMapping("/loan/dict/all")
     public Map<String, Object> dictAll(String id) {
         return success(dictService.findAll());
+    }
+
+    @GetMapping("/loan/mineConfig")
+    public Map<String, Object> mineConfig() {
+        return success(loanConfig.getMineConfig());
     }
 }

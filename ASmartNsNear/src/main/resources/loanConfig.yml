@@ -1,11 +1,27 @@
 loanConfig:
-  nimeConfig:
+  mineConfig:
     title: 大家好
     detail: 今天是8102年X月X日
     functions:
     -
-      name:
+      name: 我的借款1
       type:
-      url:
+      uri:
+    -
+      name: 银行卡管理2
+      type:
+      uri:
+    -
+      name: 资料管理2
+      type:
+      uri:
+    -
+      name: 优惠卷3
+      type:
+      uri:
+    -
+      name: 邀请好友5
+      type:
+      uri:
 
 

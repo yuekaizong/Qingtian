@@ -44,7 +44,7 @@ public class OAuth2ServerConfiguration {
                         "/redisValue",
                         "/loan/list",
                         "/loan/home",
-                        "/loan/mine",
+                        "/loan/mineConfig",
                         "/loan/dict/userInfoParams",
                         "/loan/apply/setup1",
                         "/loan/apply/setup2",
